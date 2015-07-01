@@ -1,0 +1,36 @@
+#acordeon{
+	border: solid 0.1px #8A0808;
+	margin: 10px 0;
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.collapse{
+	transition: height 0.5s ease, padding, 0.5s ease;
+	font-family: Lato;
+}
+
+.collapse-entry{
+	width: 100%;
+}
+
+.collapse-title{
+	cursor: pointer;
+	color: white;
+	font-size: 2em;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	text-transform: capitalize;
+	background: linear-gradient(#AA0F0F, #C12323);
+	background: -moz-linear-gradient(#AA0F0F, #C12323);
+	background: -ms-linear-gradient(#AA0F0F, #C12323);
+	background: -o-linear-gradient(#AA0F0F, #C12323);
+	background: -webkit-linear-gradient(#AA0F0F, #C12323);
+}
+
+.collapse-panel{
+	height: 0px;
+	padding: 0 50px;
+	overflow: hidden;
+}
