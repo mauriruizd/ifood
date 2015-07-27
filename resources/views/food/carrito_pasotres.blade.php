@@ -9,15 +9,17 @@
 			</tr>
 			<tr>
 				<td><strong>Subtotal</strong></td>
-				<td>{{ $datos['subtotal'] }}</td>
+				<td>{{ Moneda::guaranies($datos['subtotal']) }}</td>
 			</tr>
-			<tr>
-				<td><strong>Costo Delivery</strong></td>
-				<td>{{ $datos['delivery'] }}</td>
-			</tr>
+			@foreach($datos['delivery'] as $empresa => $costo)
+				<tr>
+					<td><strong>Delivery {{ $empresa }}</strong></td>
+					<td>{{ Moneda::guaranies($costo) }}</td>
+				</tr>
+			@endforeach
 			<tr>
 				<td><strong>Total</strong></td>
-				<td>{{ $datos['delivery'] + $datos['subtotal'] }}</td>
+				<td>{{ Moneda::guaranies($datos['delivery']['total'] + $datos['subtotal']) }}</td>
 			</tr>
 			<tr>
 				<td><strong>Direccion</strong></td>

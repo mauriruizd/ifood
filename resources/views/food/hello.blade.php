@@ -7,14 +7,15 @@
 		<div id="top">
 			<div class="center">
 				<div id="barra_top">
-					<a href="/"><span class="left logo"><img src="img/logo-blanco.png" alt=""></span></a>
+					<a href="/"><span class="left logo"><img src="img/logo-sombra-2.png" alt="Delcheff" title="Delcheff"></span></a>
 					<span class="right">
 						@if(Session::has('hungry_user'))
 							<a href="login">Hacé tu pedido {{ Session::get('hungry_user')->nombres }}</a>
 							<a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i></a>
 							<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
+							<a href="{{ URL::to('carrito') }}"><i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
 						@else
-						<a href="#" id="btnLogin">Ingresar</a>  <a href="#" id="btnRegister">Registrarse</a>
+						<a href="#" id="btnLogin">Ingresar</a><span class="white no-mobile">|</span><a href="#" id="btnRegister">Registrarse</a>
 						@endif
 					</span>
 					<span class="right">
@@ -40,26 +41,36 @@
 		<div id="center">
 			<h1>Facil + Económico -> Perfecto</h1><br>
 			<div class="ayudas">
-				<span class="icono-big"><img src="img/living.png"></span>
+				<span class="icono-big wow bounceInLeft"><img src="img/living.png"></span>
 				<span class="texto">Pedí desde la comodidad de tu casa</span>
 			</div>
 			<div class="ayudas">
-				<span class="icono-big"><img src="img/chanchito.png"></span>
+				<span class="icono-big wow bounceInLeft"><img src="img/chanchito.png"></span>
 				<span class="texto">Sin gastar saldo en llamadas</span>
 			</div>
 			<div class="ayudas">
-				<span class="icono-big"><img src="img/hamburguesa2.png"></span>
+				<span class="icono-big wow bounceInLeft"><img src="img/hamburguesa2.png"></span>
 				<span class="texto">Hacé tus pedidos a tu gusto y a tu manera</span>
 			</div>
 			<h1>Quienes están con nosotros</h1>
 			<div id="empresas">
+				<!--
 				<span class="empresa"><img src="img/empresas/logo-mcd.jpg"></span>
 				<span class="empresa"><img src="img/empresas/logo-bk.svg"></span>
 				<span class="empresa"><img src="img/empresas/logo-kfc.gif"></span>
-				<span class="empresa"><img src="img/empresas/logo-pizzahut.jpg"></span>
+				<span class="empresa"><img src="img/empresas/logo-pizzahut.jpg"></span>-->
+				@foreach($empresas as $empresa)
+					<span class="empresa wow flipInX"><img src="{{ URL::to($empresa->logo_url) }}"></span>
+				@endforeach
 			</div>
 		</div>
 	</div>
+	<link rel="stylesheet" type="text/css" href="{{ URL::to('css/animate.css') }}">
+	<script src="{{ URL::to('js/wow.min.js') }}"></script>
+	<script>
+		wow = new WOW();
+		wow.init();
+	</script>
 	<script src="js/home.js"></script>
 	<script src="js/map.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Usuario;
 use Session;
 use Redirect;
+use Socialize;
+use Input;
 
 class ControlUsuarios extends Controller {
 
@@ -31,7 +33,7 @@ class ControlUsuarios extends Controller {
 		$datosLogin = $request->all();
 		$usuario = Usuario::where('login', $datosLogin['login_user'])
 			->where('clave', sha1($datosLogin['login_password']))
-			->select('codigo', 'nombres')
+			->select('codigo', 'nombres', 'apellidos', 'email', 'celular')
 			->first();
 		if(count($usuario) > 0){
 			if(!Session::has('carrito')){
@@ -42,6 +44,60 @@ class ControlUsuarios extends Controller {
 			return Redirect::action("Paginador@PrimeraVistaUsuario");
 		}
 		return view('uncatched')->with('error', 'Usuario no encontrado.');
+	}
+
+	public function FacebookRedirect(){
+		return Socialize::with('facebook')->redirect();
+	}
+
+	public function FacebookLogin(){
+		$socialUser = Socialize::with('facebook')->user();
+		dd($socialUser);
+		$user = Usuario::where('email', '=', $socialUser->email)->first();
+		if(count($user)){
+			$user = new Usuario;
+			$user->nombres = $socialUser->user['first_name'];
+			$user->apelldios = $socialUser->user['last_name'];
+			$user->email = $socialUser->email;
+		}
+	}
+
+	public function ControlLogout(){
+		Session::forget('hungry_user');
+		Session::forget('carrito');
+
+		return Redirect::to('/');
+	}
+
+	public function UpdateNombres(){
+		$datos = Input::all();
+		$myUser = Session::get('hungry_user');
+		$myUser->nombres = $datos['updated'];
+		$myUser->save();
+		return Redirect::back();
+	}
+
+	public function UpdateApellidos(){
+		$datos = Input::all();
+		$myUser = Session::get('hungry_user');
+		$myUser->apelldios = $datos['updated'];
+		$myUser->save();
+		return Redirect::back();
+	}
+
+	public function UpdatePassword(){
+		$datos = Input::all();
+		if($datos['password'] != $datos['confirm_password']){
+			return Redirect::back()->with('msg', 'Contraseñas desiguales');
+		}
+		$myUser = Usuario::find(Session::get('hungry_user')->codigo);
+		$newPassword = sha1($datos['password']);
+		$myUser->clave = $newPassword;
+		if($myUser->save()){
+			return Redirect::back()->with('msg', 'Contraseña cambiada con exito');
+		} else {
+			return Redirect::back()->with('msg', 'Error al cambiar contraseña');
+		}
 	}
 
 }

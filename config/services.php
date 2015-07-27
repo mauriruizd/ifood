@@ -34,4 +34,10 @@ return [
 		'secret' => '',
 	],
 
+	'facebook' => [
+		'client_id' => '364497073744229',
+		'client_secret' => '373504591408690035861a5bc15980c3',
+		'redirect' => 'http://localhost:8000/facebook/login',
+	],
+
 ];

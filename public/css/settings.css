@@ -1,3 +1,4 @@
+
 #acordeon{
 	border: solid 0.1px #8A0808;
 	margin: 10px 0;
@@ -33,4 +34,95 @@
 	height: 0px;
 	padding: 0 50px;
 	overflow: hidden;
+}
+
+#wrap{
+	height: 100%;
+}
+#page-content{
+	height: calc(100% - 280px);
+	padding-bottom: 0;
+}
+#page-content div{
+	display: inline-block;
+	vertical-align: text-top;
+}
+#menu{
+	position: relative;
+	height: 100%;
+	background-color: #983939;
+}
+#menu ul{
+	list-style-type: none;
+	font-family: Lato;
+	font-weight: bold;
+	color: #FFF;
+	margin-top: 20px;
+}
+#menu li{
+	display: block;
+	min-width: 93px;
+	padding: 15px;
+	margin: 5px;
+	cursor: pointer;
+	text-align: center;
+	transition: all 0.5s ease;
+}
+.actual{
+	background-color: #FFF;
+	color: #8A0808;
+	border-radius: 10px;
+}
+#menu li:hover{
+	background-color: #FFF;
+	color: #8A0808;
+	border-radius: 10px;
+}
+#body{
+	min-width: calc(100% - 183px);
+	width: auto;
+	padding: 20px;
+	text-align: center;
+	overflow: auto;
+	height: 100%;
+}
+#body table{
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+p{
+	padding: 5px;
+}
+.input{
+	min-width: 200px;
+	border: 0.5px solid #AAA;
+	border-radius: 5px;
+	padding: 10px;
+	text-overflow: ellipsis;
+	transition: all 0.5s ease;
+	vertical-align: middle;
+}
+.input:hover{
+	background-color: rgba(0, 0, 0, 0.08);
+}
+.input:focus{
+	background-color: rgba(0, 0, 0, 0.08);
+}
+@media screen and (max-width: 1000px){
+	#page-content div{
+		display: block;
+	}
+	#menu{
+		height: auto;
+	}
+	#menu ul{
+		margin:0;
+		text-align: center;
+	}
+	#menu li{
+		display: inline-block;
+	}
+	#wrap{
+		height: auto;
+	}
 }

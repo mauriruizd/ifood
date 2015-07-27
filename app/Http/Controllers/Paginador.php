@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Session;
 use Redirect;
 use URL;
+use DB;
 use Input;
 use App\Producto;
 use App\Usuario;
 use App\Categoria;
+use App\Favorito;
 use App\Empresa;
 use App\Pedido;
 use App\DireccionCliente;
@@ -18,7 +20,8 @@ use App\DireccionCliente;
 class Paginador extends Controller {
 
 	public function index(){
-		return view('food.hello');
+		$empresas = Empresa::orderBy(DB::raw('RAND()'))->take(5)->get();
+		return view('food.hello', compact('empresas'));
 	}
 
 
@@ -37,7 +40,11 @@ class Paginador extends Controller {
 			$categorias = Categoria::all();
 			$empresas = Empresa::where('estado', '=', 'activo')
 			->get();
-			return view('food.login', compact('categorias', 'empresas'));
+			$favoritos = Favorito::join('productos', 'favoritos.favoritos_producto_codigo', '=', 'productos.codigo')
+			->join('persona_empresas', 'favoritos.favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
+			->select('persona_empresas.slug', 'productos.*')
+			->get();
+			return view('food.login', compact('categorias', 'empresas', 'favoritos'));
 		} else {
 			return Redirect::action("Paginador@index");
 		}
@@ -95,6 +102,14 @@ class Paginador extends Controller {
 		return view('uncatched')->with('error', 'Houston. Tenemos un problema.');
 	}
 
+	public function Favoritos(){
+		$favoritos = Favorito::join('persona_empresas', 'favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
+		->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
+		->select('persona_empresas.slug', 'productos.*')
+		->get();
+		return view('food.favoritos', compact('favoritos'));
+	}
+
 	public function Settings(){
 		$campos = Usuario::select('nombres')
 		->first(Session::get('hungry_user')->codigo);
@@ -103,8 +118,30 @@ class Paginador extends Controller {
 		return view('settings.index', compact('campos'));
 	}
 
-	public function UpdateSettings(Request $datos){
-		dd($datos->request);
+	public function SettingsPedidos(){
+		$pedidos = Pedido::where('persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+		->get();
+		return view('settings.settingsPedidos', compact('pedidos'));
+	}
+
+	public function SettingsFavoritos(){
+		$favoritos = Favorito::join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
+		->join('persona_empresas', 'persona_empresas.codigo', '=', 'favoritos_empresa_codigo')
+		->select('persona_empresas.slug', 'productos.denominacion', 'productos.imagen_url', 'productos.denominacion',
+			'favoritos.favoritos_producto_codigo','favoritos.codigo')
+		->get();
+		return view('settings.settingsFavoritos', compact('favoritos'));
+	}
+
+	public function SettingsGenerales(){
+		$configuraciones = Session::get('hungry_user');
+		return view('settings.settingsGenerales', compact('configuraciones'));
+	}
+
+	public function SettingsDirecciones(){
+		$direcciones = DireccionCliente::where('persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+		->get();
+		return view('settings.settingsDirecciones', compact('direcciones'));
 	}
 
 	public function AddDireccion(Request $datos){
@@ -121,11 +158,67 @@ class Paginador extends Controller {
 		$nDireccion->longitud = $datos->formLng;
 		$nDireccion->latitud = $datos->formLat;
 		if($nDireccion->save()){
-			return Redirect::back();
+			if(Session::has('backUrl')){
+				$url = Session::get('backUrl');
+				Session::forget('backUrl');
+				return Redirect::to($url);
+			}
 		}
 	}
 
+	public function AddFavorito(Request $datos){
+		$producto = Producto::select('empresa_codigo', 'codigo')
+		->find($datos['prod_id']);
+		$nFavorito = new Favorito;
+		$nFavorito->favoritos_empresa_codigo = $producto->empresa_codigo;
+		$nFavorito->favoritos_producto_codigo = $producto->codigo;
+		$nFavorito->favoritos_persona_cliente_codigo = Session::get('hungry_user')->codigo;
+		if(!$nFavorito->save()){
+			return "ERR";
+		}
+		return "OK";
+	}
+
+	public function UpdateDireccion(){
+		$datos = Input::all();
+		$direccion = DireccionCliente::find($datos['codigo']);
+		if(count($direccion) <= 0){
+			return json_encode(array('status' => 404));
+		}
+		if($direccion->persona_cliente_codigo != Session::get('hungry_user')->codigo){
+			return json_encode(array('status' => 401));
+		}
+		$direccion->nombre = $datos['nombre'];
+		$direccion->direccion = $datos['direccion'];
+		$direccion->save();
+		return json_encode(array('status' => 200, 'id' => $datos['codigo']));
+	}
+
+	public function DeleteFavorito($id){
+		$favorito = Favorito::find($id);
+		$favorito->delete();
+		return Redirect::back();
+	}
+
+	public function DeleteDireccion(){
+		$datos = Input::all();
+		$direccion = DireccionCliente::find($datos['codigo']);
+		if(count($direccion) <= 0){
+			return json_encode(array('status' => 404));
+		}
+		if($direccion->persona_cliente_codigo != Session::get('hungry_user')->codigo){
+			return json_encode(array('status' => 401));
+		}
+		$direccion->delete();
+		return json_encode(array('status' => 200, 'id' => $datos['codigo']));
+	}
+
+	public function UpdateNombres(){
+		dd(Input::all());
+	}
+
 	public function FormAddDireccion(){
+		Session::flash('backUrl', Session::get('_previous')['url']);
 		return view('food.agregarDireccion');
 	}
 

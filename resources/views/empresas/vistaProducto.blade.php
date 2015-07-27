@@ -4,35 +4,81 @@
 		@if(isset($error))
 			<h1>{{ $error }}</h1><span class="texto red"><a href="{{ URL::to('empresas') }}"><i class="fa fa-reply"></i>Volver a menu empresas</a></span>
 		@else
-			<h1>{{ $producto->titulo }}</h1><br>
-			<hr>
+			<h1>{{ $producto->denominacion }}
+				@if ($favorito > 0)
+					<i class="fa fa-star" title="Marcado como favorito"></i>
+				@else
+					 <i class="fa fa-star-o fav" title="Marcar como favorito"></i>
+				@endif
+
+			</h1><br>
+			<hr class="red">
 			<div id="producto">
 				<div id="imagen_producto">
-					<img src="{{ URL::to($producto->imagen_url) }}" alt="{{ $producto->titulo }}" class="icono-big">
+					<img src="{{ URL::to($producto->imagen_url) }}" alt="{{ $producto->titulo }}">
 				</div>
 				<div id="descripcion_producto">
 					<h1>Descripción del producto</h1>
-					<span class="texto">{{ $producto->descripcion }}</span>
+					<span class="comfortaa">{{ $producto->descripcion }}</span>
 				</div>
 			</div>
 			<div id="carrito" class="texto">
-				Precio: Gs: {{ $producto->precio }} <br>
-				<div id="spinner">
-					<div id="spinner-number">
-						<input type="text" disabled name="spinner-value" id="spinner-value" value="1">
+				@if(count($filtrosPizza) > 0)
+				<table class="tabla-collapse">
+					<tr>
+						<td>&nbsp;</td>
+						<td><b><i>Masa:</i></b></td>
+						<td><b><i>Tamaño:</i></b></td>
+						<td><b><i>Precio:</i></b></td>
+					</tr>
+					@foreach ($filtrosPizza as $opcion)
+						<tr>
+							<td>
+								<input type="radio" name="cod_detalle" class="config_pizza" value="{{ $opcion->config_pizza }}"
+								@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
+									{{ 'checked' }}
+								@endif
+								>
+							</td>
+							<td>{{ $opcion->masa_nombre }}</td>
+							<td>{{ $opcion->tamanho_nombre }}</td>
+							<td>{{ Moneda::guaranies($opcion->precio) }}</td>
+						</tr>
+					@endforeach
+				</table>
+				@else
+					Precio: {{ Moneda::guaranies($producto->precio) }} <br>
+				@endif
+					<div class="spinner">
+						<div class="spinner-number">
+							<input type="text" disabled name="spinner-value" class="spinner-value" value="1">
+						</div>
+						<div class="spinner-arrows">
+							<span class="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
+							<span class="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
+						</div>
 					</div>
-					<div id="spinner-arrows">
-						<span id="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
-						<span id="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
-					</div>
-				</div>
-				<a href="{{ URL::to('carrito/add/'.$producto->codigo) }}" id="cartClick"><i class="fa fa-cart-plus red fa-2x"></i></a>
+					<a href="{{ URL::to('carrito/add/'.$producto->codigo) }}" id="cartClick"><i class="fa fa-cart-plus red fa-2x"></i></a>
+				
 			</div>
 			<br><span class="texto red"><a href="{{ URL::to('empresas/'.$empresa) }}"><i class="fa fa-reply"></i>Volver</a></span>
 		@endif
 	</div>
 	<script>
-		var spinner = {
+		$('.fav').on('click', function(){
+			$(this).removeClass('fa-star-o');
+			$(this).addClass('fa-star');
+			$(this).removeClass('fav');
+			$.ajax({
+				method : 'POST',
+				url : '{{URL::to('settings/add/favorito')}}',
+				data : {
+					_token : '{{ csrf_token() }}',
+					prod_id : '{{ $producto->codigo }}',
+				}
+			});
+		});
+		/*var spinner = {
 			'value' : document.getElementById("spinner-value"),
 			'up' : document.getElementById("spinner-arrow-up"),
 			'down' : document.getElementById("spinner-arrow-down")
@@ -47,13 +93,41 @@
 			if(spinner.value.value < 2)
 				return;
 			spinner.value.value--;
-		});
+		});*/
 
 		document.getElementById("cartClick").addEventListener("click", function(e){
 			e.preventDefault();
-			document.getElementById("cartClick").href += "/" + spinner.value.value;
+			document.getElementById("cartClick").href += "/" + spinn.value.value;
+			if(typeof document.getElementsByClassName('config_pizza') !== 'undefined'){
+				configs = document.getElementsByClassName('config_pizza');
+				for(var i=0; i < configs.length; i++){
+					if (configs[i].checked){
+						document.getElementById("cartClick").href += "/" + configs[i].value;
+					}
+				}
+			}
 			location.assign(document.getElementById("cartClick").href);
 			//console.log(document.getElementById("cartClick").href);
 		});
+		spinner = function(valueDOM, upDOM, downDOM){
+			var spinner = {
+				value : valueDOM,
+				up : upDOM,
+				down : downDOM
+			};
+			spinner.up.addEventListener("click", function(){
+				if(spinner.value.value > 9)
+					return;
+				spinner.value.value++;
+			});
+			spinner.down.addEventListener("click", function(){
+				if(spinner.value.value < 2)
+					return;
+				spinner.value.value--;
+			});
+			return spinner;
+		};
+		spinn = new spinner(document.getElementsByClassName("spinner-value")[0],
+		document.getElementsByClassName("spinner-arrow-up")[0], document.getElementsByClassName("spinner-arrow-down")[0]);
 	</script>
 @stop

@@ -16,6 +16,14 @@ class RestEmpresas extends Controller {
 	 */
 	public function index()
 	{
+<<<<<<< HEAD
+		$n = Input::has('n') ? $n = Input::query('n') : 5;
+		$empresa = Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url')
+		->where('estado', '=', 'activo')
+		->paginate($n);
+
+		return $empresa;
+=======
 		if(Input::has('n'))
 			$n = Input::query('n');
 		else
@@ -24,6 +32,7 @@ class RestEmpresas extends Controller {
 		->paginate($n);
 
 		return $empresa->toJSON();
+>>>>>>> aed6990a005ca4afd7b757b1e98715bb202f5047
 	}
 
 	/**
@@ -54,7 +63,11 @@ class RestEmpresas extends Controller {
 	 */
 	public function show($id)
 	{
+<<<<<<< HEAD
+		return Empresa::find($id);
+=======
 		//
+>>>>>>> aed6990a005ca4afd7b757b1e98715bb202f5047
 	}
 
 	/**

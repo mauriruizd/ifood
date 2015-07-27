@@ -3,7 +3,18 @@
 	font-family: Pacifico;
     src: url('../fonts/Pacifico.ttf');
 }
-
+@font-face{
+	font-family: GeosansLight;
+	src: url('../fonts/GeosansLight.ttf');
+}
+@font-face{
+	font-family: Comfortaa;
+	src: url('../fonts/Comfortaa-Regular.ttf');
+}
+@font-face{
+	font-family: Lato;
+	src: url('../fonts/Lato-light.woff');
+}
 *{
 	margin: 0;
 	padding: 0;
@@ -13,7 +24,11 @@ a{
 	color:inherit;
 	text-decoration: none;
 }
-html, body{
+html{
+	min-height: 100%;
+	height: 100%;
+}
+body{
 	height: 100%;
 }
 /*-----------------------------CLASES GRALES-----------------------------*/
@@ -31,8 +46,32 @@ html, body{
 	font-size: 20px;
 	display: block;
 }
+.lato{
+	font-family: Lato;
+}
+.pacifico{
+	font-family: Pacifico;
+}
+.comfortaa{
+	font-family: Comfortaa!important;
+}
+.geosans{
+	font-family: GeosansLight;
+}
 .degradegris{
 	background: linear-gradient(#F2F2F2, #FFF, #F2F2F2);
+}
+.green{
+	color: green;
+}
+.red{
+	color: #8A0808;
+}
+.white{
+	color: white;
+}
+.font-20px{
+	font-size: 20px;
 }
 /*---------------------------FIN CLASES GRALES---------------------------*/
 
@@ -76,6 +115,7 @@ html, body{
 	text-decoration: none;
 	color: white;
 	transition: all 0.5s ease;
+	margin: 0 5px;
 }
 #barra_top a:hover{
 	text-shadow: 0 0 3px #FFF;
@@ -113,7 +153,7 @@ html, body{
 #slogan{
 	clear:both;
 	display: block;
-	height: 60%;
+	height: 50%;
 	text-align: center;
 	color: white;
 	position: relative;
@@ -190,7 +230,7 @@ html, body{
 #page-content{
 	position: relative;
 	height: 100%;
-	padding-bottom: 100px;
+	padding-bottom: 150px;
 }
 
 #top-nav{
@@ -281,7 +321,6 @@ html, body{
 }
 #menu-filtros a{
 	display: table-cell;
-	width: 50%;
 	height: 100%;
 	vertical-align: middle;
 	text-align: center;
@@ -311,9 +350,11 @@ html, body{
 	margin: 10px;
 	border: 0.5px solid #AAA;
 	box-shadow: 0 2px 2px #AAA;
+	background-color: #FFF;
 	border-radius: 10px;
 	overflow: hidden;
 	opacity: 0.5;
+	position: relative;
 	transition: opacity 0.5s ease;
 }
 .item-categoria:hover{
@@ -321,7 +362,12 @@ html, body{
 }
 .item-categoria img{
 	width: 100%;
-	vertical-align: middle;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
 }
 #wrap{
 	position: relative;
@@ -385,9 +431,7 @@ input[type=range]::-webkit-slider-thumb{
 	border-left: 0px;
 	border-right: 0px;
 }
-.red{
-	color: #8A0808;
-}
+
 /*========================================================================*/
 /*																		  */
 /*========================FIN TEMPLATE EMPRESAS===========================*/
@@ -453,27 +497,33 @@ input[type=range]::-webkit-slider-thumb{
 	vertical-align: text-top;
 }
 #descripcion_producto{
-	width: 500px;
 	max-width: 500px;
 }
-#spinner{
+#imagen_producto{
+	width: 40%;
+}
+#imagen_producto img{
+	width: 100%;
+	border-radius: 50%;
+}
+.spinner{
 	position: relative;
 	display: inline;
 	margin: 0 auto;
 }
-#spinner *{
+.spinner *{
 	box-sizing: border-box;
 }
-#spinner div{
+.spinner div{
 	display: table-cell;
 	border: 1px solid #AAA;
 }
-#spinner-number{
+.spinner-number{
 	background-color: #EEE;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
-#spinner-number input{
+.spinner-number input{
 	border: 0;
 	font-family: Calibri;
 	font-size: 25px;
@@ -481,19 +531,31 @@ input[type=range]::-webkit-slider-thumb{
 	background-color: transparent;
 	width: 130px;
 }
-#spinner-arrows{
+.spinner-arrows{
 	width: 30%;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
-#spinner-arrows span{
+.spinner-arrows span{
 	cursor: pointer;
 	display: inline-table;
 	text-align: center;
 	width: 40%;
 }
-#spinner-arrow-up{
+.spinner-arrow-up{
 	border-right: 1px solid #EEE;
+}
+.spinner-carrito *{
+	box-sizing: initial!important;
+}
+.spinner-carrito .spinner-arrow-up{
+	border: 0!important;
+}
+.spinner-carrito input{
+	width: 30px!important;
+}
+#carrito{
+	margin: 60px auto;
 }
 /*------------------------------FOOTER------------------------------*/
 #footer{
@@ -672,7 +734,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 @media screen and (max-width: 1000px){
 	#page-content{
-		padding-bottom: 320px;
+		padding-bottom: 360px!important;
 	}
 	#footer{
 		height: 300px;
@@ -685,10 +747,14 @@ input[type=range]::-webkit-slider-thumb{
 		display: block;
 		font-size: 2.3em;
 	}
+	.logo{
+		display: block!important;
+		text-align: center;
+	}
 	.logo img{
 		margin: 0 auto;
 		text-align: center;
-		width:100px;
+		width:150px;
 	}
 	.hi{
 		display: none!important;
@@ -716,10 +782,10 @@ input[type=range]::-webkit-slider-thumb{
 		font-size: 3em;
 	}
 	.mobile-only{
-		display: inline;
+		display: inline!important;
 	}
 	.no-mobile{
-		display: none;
+		display: none!important;
 	}
 	#footMenu{
 		width: 100%;

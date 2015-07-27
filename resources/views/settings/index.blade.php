@@ -1,54 +1,26 @@
 @extends('user')
 @section('page-content')
-	<div id="center" class="form-estilizado">
-		<div id="acordeon">
-			@foreach($campos as $campo=>$valor)
-				<div class="collapse collapse-entry">
-					<div class="collapse collapse-title">
-						{{ $campo }}
-					</div>
-					<div class="collapse collapse-panel">
-						Aqui cambiara uno su {{ $campo }}.<br>
-						<input type="text" placeholder="{{ $valor }}">
-					</div>
-				</div>
-			@endforeach
-		</div>
-			<input type="submit" id="btnSend" value="Cambiar Datos">
-		<form name="settings" action="settings" method="POST">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<input type="hidden" name="update" value="">
-		</form>
+	<div id="menu">
+		<ul class="nav">
+			<a href="{{ URL::to('settings/generales') }}"><li><i class="fa fa-cog fa-2x"></i><br>Generales</li></a>
+			<a href="{{ URL::to('settings/pedidos') }}"><li><i class="fa fa-file-text fa-2x"></i><br>Pedidos</li></a>
+			<a href="{{ URL::to('settings/direcciones') }}"><li><i class="fa fa-map-marker fa-2x"></i><br>Direcciones</li></a>
+			<a href="{{ URL::to('settings/favoritos') }}"><li><i class="fa fa-star fa-2x"></i><br>Favoritos</li></a>
+		</ul>
+	</div>
+	<div id="body">
+		@if(Session::has('msg'))
+		<span class="lato red font-20px">{{ Session::get('msg') }}</span>
+		@endif
+		@yield('setting')
 	</div>
 <link rel="stylesheet" type="text/css" href="{{ URL::to('css/settings.css') }}">
 <script>
-	
-	document.getElementById("btnSend").addEventListener("click", function(e){
-		e.preventDefault();
-		inputs = document.getElementsByTagName("input");
-		campos = [];
-		for(var i=0; i < inputs.length-3; i++){
-			campos[campos.length] = inputs[i].value;
+	var current = location.pathname.split('/');
+	$('.nav').children().each(function(index){
+		if($(this).html().toLowerCase().indexOf(current[current.length-1]) != -1){
+			$(this).children('li:first').addClass('actual');
 		}
-		console.log(JSON.stringify(campos));
 	});
-
-	function hideNextElementSibling(elm){
-		if(elm.nextElementSibling.clientHeight == 0){
-			elm.nextElementSibling.style.height = '200px';
-			elm.nextElementSibling.style.padding = '10px 20px';
-			return;
-		}
-		elm.nextElementSibling.style.height = '0px';
-		elm.nextElementSibling.style.padding = '0px 20px';
-	}
-
-	var titles = document.getElementsByClassName('collapse-title');
-
-	for(var i=0; i < titles.length; i++){
-		titles[i].addEventListener("click", function(){
-			hideNextElementSibling(this);
-		});
-	}
 </script>
 @stop

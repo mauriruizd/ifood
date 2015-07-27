@@ -8,12 +8,13 @@
 	<link rel="stylesheet" href="{{URL::to('css/style.css')}}">
 	<link rel="stylesheet" href="{{URL::to('css/font-awesome.css')}}">
 	<link rel="icon" href="{{URL::to('img/favicon-red.ico')}}">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
 		<div id="top-nav">
 			<div class="center">
-				<a href="{{ URL::to('login') }}"><span class="logo"><img src="{{ URL::to('img/logo-blanco.png') }}" alt=""></span></a>
+				<a href="{{ URL::to('login') }}"><span class="logo"><span class="left logo"><img src="{{ URL::to('img/logo-sombra-2.png') }}" alt="Delcheff" title="Delcheff"></span></a>
 				@if (Session::has('hungry_user'))
 				<div id="barra_top" class="right">
 					<span class="right" id="saludo">
@@ -32,12 +33,29 @@
 				<a href="{{ URL::to('login') }}"><li>Inicio</li></a>
 				<a href="{{ URL::to('empresas') }}"><li>Empresas</li></a>
 				<a href="{{ URL::to('categorias') }}"><li>Categorias</li></a>
+				<a href="{{ URL::to('favoritos') }}"><li>Favoritos</li></a>
 			</ul>
 		</div>
 		<div id="page-content">
 			@yield('page-content')
 		</div>
 		<script>
+			$('#page-content').on('click', function(){
+				$('#sidemenu').animate({height: '0'}, 100);
+			});
+			$('.sidemenubtn').on('click', function(e){
+				e.preventDefault();
+				if($('#sidemenu').height() == '230'){
+					$('#sidemenu').animate({
+						height: '0'
+					}, 100);
+					return;
+				}
+				$('#sidemenu').animate({
+					height: '230px'
+				}, 100)
+			});
+			/*
 			document.getElementById("page-content").addEventListener("click", function(){
 				document.getElementById("sidemenu").style.height = '0';
 			});
@@ -48,7 +66,7 @@
 				} else {
 					document.getElementById("sidemenu").style.height = '0';
 				}
-			});
+			});*/
 		</script>
 		@include('footer')
 		@yield('footer')

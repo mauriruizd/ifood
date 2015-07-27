@@ -8,19 +8,29 @@
 		</div>
 		<div id="categorias">
 			<div id="menu-filtros">
-				<a href="#" id="menu-cats" class="filtro-seleccionado"><span class="no-mobile">Categorias</span><span class="mobile-only"><i class="fa fa-cutlery"></i></span></a>
-				<a href="#" id="menu-empresas"><span class="no-mobile">Empresas</span><span class="mobile-only"><i class="fa fa-building"></i></span></a>
+				<a href="#" id="menu-cats" class="filtro-seleccionado filtro"><span class="no-mobile">Categorias</span><span class="mobile-only"><i class="fa fa-cutlery"></i></span></a>
+				<a href="#" id="menu-empresas" class="filtro"><span class="no-mobile">Empresas</span><span class="mobile-only"><i class="fa fa-building"></i></span></a>
+				<a href="#" id="menu-favoritos" class="filtro"><span class="no-mobile">Favoritos</span><span class="mobile-only"><i class="fa fa-star"></i></span></a>
 			</div>
 			<div id="filtros-activos">
-				<div id="filtro-cats">
+				<div id="filtro-cats" class="tab">
 					@foreach($categorias as $categoria)
-					<a href="categorias/{{ $categoria->slug }}"><span class="item-categoria"><img src="{{ $categoria->imagen_url }}" alt="{{ $categoria->nombre }}"></span></a>
+					<a href="categorias/{{ $categoria->slug }}" class="item-categoria"><img src="{{ $categoria->imagen_url }}" title="{{ $categoria->nombre }}"></a>
 					@endforeach
 				</div>
-				<div id="filtro-empresas">
+				<div id="filtro-empresas" class="tab">
 					@foreach($empresas as $empresa)
-					<a href="empresas/{{ $empresa->slug }}"><span class="item-categoria"><img src="{{ $empresa->logo_url }}" alt="{{ $empresa->nombre }}"></span></a>
+					<a href="empresas/{{ $empresa->slug }}" class="item-categoria"><img src="{{ $empresa->logo_url }}" title="{{ $empresa->denominacion }}"></a>
 					@endforeach
+				</div>
+				<div id="filtro-empresas" class="tab">
+					@if(count($favoritos) > 0)
+						@foreach($favoritos as $favorito)
+						<a href="empresas/{{ $favorito->slug }}/productos/{{ $favorito->codigo }}" class="item-categoria"><img src="{{ $favorito->imagen_url }}" title="{{ $favorito->denominacion }}"></a>
+						@endforeach
+					@else
+						<h1>Todavia no tiene favoritos</h1>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -28,32 +38,29 @@
 	<script>
 		var quiero = document.getElementById("quiero");
 		var resultados = document.getElementById("resultados");
-		var filtros = {
-			categorias : document.getElementById("menu-cats"),
-			empresas : document.getElementById("menu-empresas")
-		}
-		quiero.addEventListener("keyup", function(){
-			if (quiero.value != ''){
-				buscar();
+		var ajaxTimer;
+		$('#quiero').on('keyup', function(){
+			if ($('#quiero').val() == '')
+				return;
+			if (typeof ajaxTimer == 'number'){
+				clearTimeout(ajaxTimer);
+				ajaxTimer = setTimeout(buscar, 300);
 			} else {
-				resultados.innerHTML = '';
+				ajaxTimer = setTimeout(buscar, 300);
+				$('#resultados').html('');
 			}
 		});
-		filtros.categorias.addEventListener("click", function(e){
-			e.preventDefault();
-			filtros.categorias.className = 'filtro-seleccionado';
-			filtros.empresas.className = '';
-			document.getElementById("filtro-empresas").style.display = 'none';
-			document.getElementById("filtro-cats").style.display = 'block';
+
+		$('.tab')[0].style.display = 'block';
+		$('.filtro').each(function(index){
+			$(this).on('click', function(evt){
+				$('.tab').hide();
+				$('.filtro').removeClass('filtro-seleccionado');
+				$(this).addClass('filtro-seleccionado');
+				evt.preventDefault();
+				$('.tab')[index].style.display = 'block';
+			});
 		});
-		filtros.empresas.addEventListener("click", function(e){
-			e.preventDefault();
-			filtros.empresas.className = 'filtro-seleccionado';
-			filtros.categorias.className = '';
-			document.getElementById("filtro-cats").style.display = 'none';
-			document.getElementById("filtro-empresas").style.display = 'block';
-		});
-		document.getElementById("filtro-cats").style.display = 'block';
 
 		function buscar(){
 			var busq = new XMLHttpRequest;

@@ -6,6 +6,7 @@
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<input type="text" name="login_user" id="login_user" placeholder="Ingrese su usuario">
 			<input type="password" name="login_password" id="login_password" placeholder="Ingrese su contraseña">
+			<a href="{{ URL::to('facebook') }}"><img src="{{ URL::to('img/BotonLoginFacebook.png') }}" alt="Login con Facebook" title="Login con Facebook"></a><br>
 			<input type="submit" value="Ingresar">
 		</form>
 	</div>
