@@ -1,0 +1,54 @@
+
+   .panel1{
+    background: #8a0808;
+   }
+.paginacion{
+	text-align: center;
+	margin: 0 auto;
+	padding: 0;
+	
+}
+.red{
+	border: 1px solid red !important;
+	background: red !important;
+	color: white;
+}
+.red:hover{
+	border: 1px solid #AA443C;
+	background: #AA443C;
+	color: white;
+}
+
+.green{
+	border: 1px solid #a9d86e !important;
+	background: #a9d86e !important;
+	color: white;
+}
+
+.green:hover{
+	border: 1px solid #90BB5C;
+	background: #90BB5C;
+	color: white;
+}
+
+.bol{
+        font-size: 15px;
+     font-weight: bold;   
+    }
+    .columnas{
+        width: 250px;
+    }
+    .caja_red{
+        float: left;
+        padding-top: -10px;
+        width: 240px;
+        height: 30px;
+        background: red;
+        color: white;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .caja_red strong{
+        padding-top: 15px;
+        font-size: 17px;
+    }

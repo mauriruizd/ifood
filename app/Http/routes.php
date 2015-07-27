@@ -121,3 +121,17 @@ Route::get("dos-categorias/{n}", "Paginador@DosCategorias");
 
 Route::get("param/{par}", "Paginador@param");
 
+
+
+
+
+
+/*------ADMINISTRACION PARA LAS EMPRESAS-------*/
+Route::get("control", "ControlPanel@index");
+Route::get("control/usuarios","ControlPanel@usuario");
+Route::get("control/cadastro","ControlPanel@cadastro");
+Route::get("control/cadastro/pizza","ControlPanel@pizza");
+Route::get("control/cadastro/lomito","ControlPanel@lomito");
+Route::get("control/promociones","ControlPanel@promociones");
+/*------ADMINISTRACION PARA LAS EMPRESAS FIN-------*/
+
