@@ -45,14 +45,14 @@
 			});
 			$('.sidemenubtn').on('click', function(e){
 				e.preventDefault();
-				if($('#sidemenu').height() == '230'){
+				if($('#sidemenu').height() == '183'){
 					$('#sidemenu').animate({
 						height: '0'
 					}, 100);
 					return;
 				}
 				$('#sidemenu').animate({
-					height: '230px'
+					height: '183px'
 				}, 100)
 			});
 			/*

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca52d206-487b-4fca-bcdf-ae32479952ee" name="Default" comment="Agregado comando para envio de sockets">
+    <list default="true" id="ca52d206-487b-4fca-bcdf-ae32479952ee" name="Default" comment="Cambio">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/RestCategorias.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/RestCategorias.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/RestEmpresas.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/RestEmpresas.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/style.css" afterPath="$PROJECT_DIR$/public/css/style.css" />
@@ -20,7 +20,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
+    <option name="PATCH_PATH" value="C:\xampp\htdocs\ifood" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -485,7 +485,13 @@
       <option name="project" value="LOCAL" />
       <updated>1438109454458</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Descomentados los cambios en los controladores REST y cambiados los colores en el style.css">
+      <created>1438113713851</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1438113713851</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -553,7 +559,8 @@
     <MESSAGE value="Envio de sockets en cola." />
     <MESSAGE value="Comando para envio de sockets" />
     <MESSAGE value="Agregado login con facebook" />
-    <option name="LAST_COMMIT_MESSAGE" value="Agregado login con facebook" />
+    <MESSAGE value="Descomentados los cambios en los controladores REST y cambiados los colores en el style.css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Descomentados los cambios en los controladores REST y cambiados los colores en el style.css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
