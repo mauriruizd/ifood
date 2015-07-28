@@ -34,6 +34,7 @@ class ControlUsuarios extends Controller {
 		$usuario = Usuario::where('login', $datosLogin['login_user'])
 			->where('clave', sha1($datosLogin['login_password']))
 			->select('codigo', 'nombres', 'apellidos', 'email', 'celular')
+			->select('codigo', 'nombres')
 			->first();
 		if(count($usuario) > 0){
 			if(!Session::has('carrito')){
@@ -52,14 +53,22 @@ class ControlUsuarios extends Controller {
 
 	public function FacebookLogin(){
 		$socialUser = Socialize::with('facebook')->user();
-		dd($socialUser);
-		$user = Usuario::where('email', '=', $socialUser->email)->first();
-		if(count($user)){
+		$user = Usuario::where('email', '=', $socialUser->email)
+			->select('codigo', 'nombres', 'apellidos', 'email', 'celular')
+			->first();
+		if(count($user) <= 0){
 			$user = new Usuario;
 			$user->nombres = $socialUser->user['first_name'];
-			$user->apelldios = $socialUser->user['last_name'];
+			$user->apellidos = $socialUser->user['last_name'];
 			$user->email = $socialUser->email;
+			$user->save();
 		}
+		if(!Session::has('carrito')){
+			$newCarrito = array('items'=>array(), 'delivery'=>0, 'direccion'=>'');
+			Session::put('carrito', $newCarrito);
+		}
+		Session::put('hungry_user', $user);
+		return Redirect::to("login");
 	}
 
 	public function ControlLogout(){
@@ -80,7 +89,7 @@ class ControlUsuarios extends Controller {
 	public function UpdateApellidos(){
 		$datos = Input::all();
 		$myUser = Session::get('hungry_user');
-		$myUser->apelldios = $datos['updated'];
+		$myUser->apellidos = $datos['updated'];
 		$myUser->save();
 		return Redirect::back();
 	}
