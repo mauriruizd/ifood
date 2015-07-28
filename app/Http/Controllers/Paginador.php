@@ -43,6 +43,7 @@ class Paginador extends Controller {
 			$favoritos = Favorito::join('productos', 'favoritos.favoritos_producto_codigo', '=', 'productos.codigo')
 			->join('persona_empresas', 'favoritos.favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
 			->select('persona_empresas.slug', 'productos.*')
+			->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
 			->get();
 			return view('food.login', compact('categorias', 'empresas', 'favoritos'));
 		} else {
@@ -106,6 +107,7 @@ class Paginador extends Controller {
 		$favoritos = Favorito::join('persona_empresas', 'favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
 		->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
 		->select('persona_empresas.slug', 'productos.*')
+		->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
 		->get();
 		return view('food.favoritos', compact('favoritos'));
 	}

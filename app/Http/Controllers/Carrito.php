@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
+use App\Commands\EnviarSocket;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Session;
 use Redirect;
+use Queue;
 
 use App\Producto;
 use App\Pedido;
@@ -78,6 +80,9 @@ class Carrito extends Controller {
 				$empresa = Empresa::select('socket_server_token')->find($nPedido->empresa_codigo);
 				$socket_data = [
 					'empresa' => $empresa->socket_server_token,
+					'user_id' => $nPedido->persona_cliente_codigo,
+					'direccion_id' => $nPedido->direccion_codigo,
+					'timestamps' => date("d-m-Y H:i:s"),
 					'pedido' => array()
 				];
 				foreach($pedido['items'] as $item){
@@ -97,10 +102,7 @@ class Carrito extends Controller {
 						'subtotal' => $nPedidoDetalle->subtotal
 					];
 				}
-				$context = new \ZMQContext();
-				$socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'pusher');
-				$socket->connect("tcp://127.0.0.1:3000");
-				$socket->send(json_encode($socket_data));
+				Queue::push(new EnviarSocket($socket_data));
 			} else {
 				return view('uncatched')->with('error', 'Error a la hora de guardar su pedido.');
 			}
@@ -159,13 +161,7 @@ class Carrito extends Controller {
 	}
 
 	public function UpdateProducto($id, $qtd){
-		$producto = Session::get('carrito.items.'.$id);
-		$before = $producto['producto']->precio * $producto['cantidad'];
 		Session(['carrito.items.'.$id.".cantidad" => $qtd]);
-		$producto = Session::get('carrito.items.'.$id);
-		$after = $producto['producto']->precio * $producto['cantidad'];
-		$newSubtotal = Session::get('carrito.subtotal') - ($before - $after);
-		$returner = Moneda::guaranies($newSubtotal);
 	}
 
 	public function RemoveProducto($id_pedido){
