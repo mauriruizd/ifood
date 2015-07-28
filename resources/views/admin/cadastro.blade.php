@@ -153,6 +153,7 @@ $(document).ready(function(){
 
             <div id="categorias_boton">
             <div class="iconos">
+                <a href="{{URL::to('control/cadastro/hamburguesas')}}">
              <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/hamburguesa.png')}}">
             </div>
