@@ -19,7 +19,7 @@ class RestEmpresas extends Controller {
 		$n = Input::has('n') ? $n = Input::query('n') : 5;
 		$empresa = Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url')
 		->where('estado', '=', 'activo')
-		->paginate($n);
+		->get();
 
 		return $empresa;
 	}

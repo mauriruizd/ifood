@@ -19,7 +19,7 @@ class RestCategorias extends Controller {
 		$n = Input::has('n') ? $n = Input::query('n') : 5;
 		$categorias = Categoria::select('codigo', 'nombre', 'imagen_url', 'estado')
 		->where('estado', '=', '1')
-		->paginate($n);
+		->get();
 		return $categorias;
 	}
 
