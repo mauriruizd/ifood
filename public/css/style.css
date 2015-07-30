@@ -73,6 +73,9 @@ body{
 .font-20px{
 	font-size: 20px;
 }
+table, table td{
+	border: 1px solid #AAA;
+}
 /*---------------------------FIN CLASES GRALES---------------------------*/
 
 /*========================================================================*/
@@ -273,6 +276,7 @@ body{
 	border-radius: 8px;
 	box-shadow: 0 0.5px #AAA;
 	color: #8A0808;
+	outline: none;
 }
 #resultados, #resultados *{
 	transition: all 0.5s ease;
@@ -583,13 +587,11 @@ input[type=range]::-webkit-slider-thumb{
 .collumn .social{
 	display: inline-block;
 	font-size: 60px;
-	width: 60px;
-	height: 61px;
 	color: #FFF;
-	text-align: right;
-	padding: 0 5px;
+	text-align: center;
+	width: 80px;
+	margin: 0 5px;
 	transition: all 0.5s ease;
-	border-radius:10px;
 }
 .fb:hover{
 	background-color: #3a5795;
