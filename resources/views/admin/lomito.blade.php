@@ -158,12 +158,20 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                          <input id="publish_ad_title" maxlength="130" name="ad[title]" type="text">
 
                                         </div>
+
                                       
                                       <h3 class="titulo_sabor" >Detalle</h3>
                                       
                                         <textarea rows="4" cols="50"></textarea>
                                         <br>
                                         <br>
+                                    <!--******************************-->
+                                    <div class="form-group">
+                                        <input id="file-1" type="file" class="file" multiple=true data-preview-file-type="any">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <!--****************************-->
                                     
                                           <button type="submit" class="btn btn-danger">Guardar</button>
                                    </div><!--form_box-->
@@ -185,7 +193,8 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                               <tr>
                                   <th>Sabor Lomitos</th> 
                                   <th>precios</th>
-                                  <th>Detaller</th>   
+                                  <th>Detaller</th>
+                                  <th></th>
                                   <th></th>
                                   <th></th> 
                                   <th >Activar</th> 
@@ -198,6 +207,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                   <td>Clasica</td>
                                   <td>4 queso</td>
                                   <td>peperoni, tomate, salsa, queso</td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo.jpeg')}}"></td>
                                  <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
                                        <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
@@ -217,6 +227,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                   <td>de la casa</td>
                                   <td>clasicas</td>
                                   <td>clasicas</td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo1.jpg')}}"></td>
                                    <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td> 
                                          <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
