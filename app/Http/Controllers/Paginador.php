@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\ArraySort;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -122,8 +123,13 @@ class Paginador extends Controller {
 
 	public function SettingsPedidos(){
 		$pedidos = Pedido::where('persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+			->join('pedidos_detalles', 'pedidos_detalles.pedido_codigo', '=', 'pedidos.codigo')
+			->select('pedidos.codigo as pedido_codigo', 'pedidos.importe_total', 'fecha_registro', 'pedidos.estado', 'producto_descripcion', 'cantidad', 'precio')
 		->get();
-		return view('settings.settingsPedidos', compact('pedidos'));
+		$pedidos = json_decode(json_encode($pedidos), true);
+		$pedidos_detallados = ArraySort::group($pedidos, 'pedido_codigo');
+		//dd($pedidos_detallados);
+		return view('settings.settingsPedidos', compact('pedidos_detallados'));
 	}
 
 	public function SettingsFavoritos(){

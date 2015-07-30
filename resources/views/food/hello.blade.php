@@ -7,7 +7,7 @@
 		<div id="top">
 			<div class="center">
 				<div id="barra_top">
-					<a href="/"><span class="left logo"><img src="img/logo-sombra-2.png" alt="Delcheff" title="Delcheff"></span></a>
+					<a href="/"><span class="left"><img src="img/logo-2.png" alt="Delcheff" title="Delcheff"></span></a>
 					<span class="right">
 						@if(Session::has('hungry_user'))
 							<a href="login">Hacé tu pedido {{ Session::get('hungry_user')->nombres }}</a>

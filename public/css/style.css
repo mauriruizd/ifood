@@ -121,10 +121,14 @@ body{
 	text-shadow: 0 0 3px #FFF;
 }
 .logo{
+	display: inline-block;
 	user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     -webkit-user-select:none;
+}
+.logo img{
+	height: 50px;
 }
 .left{
 	float:left;
@@ -714,7 +718,9 @@ input[type=range]::-webkit-slider-thumb{
 #sidemenu li:hover{
 	background-color: #FE5F3F;
 }
-
+.right-important{
+	float: right;
+}
 /*------------------------------MAPA------------------------------*/
 #geoloc{
 	width:80%;
@@ -739,15 +745,6 @@ input[type=range]::-webkit-slider-thumb{
 	#barra_top > span{
 		display: block;
 		font-size: 2.3em;
-	}
-	.logo{
-		display: block!important;
-		text-align: center;
-	}
-	.logo img{
-		margin: 0 auto;
-		text-align: center;
-		width:150px;
 	}
 	.hi{
 		display: none!important;
@@ -796,5 +793,8 @@ input[type=range]::-webkit-slider-thumb{
 		text-align: center;
 		width: 100%;
 		margin-left: 200px;
+	}
+	.inner-20 span{
+		font-size: 20px!important;
 	}
 }
