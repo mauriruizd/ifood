@@ -180,15 +180,7 @@ $(document).ready(function(){
               <p>Postres</p>
             </div>
             </div>
-                                    <div id="categorias_boton">
-            <div class="iconos">
-             <div class="icon_cuadro">
-              <img src="{{URL::to('admin/icon/chipa.png')}}">
-            </div>
-           
-              <p>Chipa</p>
-            </div>
-            </div>
+
 
             <div id="categorias_boton">
             <div class="iconos">
