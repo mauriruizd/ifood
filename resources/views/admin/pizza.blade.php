@@ -168,7 +168,14 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                         <textarea rows="4" cols="50"></textarea>
                                         <br>
                                         <br>
-                                    
+                                  <!--******************************-->
+                                        <div class="form-group">
+                                            <input id="file-1" type="file" class="file" multiple=true data-preview-file-type="any">
+                                        </div>
+                                    <br>
+                                    <br>
+                                    <!--****************************-->
+
                                           <button type="submit" class="btn btn-danger">Guardar</button>
                                    </div><!--form_box-->
                               </form>
@@ -188,7 +195,8 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                               <tr>
                                   <th>Categorias</th> 
                                   <th>Sabor</th>
-                                  <th>Descripcion</th>   
+                                  <th>Descripcion</th>
+                                  <th></th>
                                   <th></th>
                                   <th></th> 
                                   <th >Activar</th> 
@@ -199,7 +207,8 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                               <tr class="">
                                   <td>Clasica</td>
                                   <td>4 queso</td>
-                                  <td>peperoni, tomate, salsa, queso</td>
+                                  <td>4 queso</td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo.jpeg')}}"></td>
                                  <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
                                        <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
@@ -219,6 +228,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                   <td>de la casa</td>
                                   <td>clasicas</td>
                                   <td>clasicas</td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo.jpeg')}}"></td>
                                    <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td> 
                                          <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
