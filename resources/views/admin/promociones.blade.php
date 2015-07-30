@@ -196,7 +196,7 @@ $('#btn-eliminar').on('click', function(){
             <td>20000gs</td>   
             <td>16/12/2015</td>
             <td>16/12/2015</td>
-            <td class="img_promo"><img src="{{URL::to('imagen/promo1.jpg')}}"></td>
+            <td class="img_promo"><img src="{{URL::to('admin/imagen/promo1.jpg')}}"></td>
             <td align="center">             
                                 <section>
                                   <!-- Checbox Four -->
@@ -216,7 +216,7 @@ $('#btn-eliminar').on('click', function(){
             <td>5000gs</td>
             <td>16/12/2015</td>
             <td>16/12/2015</td>
-           <td class="img_promo"><img src="{{URL::to('imagen/promo.jpeg')}}"></td>
+           <td class="img_promo"><img src="{{URL::to('admin/imagen/promo.jpeg')}}"></td>
              <td align="center">             
                                 <section>
                                   <!-- Checbox Four -->
