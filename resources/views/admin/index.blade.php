@@ -10,6 +10,7 @@
 
     <title>DelCheff</title>
 
+
         <link href="{{URL::to('admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::to('admin/css/bootstrap-reset.css')}}" rel="stylesheet">
     <!--external css-->
@@ -21,6 +22,8 @@
      <link href="{{URL::to('admin/css/promociones.css')}}" rel="stylesheet">
     <link href="{{URL::to('admin/css/style-responsive.css')}}" rel="stylesheet" />
      <link href="{{URL::to('admin/docs/stylo.css')}}" rel="stylesheet">
+
+      <link href="{{URL::to('admin/css/fileinput.css')}}" rel="stylesheet" />
 
 
          <!-- js placed at the end of the document so the pages load faster -->
@@ -45,8 +48,13 @@
     <script src="{{URL::to('admin/js/sparkline-chart.js')}}"></script>
     <script src="{{URL::to('admin/js/easy-pie-chart.js')}}"></script>
     <script src="{{URL::to('admin/js/count.js')}}"></script>
+      <!--archivos de input bootstrap-->
+      <script src="{{URL::to('admin/js/fileinput.min.js')}}"></script>
 
-  <script>
+
+
+
+      <script>
 
       //owl carousel
 

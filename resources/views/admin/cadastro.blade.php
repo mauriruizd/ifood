@@ -153,6 +153,7 @@ $(document).ready(function(){
 
             <div id="categorias_boton">
             <div class="iconos">
+                <a href="{{URL::to('control/cadastro/hamburguesas')}}">
              <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/hamburguesa.png')}}">
             </div>
@@ -162,6 +163,7 @@ $(document).ready(function(){
             </div>
              <div id="categorias_boton">
             <div class="iconos">
+                <a href="{{URL::to('control/cadastro/bebidas')}}">
             <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/babidas.png')}}">
             </div>
@@ -175,20 +177,12 @@ $(document).ready(function(){
               <img src="{{URL::to('admin/icon/helado.png')}}">
             </div>
             
-              <p>Helado</p>
-            </div>
-            </div>
-                                    <div id="categorias_boton">
-            <div class="iconos">
-             <div class="icon_cuadro">
-              <img src="{{URL::to('admin/icon/chipa.png')}}">
-            </div>
-           
-              <p>Chipa</p>
+              <p>Postres</p>
             </div>
             </div>
 
-                                    <div id="categorias_boton">
+
+            <div id="categorias_boton">
             <div class="iconos">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/oriental.png')}}">
@@ -197,13 +191,26 @@ $(document).ready(function(){
               <p>Oriental</p>
             </div>
             </div>
-                                    <div id="categorias_boton">
+
+           <div id="categorias_boton">
+               <div class="iconos">
+                   <div class="icon_cuadro">
+                       <img src="{{URL::to('admin/icon/vegana.png')}}">
+                   </div>
+
+                   <p>Vegana</p>
+               </div>
+           </div>
+
+
+
+            <div id="categorias_boton">
             <div class="iconos">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/vegana.png')}}">
             </div>
             
-              <p>Vegana</p>
+              <p>Combos</p>
             </div>
             </div>
 

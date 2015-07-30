@@ -29,6 +29,11 @@ class ControlPanel extends Controller {
 	public function lomito(){
 		return view('admin.lomito');
 	}
-
+	public function hamburguesas(){
+		return view('admin.hamburguesas');
+	}
+	public function bebidas(){
+		return view('admin.bebidas');
+	}
 
 }
