@@ -1,82 +1,32 @@
-
-#acordeon{
-	border: solid 0.1px #8A0808;
-	margin: 10px 0;
-	border-radius: 15px;
-	overflow: hidden;
-}
-
-.collapse{
-	transition: height 0.5s ease, padding, 0.5s ease;
-	font-family: Lato;
-}
-
-.collapse-entry{
-	width: 100%;
-}
-
-.collapse-title{
-	cursor: pointer;
-	color: white;
-	font-size: 2em;
-	height: 50px;
-	text-align: center;
-	vertical-align: middle;
-	text-transform: capitalize;
-	background: linear-gradient(#AA0F0F, #C12323);
-	background: -moz-linear-gradient(#AA0F0F, #C12323);
-	background: -ms-linear-gradient(#AA0F0F, #C12323);
-	background: -o-linear-gradient(#AA0F0F, #C12323);
-	background: -webkit-linear-gradient(#AA0F0F, #C12323);
-}
-
-.collapse-panel{
-	height: 0px;
-	padding: 0 50px;
-	overflow: hidden;
-}
-
-#wrap{
-	height: 100%;
-}
-#page-content{
-	height: calc(100% - 280px);
-	padding-bottom: 0;
-}
 #page-content div{
 	display: inline-block;
 	vertical-align: text-top;
 }
 #menu{
 	position: relative;
-	height: 100%;
-	background-color: #983939;
+	background-color: #BF4730;
+	padding-bottom: 150px;
+	border-bottom: 15px double #233148;
+	-webkit-border-bottom-right-radius: 50px;
+	-moz-border-bottom-right-radius: 50px;
+	border-bottom-right-radius: 50px;
 }
 #menu ul{
 	list-style-type: none;
 	font-family: Lato;
 	font-weight: bold;
 	color: #FFF;
-	margin-top: 20px;
 }
 #menu li{
 	display: block;
 	min-width: 93px;
 	padding: 15px;
-	margin: 5px;
 	cursor: pointer;
 	text-align: center;
 	transition: all 0.5s ease;
 }
-.actual{
-	background-color: #FFF;
-	color: #8A0808;
-	border-radius: 10px;
-}
 #menu li:hover{
-	background-color: #FFF;
-	color: #8A0808;
-	border-radius: 10px;
+	background-color: #FE5F3F;
 }
 #body{
 	min-width: calc(100% - 183px);
@@ -108,12 +58,23 @@ p{
 .input:focus{
 	background-color: rgba(0, 0, 0, 0.08);
 }
+.pedidos_pedido{
+	cursor: pointer;
+}
+.pedido_detalle{
+	background-color: #ddd4be;
+}
 @media screen and (max-width: 1000px){
 	#page-content div{
 		display: block;
 	}
 	#menu{
 		height: auto;
+		padding-bottom: 0;
+		border-bottom: 15px double #233148;
+		-webkit-border-bottom-right-radius: 0;
+		-moz-border-bottom-right-radius: 0;
+		border-bottom-right-radius: 0;
 	}
 	#menu ul{
 		margin:0;
