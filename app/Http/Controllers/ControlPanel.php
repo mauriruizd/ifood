@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ControlPanel extends Controller {
 
 	public function index(){
+		//$user
 		return view('admin.panel');
 
 	}
