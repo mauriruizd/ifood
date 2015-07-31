@@ -134,6 +134,9 @@ Route::get("control/cadastro/pizza","ControlPanel@pizza");
 Route::get("control/cadastro/lomito","ControlPanel@lomito");
 Route::get("control/cadastro/hamburguesas","ControlPanel@hamburguesas");
 Route::get("control/cadastro/bebidas","ControlPanel@bebidas");
+Route::get("control/cadastro/helado","ControlPanel@helado");
+Route::get("control/cadastro/oriental","ControlPanel@oriental");
+Route::get("control/cadastro/vegana","ControlPanel@vegana");
 Route::get("control/promociones","ControlPanel@promociones");
 /*------ADMINISTRACION PARA LAS EMPRESAS FIN-------*/
 
