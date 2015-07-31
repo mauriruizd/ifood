@@ -176,12 +176,7 @@
                           <li><a  href="calendar.html">Cotizaciones</a></li>
                       </ul>
                   </li>
-                  <li>
-                      <a href="google_maps.html" >
-                          <i class="fa  fa-bar-chart-o"></i>
-                          <span>Informes</span>
-                      </a>
-                  </li>
+
 
 
 
