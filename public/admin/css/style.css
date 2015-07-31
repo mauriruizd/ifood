@@ -5710,10 +5710,11 @@ a.guest-on i {
         min-height: 600px;
         height: auto;
     }
-    #cuadro2{
+
+#cuadro2{
     padding: 10px;
-    }
 }
+
     .select_ordenes{
 
         margin: 0 auto;
