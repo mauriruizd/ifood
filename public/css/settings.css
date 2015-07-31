@@ -45,7 +45,8 @@ p{
 }
 .input{
 	min-width: 200px;
-	border: 0.5px solid #AAA;
+	border: 1px solid #AAA;
+	outline: none;
 	border-radius: 5px;
 	padding: 10px;
 	text-overflow: ellipsis;
