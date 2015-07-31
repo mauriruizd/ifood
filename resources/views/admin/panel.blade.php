@@ -126,10 +126,12 @@ function print( title, w, h) {
         html += '<p><span class="text-muted">Destalle :</span>favor si puede sacar el tomate y sim pimienta</p>';
         html += '<p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>     ';           
         html += '</div>';
+        html += '<div id="cuadro2">';
         html += '<button id="eliminar_box" type="button"class="btn btn-danger btn-delete">';
         html += '<i class="glyphicon glyphicon-trash"></i>';
         html += '<span>Eliminar</span>';
         html += '</button>';
+        html += '</div>';
         html += '</div><!--info_box-->';
         html += '</div>';
         html += '</div>';
@@ -185,7 +187,7 @@ $(document).ready(function(){
            <div>
                <div class="titulo_orden">N° de Pedido 3659 <i id='down' class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->
                <div class="info_box">
-                <p><i class="bol">Nombre: </i>Marcos Martinez</p> 
+                <p><i class="bol">Nombre: </i>Marcos Martinez</p>
                 <p><i class="bol">Telefono: </i>0978655845</p>
                 <p><i class="bol">Dirección: </i>Barrio San jose al costado de colegio camino de empedrado a tres cuadras de </p>
                 <div class="room-box">
@@ -195,7 +197,7 @@ $(document).ready(function(){
                     <p><span class="text-muted">Masa :</span> fina  </p>
                     <p><span class="text-muted">Sabor :</span> 4 quersos, peperoni</p>
                     <p><span class="text-muted">Destalle :</span>favor si puede sacar el tomate y sim pimienta</p>
-                    <p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>                
+                    <p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>
                 </div>
                 <button type="button" id="boton_eliminar"  class="btn btn-danger btn-delete">
                   <i class="glyphicon glyphicon-trash"></i>
@@ -204,32 +206,8 @@ $(document).ready(function(){
                </div><!--info_box-->
            </div>
        </div>
-         
-        <div class="pedido_llegados">
-           <div>
-               <div class="titulo_orden">N° de Pedido 1845 <i id='down' class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->
-               <div class="info_box">
-                <p><i class="bol">Nombre: </i>Marcos Martinez</p> 
-                <p><i class="bol">Telefono: </i>0978655845</p>
-                <p><i class="bol">Dirección: </i>Barrio San jose al costado  </p>
-                <div class="room-box">
-                    <h5 class="text-primary"><strong>Pedido:  Pizza</strong></h5>
-                    <p><span class="text-muted">cantidad :</span> 1 </p>
-                    <p><span class="text-muted">Tamanho :</span> Grande </p>
-                    <p><span class="text-muted">Masa :</span> fina  </p>
-                    <p><span class="text-muted">Sabor :</span> 4 quersos, peperoni</p>
-                    <p><span class="text-muted">Destalle :</span>favor si puede sacar el tomate y sim pimienta</p>
-                    <p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>                
-                </div>
-                <button type="button" id="boton_eliminar" class="btn btn-danger btn-delete">
-                  <i class="glyphicon glyphicon-trash"></i>
-                   <span>Eliminar</span>
-                </button>
-               </div><!--info_box-->
-           </div>
-       </div>
 
-   </div> <!--panel-body progress-panel-->   
+
   </section><!--panel-->
 
   </div><!--blog de pedido fin-->
