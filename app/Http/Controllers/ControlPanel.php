@@ -35,5 +35,15 @@ class ControlPanel extends Controller {
 	public function bebidas(){
 		return view('admin.bebidas');
 	}
+	public function helado(){
+		return view('admin.helado');
+	}
+	public function oriental(){
+		return view('admin.oriental');
+	}
+	public function vegana(){
+		return view('admin.vegana');
+	}
+
 
 }
