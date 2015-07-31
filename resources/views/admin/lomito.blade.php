@@ -207,7 +207,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                   <td>Clasica</td>
                                   <td>4 queso</td>
                                   <td>peperoni, tomate, salsa, queso</td>
-                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo.jpeg')}}"></td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/lom.jpg')}}"></td>
                                  <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
                                        <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
@@ -227,7 +227,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                                   <td>de la casa</td>
                                   <td>clasicas</td>
                                   <td>clasicas</td>
-                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/promo1.jpg')}}"></td>
+                                  <td align="center" class="img_promo"><img src="{{URL::to('admin/imagen/lom1.jpg')}}"></td>
                                    <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td> 
                                          <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
                                        <td align="center">
