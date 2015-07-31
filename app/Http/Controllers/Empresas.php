@@ -43,6 +43,7 @@ class Empresas extends Controller {
 		return view('uncatched')->with('error', 'Pagina no encontrada.');
 	}
 
+
 	public function VistaProducto($empresa, $id_producto){
 		$extra = Input::has('config') ? Input::query('config') : null;
 		$producto = Producto::where('codigo', $id_producto)->first();
