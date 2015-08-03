@@ -17,6 +17,7 @@ use App\Pedido;
 use App\Slug; //Clase propia. Asegurarse de incluir en otros proyectos si necesario.
 use App\ArraySort; //Clase propia. Asegurarse de incluir en otros proyectos si necesario.
 
+use App\Extra;
 use App\ConfigPizza;
 use App\TamanhoPizza;
 use App\MasaPizza;
@@ -55,9 +56,12 @@ class Empresas extends Controller {
 		->select('cat_pizza_tipo_masa.nombre as masa_nombre', 'cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_detalles.precio', 'cat_pizza_detalles.codigo as config_pizza')
 		->where('cat_pizza_config.producto_codigo', '=', $id_producto)
 		->get();
-		//dd($filtrosPizza);
+		$extras = Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
+			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
+			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra')
+			->get();
 		if(count($producto) > 0){
-			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra'));
+			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extras'));
 		} else {
 			return view('empresas.vistaProducto')->with('error', 'Producto no encontrado.');
 		}
