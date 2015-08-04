@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use Session;
 use Redirect;
 use Queue;
+use Input;
 
 use App\Producto;
 use App\Pedido;
 use App\PedidoDetalle;
 use App\ArraySort;
 use App\Moneda;
+use App\Extra;
 use App\Empresa;
 use App\DireccionCliente;
 use App\DetallePizza;
@@ -121,6 +123,10 @@ class Carrito extends Controller {
 		return Redirect::to('carrito/pasotres');
 	}
 
+	public function Add(){
+		dd(Input::all());
+	}
+
 	public function AddProducto($id_producto, $cant=1){
 		$producto = Producto::join('persona_empresas', 'productos.empresa_codigo', '=', 'persona_empresas.codigo')
 		->select('productos.codigo', 'productos.denominacion', 'productos.empresa_codigo', 'productos.imagen_url', 
@@ -135,7 +141,33 @@ class Carrito extends Controller {
 		return Redirect::to('empresas/'.$producto->slug);
 	}
 
-	public function AddProductoConfig($id_producto, $cant, $config){
+	public function AddProductoConfig($id_producto, $cant, $extras){
+		$config = explode(',', $extras);
+		$extras = [];
+		if(count($config) > 0){
+			foreach($config as $key => $con){
+				if($pos = strpos($con, ':') !== false){
+					$extras[] = substr($con, ($pos + 1));
+					unset($config[$key]);
+				}
+			}
+		}
+		if(count($extras) > 0){
+			$conf_extra = [
+				'configs' => '',
+				'precio'  => 0
+			];
+			foreach($extras as $con){
+				$este_extra = Extra::join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
+					->select('producto_sub_extras.precio_extra', 'productos_extras.nombres')
+					->find($con);
+				if($este_extra){
+					$conf_extra['configs'] .= $este_extra->nombres;
+					$conf_extra['precio'] += $este_extra->precio_extra;
+				}
+			}
+		}
+		dd($extras);
 		$producto = Producto::join('persona_empresas', 'productos.empresa_codigo', '=', 'persona_empresas.codigo')
 		->select('productos.codigo', 'productos.denominacion', 'productos.empresa_codigo', 'productos.imagen_url', 
 			'productos.precio', 'productos.categoria_codigo', 'persona_empresas.costo_delivery', 'persona_empresas.logo_url', 'persona_empresas.slug',
@@ -147,13 +179,12 @@ class Carrito extends Controller {
 			->join('cat_pizza_tipo_masa', 'cat_pizza_tipo_masa.codigo', '=', 'cat_pizza_detalles.cat_pizza_masa_codigo')
 			->select('cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_tipo_masa.nombre as masa_nombre', 'precio', 
 				'cat_pizza_detalles.codigo as codigo_detalle')
-			->where('cat_pizza_detalles.codigo', '=', $config)
+			->where('cat_pizza_detalles.codigo', '=', $config[0])
 			->first();
 			$producto->denominacion .= '(Tamaño '.$configPizza->tamanho_nombre.', masa '.$configPizza->masa_nombre.')';
 			$producto->precio = $configPizza->precio;
 		}
-		//dd($configPizza);
-		$nuevoPedido = array('producto' => $producto, 'cantidad' => $cant, 'configExtra' => $config);
+		$nuevoPedido = array('producto' => $producto, 'cantidad' => $cant, 'configExtra' => $config[0]);
 		Session(['carrito.items.'.$id_producto => $nuevoPedido]);
 		$this->UpdateDelivery();
 
@@ -162,6 +193,7 @@ class Carrito extends Controller {
 
 	public function UpdateProducto($id, $qtd){
 		Session(['carrito.items.'.$id.".cantidad" => $qtd]);
+		$item = Session::get('carrito.items.'.$id);
 	}
 
 	public function RemoveProducto($id_pedido){

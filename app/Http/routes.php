@@ -54,6 +54,7 @@ Route::group(['middleware' => 'LoginChecker'], function(){
 	Route::get("carrito/pasodos",'Carrito@PasoDos');
 	Route::get("carrito/pasotres", ['middleware' => 'CarritoChecker', 'uses' => 'Carrito@PasoTres']); //Resumen Pedido
 	Route::get("carrito/commit", ['middleware' => 'CarritoChecker', 'uses' => 'Carrito@Commit']);
+	Route::post("carrito/add", "Carrito@Add");
 	Route::get("carrito/add/{id_producto}", "Carrito@AddProducto");
 	Route::get("carrito/add/{id_producto}/{qtd}", "Carrito@AddProducto");
 	Route::get("carrito/add/{id_producto}/{qtd}/{config}", "Carrito@AddProductoConfig");

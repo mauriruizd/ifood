@@ -22,45 +22,63 @@
 					<span class="comfortaa">{{ $producto->descripcion }}</span>
 				</div>
 			</div>
-			<div id="carrito" class="texto">
-				@if(count($filtrosPizza) > 0)
-				<table class="tabla-collapse">
-					<tr>
-						<td>&nbsp;</td>
-						<td><b><i>Masa:</i></b></td>
-						<td><b><i>Tamaño:</i></b></td>
-						<td><b><i>Precio:</i></b></td>
-					</tr>
-					@foreach ($filtrosPizza as $opcion)
+			<form action="{{ URL::to('carrito/add') }}" method="POST" id="agregarCarrito">
+				<div><div><input type="hidden" name="_token" value="{{ csrf_token() }}"></div></div>
+				<div id="carrito" class="texto">
+					@if(count($filtrosPizza) > 0)
+					<table class="tabla-collapse">
 						<tr>
-							<td>
-								<input type="radio" name="cod_detalle" class="config_pizza" value="{{ $opcion->config_pizza }}"
-								@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
-									{{ 'checked' }}
-								@endif
-								>
-							</td>
-							<td>{{ $opcion->masa_nombre }}</td>
-							<td>{{ $opcion->tamanho_nombre }}</td>
-							<td>{{ Moneda::guaranies($opcion->precio) }}</td>
+							<td>&nbsp;</td>
+							<td><b><i>Masa:</i></b></td>
+							<td><b><i>Tamaño:</i></b></td>
+							<td><b><i>Precio:</i></b></td>
 						</tr>
-					@endforeach
-				</table>
-				@else
-					Precio: {{ Moneda::guaranies($producto->precio) }} <br>
-				@endif
-					<div class="spinner">
-						<div class="spinner-number">
-							<input type="text" disabled name="spinner-value" class="spinner-value" value="1">
+						@foreach ($filtrosPizza as $opcion)
+							<tr>
+								<td>
+									<input type="radio" name="cod_detalle" class="config_pizza" value="{{ $opcion->config_pizza }}"
+									@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
+										{{ 'checked' }}
+									@endif
+									>
+								</td>
+								<td>{{ $opcion->masa_nombre }}</td>
+								<td>{{ $opcion->tamanho_nombre }}</td>
+								<td>{{ Moneda::guaranies($opcion->precio) }}</td>
+							</tr>
+						@endforeach
+					</table>
+					@else
+						Precio: {{ Moneda::guaranies($producto->precio) }} <br>
+					@endif
+					@if(count($agregados) > 0)
+						<table>
+							<tr>
+								<td>Extra</td>
+								<td>Costo</td>
+								<td>Agregar</td>
+							</tr>
+							@foreach($agregados as $agregado)
+								<td>{{ $agregado->nombres }}</td>
+								<td>{{ Moneda::guaranies($agregado->precio_extra) }}</td>
+								<td><input type="checkbox" name="E:{{ $agregado->codigo }}" id="E:{{ $agregado->codigo }}"></td>
+							@endforeach
+						</table>
+					@endif
+						<div class="spinner">
+							<div class="spinner-number">
+								<input type="text" name="spinner-value" readonly="readonly" class="spinner-value" value="1">
+							</div>
+							<div class="spinner-arrows">
+								<span class="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
+								<span class="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
+							</div>
 						</div>
-						<div class="spinner-arrows">
-							<span class="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
-							<span class="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
-						</div>
-					</div>
-					<a href="{{ URL::to('carrito/add/'.$producto->codigo) }}" id="cartClick"><i class="fa fa-cart-plus red fa-2x"></i></a>
-				
-			</div>
+				</div>
+				<span id="cartClick" style="position: relative; height: 60px; display: inline-block"><i class="fa fa-cart-plus red fa-2x">Agregar al carrito</i>
+							<input type="submit" style="position: absolute;width: 100%; height: 100%; bottom: 0; top: 0; left: 0; right: 0; border: 0; background-color: rgba(0,0,0,0); color: rgba(0,0,0,0); cursor: pointer">
+						</span>
+			</form>
 			<br><span class="texto red"><a href="{{ URL::to('empresas/'.$empresa) }}"><i class="fa fa-reply"></i>Volver</a></span>
 		@endif
 	</div>
@@ -95,7 +113,7 @@
 			spinner.value.value--;
 		});*/
 
-		document.getElementById("cartClick").addEventListener("click", function(e){
+		/*document.getElementById("cartClick").addEventListener("click", function(e){
 			e.preventDefault();
 			document.getElementById("cartClick").href += "/" + spinn.value.value;
 			if(typeof document.getElementsByClassName('config_pizza') !== 'undefined'){
@@ -108,7 +126,7 @@
 			}
 			location.assign(document.getElementById("cartClick").href);
 			//console.log(document.getElementById("cartClick").href);
-		});
+		});*/
 		spinner = function(valueDOM, upDOM, downDOM){
 			var spinner = {
 				value : valueDOM,

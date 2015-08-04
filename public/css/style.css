@@ -509,7 +509,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 .spinner{
 	position: relative;
-	display: inline;
+	display: inline-block;
 	margin: 0 auto;
 }
 .spinner *{

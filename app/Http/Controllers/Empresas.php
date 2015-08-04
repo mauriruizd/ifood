@@ -56,12 +56,12 @@ class Empresas extends Controller {
 		->select('cat_pizza_tipo_masa.nombre as masa_nombre', 'cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_detalles.precio', 'cat_pizza_detalles.codigo as config_pizza')
 		->where('cat_pizza_config.producto_codigo', '=', $id_producto)
 		->get();
-		$extras = Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
+		$agregados = Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
 			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
-			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra')
+			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra', 'producto_sub_extras.codigo')
 			->get();
 		if(count($producto) > 0){
-			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extras'));
+			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados'));
 		} else {
 			return view('empresas.vistaProducto')->with('error', 'Producto no encontrado.');
 		}
