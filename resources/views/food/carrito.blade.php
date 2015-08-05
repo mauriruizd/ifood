@@ -26,15 +26,15 @@
 						</a>
 					</td>
 					<td>
-						@if(isset($pedido['configExtra']))
-							<a href="{{ URL::to('empresas/'.$pedido['producto']->slug.'/productos/'.$pedido['producto']->codigo) }}?config={{ $pedido['configExtra'] }}" class="item-categoria">
+						@if(isset($pedido['configPizza']))
+							<a href="{{ URL::to('empresas/'.$pedido['producto']->slug.'/productos/'.$pedido['producto']->codigo) }}?config={{ $pedido['configPizza'] }}" class="item-categoria">
 						@else
 							<a href="{{ URL::to('empresas/'.$pedido['producto']->slug.'/productos/'.$pedido['producto']->codigo) }}" class="item-categoria">
 						@endif
 							<img src="{{ URL::to($pedido['producto']->imagen_url) }}">
 						</a>
 					</td>
-					<td>{{ $pedido['producto']->denominacion }}</td>
+					<td>{{ $pedido['producto']->denominacion }}<span class="carrito-extras">{{ $pedido['configExtra']['nombre'] }}</span></td>
 					<td>
 						<div class="spinner spinner-carrito">
 						<div class="spinner-number">
