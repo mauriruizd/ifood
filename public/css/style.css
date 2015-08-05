@@ -65,13 +65,23 @@ body{
 	color: green;
 }
 .red{
-	color: #8A0808;
+	color: #721906;
 }
 .white{
 	color: white;
 }
 .font-20px{
 	font-size: 20px;
+}
+.error{
+	display: block;
+	border-radius: 5px;
+	width:100%;
+	margin: 15px 0;
+	background-color: #721906;
+	font-family: Pacifico;
+	font-size: 25px;
+	color:#FFF;
 }
 table, table td{
 	border: 1px solid #AAA;
@@ -432,7 +442,11 @@ input[type=range]::-webkit-slider-thumb{
 	border-left: 0px;
 	border-right: 0px;
 }
-
+.carrito-extras{
+	font-size: 14px;
+	margin: 0 5px;
+	text-transform: capitalize;
+}
 /*========================================================================*/
 /*																		  */
 /*========================FIN TEMPLATE EMPRESAS===========================*/
@@ -449,7 +463,7 @@ input[type=range]::-webkit-slider-thumb{
 #center h1{
 	font-family: Pacifico;
 	text-align: center;
-	color: #8A0808;
+	color: #721906;
 	padding: 25px 0;
 }
 .ayudas{
@@ -676,7 +690,7 @@ input[type=range]::-webkit-slider-thumb{
 	border-radius: 5px;
 	color: #FFF;
 	font-size: 2.5em;
-	background-color: #8A0808;
+	background-color: #721906;
 	cursor: pointer;
 	box-shadow: 0 3px 3px #AFAAAA;
 }
@@ -688,7 +702,7 @@ input[type=range]::-webkit-slider-thumb{
 	border-radius: 5px;
 	color: #FFF;
 	font-size: 2.5em;
-	background-color: #8A0808;
+	background-color: #721906;
 	cursor: pointer;
 	box-shadow: 0 3px 3px #AFAAAA;
 }

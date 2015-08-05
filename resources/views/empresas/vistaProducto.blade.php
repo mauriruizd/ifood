@@ -4,6 +4,9 @@
 		@if(isset($error))
 			<h1>{{ $error }}</h1><span class="texto red"><a href="{{ URL::to('empresas') }}"><i class="fa fa-reply"></i>Volver a menu empresas</a></span>
 		@else
+			@if( Session::has('error'))
+				<span class="error">{{ Session::get('error') }}</span>
+			@endif
 			<h1>{{ $producto->denominacion }}
 				@if ($favorito > 0)
 					<i class="fa fa-star" title="Marcado como favorito"></i>
@@ -23,7 +26,8 @@
 				</div>
 			</div>
 			<form action="{{ URL::to('carrito/add') }}" method="POST" id="agregarCarrito">
-				<div><div><input type="hidden" name="_token" value="{{ csrf_token() }}"></div></div>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="id_prod" value="{{ $producto->codigo }}">
 				<div id="carrito" class="texto">
 					@if(count($filtrosPizza) > 0)
 					<table class="tabla-collapse">
@@ -36,7 +40,7 @@
 						@foreach ($filtrosPizza as $opcion)
 							<tr>
 								<td>
-									<input type="radio" name="cod_detalle" class="config_pizza" value="{{ $opcion->config_pizza }}"
+									<input type="radio" name="config_pizza" class="config_pizza" value="{{ $opcion->config_pizza }}"
 									@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
 										{{ 'checked' }}
 									@endif
@@ -52,7 +56,7 @@
 						Precio: {{ Moneda::guaranies($producto->precio) }} <br>
 					@endif
 					@if(count($agregados) > 0)
-						<table>
+						<table class="tabla-collapse">
 							<tr>
 								<td>Extra</td>
 								<td>Costo</td>
@@ -75,9 +79,10 @@
 							</div>
 						</div>
 				</div>
-				<span id="cartClick" style="position: relative; height: 60px; display: inline-block"><i class="fa fa-cart-plus red fa-2x">Agregar al carrito</i>
-							<input type="submit" style="position: absolute;width: 100%; height: 100%; bottom: 0; top: 0; left: 0; right: 0; border: 0; background-color: rgba(0,0,0,0); color: rgba(0,0,0,0); cursor: pointer">
-						</span>
+				<span id="cartClick" style="position: relative; height: 60px; display: inline-block" class="form-submit-only lato">
+					<i class="fa fa-cart-plus white" style="vertical-align: middle"></i> Agregar al carrito
+					<input type="submit" style="position: absolute;width: 100%; height: 100%; bottom: 0; top: 0; left: 0; right: 0; border: 0; background-color: rgba(0,0,0,0); color: rgba(0,0,0,0); cursor: pointer">
+				</span>
 			</form>
 			<br><span class="texto red"><a href="{{ URL::to('empresas/'.$empresa) }}"><i class="fa fa-reply"></i>Volver</a></span>
 		@endif
