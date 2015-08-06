@@ -53,13 +53,19 @@ class Empresas extends Controller {
 		$filtrosPizza = ConfigPizza::join('cat_pizza_detalles', 'cat_pizza_detalles.cat_pizza_esp_codigo', '=', 'cat_pizza_config.cat_pizza_esp_codigo')
 		->join('cat_pizza_tipo_masa', 'cat_pizza_tipo_masa.codigo', '=', 'cat_pizza_detalles.cat_pizza_masa_codigo')
 		->join('cat_pizza_tamanhos', 'cat_pizza_tamanhos.codigo', '=', 'cat_pizza_detalles.cat_pizza_tamanho_codigo')
-		->select('cat_pizza_tipo_masa.nombre as masa_nombre', 'cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_detalles.precio', 'cat_pizza_detalles.codigo as config_pizza')
+		->select('cat_pizza_tipo_masa.nombre as masa_nombre', 'cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_detalles.precio', 'cat_pizza_detalles.codigo as config_pizza',
+			'cat_pizza_detalles.cat_pizza_esp_codigo as esp_codigo')
 		->where('cat_pizza_config.producto_codigo', '=', $id_producto)
 		->get();
-		$agregados = Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
+		$agregados = (count($filtrosPizza) == 0) ? Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
+			->where('empresa_codigo', '=', $producto->empresa_codigo)
 			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
 			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra', 'producto_sub_extras.codigo')
-			->get();
+			->get() : Extra::where('pespecialidad_codigo', '=', $filtrosPizza[0]->esp_codigo)
+				->where('empresa_codigo', '=', $producto->empresa_codigo)
+				->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
+				->select('productos_extras.nombres', 'producto_sub_extras.precio_extra', 'producto_sub_extras.codigo')
+				->get();
 		if(count($producto) > 0){
 			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados'));
 		} else {

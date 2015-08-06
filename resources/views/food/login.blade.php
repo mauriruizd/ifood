@@ -1,6 +1,9 @@
 @extends('user')
 @section('page-content')
 	<div class="center" id="center">
+		@if(Session::has('msg'))
+			<span class="msg">{{ Session::get('msg') }}</span>
+		@endif
 		<div id="user-ask">
 			<input type="text" id="quiero" placeholder="Qué deseas comer hoy?" autofocus>
 		</div>

@@ -73,7 +73,7 @@ body{
 .font-20px{
 	font-size: 20px;
 }
-.error{
+.msg{
 	display: block;
 	border-radius: 5px;
 	width:100%;
@@ -735,7 +735,7 @@ input[type=range]::-webkit-slider-thumb{
 	background-color: #FE5F3F;
 }
 .right-important{
-	float: right;
+	float: right!important;
 }
 /*------------------------------MAPA------------------------------*/
 #geoloc{

@@ -15,7 +15,6 @@ use App\Pedido;
 use App\PedidoDetalle;
 use App\PedidoDetalleExtra;
 use App\ArraySort;
-use App\Moneda;
 use App\Extra;
 use App\Empresa;
 use App\DireccionCliente;
@@ -112,7 +111,8 @@ class Carrito extends Controller {
 						'item' => $nPedidoDetalle->producto_descripcion,
 						'cantidad' => $nPedidoDetalle->cantidad,
 						'precio' => $nPedidoDetalle->precio,
-						'subtotal' => $nPedidoDetalle->subtotal
+						'subtotal' => $nPedidoDetalle->subtotal,
+						'extras' => $item['configExtra']['extras']
 					];
 				}
 				Queue::push(new EnviarSocket($socket_data));
@@ -122,7 +122,7 @@ class Carrito extends Controller {
 		}
 		Session::forget('subtotal');
 		Session(['carrito.delivery' => 0, 'carrito.direccion' => 0, 'carrito.items' => array()]);
-		return view('uncatched')->with('error', 'Pedido concretado con exito!');
+		return Redirect::to('login')->with('msg', 'Pedido concretado con exito!');
 	}
 
 	public function SeleccionarDireccion($id){
@@ -173,9 +173,10 @@ class Carrito extends Controller {
 						$extras['nombre'] .= $extra->nombres;
 						$extras['precio'] += $extra->precio_extra;
 						$extras['extras'][] = $extra;
-						if ($count > count($nuevoProd)){
-							$extras['nombre'] .= ', ';
+						if ($count < count($nuevoProd)){
+							$extras['nombre'] .= ' + ';
 						}
+						$count++;
 					}
 				}
 			}
@@ -189,7 +190,7 @@ class Carrito extends Controller {
 		}
 		Session(['carrito.items.'.$id => $nuevoPedido]);
 		$this->UpdateDelivery();
-		return Redirect::to('empresas/'.$producto->slug);
+		return Redirect::to('empresas/'.$producto->slug)->with('msg', 'Producto agregado con exito');
 	}
 	/*---------CONFIGURACIONES POR CATEGORIA-----------*/
 

@@ -18,8 +18,8 @@
 				<img src="{{ URL::to('img/logo-sin-moto.png') }}" alt="Delcheff" title="Delcheff">
 			</a>
 			@if (Session::has('hungry_user'))
-				<div id="barra_top" class="right">
-					<span class="right" id="saludo">
+				<div id="barra_top" class="right-important inner-20">
+					<span id="saludo">
 						<span class="hi">Hola {{ Session::get('hungry_user')->nombres }} </span>
 						<a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i></a>
 						<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>

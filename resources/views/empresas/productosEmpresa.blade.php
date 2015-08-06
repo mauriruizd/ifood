@@ -1,6 +1,9 @@
 @extends('user')
 @section('page-content')
 	<div id="center">
+		@if(Session::has('msg'))
+			<span class="msg">{{ Session::get('msg') }}</span>
+		@endif
 		<a href="{{ URL::to('empresas') }}" class="texto red"><i class="fa fa-reply"></i>Volver a empresas</a><br>
 		<span class="item-categoria">
 			<img src="{{ URL::to($empresa->logo_url) }}" alt="{{ $empresa->nombre }}">

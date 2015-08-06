@@ -5,7 +5,7 @@
 			<h1>{{ $error }}</h1><span class="texto red"><a href="{{ URL::to('empresas') }}"><i class="fa fa-reply"></i>Volver a menu empresas</a></span>
 		@else
 			@if( Session::has('error'))
-				<span class="error">{{ Session::get('error') }}</span>
+				<span class="msg">{{ Session::get('error') }}</span>
 			@endif
 			<h1>{{ $producto->denominacion }}
 				@if ($favorito > 0)
@@ -63,9 +63,11 @@
 								<td>Agregar</td>
 							</tr>
 							@foreach($agregados as $agregado)
-								<td>{{ $agregado->nombres }}</td>
-								<td>{{ Moneda::guaranies($agregado->precio_extra) }}</td>
-								<td><input type="checkbox" name="E:{{ $agregado->codigo }}" id="E:{{ $agregado->codigo }}"></td>
+								<tr>
+									<td>{{ $agregado->nombres }}</td>
+									<td>{{ Moneda::guaranies($agregado->precio_extra) }}</td>
+									<td><input type="checkbox" name="E:{{ $agregado->codigo }}" id="E:{{ $agregado->codigo }}"></td>
+								</tr>
 							@endforeach
 						</table>
 					@endif
