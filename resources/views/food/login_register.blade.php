@@ -1,6 +1,6 @@
 @section('login_register')
 <div id="login_register">
-	<div id="login" class="showUp">
+	<div id="inicio" class="showUp">
 		<span id="closeLogin" class="closeBtn" onclick="hideForm(0)">x</span>
 		<form action="login" name="loginForm" id="loginForm" method="POST" class="form-estilizado">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">

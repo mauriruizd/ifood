@@ -68,7 +68,7 @@ class ControlUsuarios extends Controller {
 			Session::put('carrito', $newCarrito);
 		}
 		Session::put('hungry_user', $user);
-		return Redirect::to("login");
+		return Redirect::to("inicio");
 	}
 
 	public function ControlLogout(){

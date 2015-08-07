@@ -14,7 +14,7 @@
 <div id="wrap">
 	<div id="top-nav">
 		<div class="center">
-			<a href="{{ URL::to('login') }}" class="logo">
+			<a href="{{ URL::to('inicio') }}" class="logo">
 				<img src="{{ URL::to('img/logo-sin-moto.png') }}" alt="Delcheff" title="Delcheff">
 			</a>
 			@if (Session::has('hungry_user'))
@@ -32,7 +32,7 @@
 	</div>
 	<div id="sidemenu">
 		<ul>
-			<a href="{{ URL::to('login') }}"><li>Inicio</li></a>
+			<a href="{{ URL::to('inicio') }}"><li>Inicio</li></a>
 			<a href="{{ URL::to('empresas') }}"><li>Empresas</li></a>
 			<a href="{{ URL::to('categorias') }}"><li>Categorias</li></a>
 			<a href="{{ URL::to('favoritos') }}"><li>Favoritos</li></a>
