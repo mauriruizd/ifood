@@ -94,7 +94,7 @@
   </head>
   
 
-  <body ng-controller="ControladorFiltros">
+  <body>
 
   <section id="container" >
       <!--header start-->
