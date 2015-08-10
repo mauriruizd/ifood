@@ -127,42 +127,36 @@ $(document).ready(function(){
         <h1><strong>Usuarios </strong></h1> 
     </div><!--task-progress-->
        <hr>
-     
 
-                              
 
                                           <div class="ajuste_user">
+                                              {!!Form::open(['route'=>'usuario.store', 'method'=>'POST'])!!}
+                                              <div class="form-group">
+                                                  {!!Form::label('Nombre:')!!}
+                                                  {!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Ingrese su nombre'])  !!}
+                                              </div>
+                                              <div class="form-group">
+                                                  {!! Form::label('Email:') !!}
+                                                  {!! Form::email('email',null,['class'=>'form-control','placeholder'=>'Ingrese su email']) !!}
+                                              </div>
+                                              <div class="form-group">
+                                                  {!! Form::label('Password') !!}
+                                                  {!! Form::password('password',['class'=>'form-control','placeholder'=>'Ingrese su password']) !!}
+                                              </div>
+                                              <div class="form-group">
+                                                  <label class="label_radio r_off" for="radio-01">
+                                                      {!! Form::radio('activo', '1') !!}Administrador
+                                                  </label>
+                                                  <label class="label_radio r_off" for="radio-01">
+                                                      {!! Form::radio('activo', '0') !!}Operador
+                                                  </label>
 
-                                              <form role="form">
-                                                  <div class="form-group">
-                                                      <label for="exampleInputEmail1">Nombre</label>
-                                                      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                                                  </div>
-                                                   <div class="form-group">
-                                                      <label for="exampleInputEmail1">Usuario</label>
-                                                      <input type="text" class="form-control" id="usuario" placeholder="usuario">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="exampleInputPassword1">Password</label>
-                                                      <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-                                                  </div>
-                                                  
+                                              </div>
+                                              {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
+
+                                              {!!Form::close()!!}
 
 
-
-                                     
-                                      <div class="radios">
-                                              <label class="label_radio r_off" for="radio-01">
-                                                  <input name="sample-radio" id="radio-01" value="1" type="radio" checked=""> Administrador
-                                              </label>
-                                              <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
-                                              <label class="label_radio r_off" for="radio-02">
-                                                  <input name="sample-radio" id="radio-01" value="1" type="radio"> Operador
-                                              </label>
-                                              
-                                          </div>
-                                         <button type="submit" class="btn btn-danger">Guardar</button>
-                                              </form>
 
                                           </div>
 <hr>
