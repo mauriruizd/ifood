@@ -1,5 +1,7 @@
 @extends("admin.index")
 @section("contenido")
+    @include('alerts.errors')
+    @include('alerts.request')
 <section id="main-content">
           <section class="wrapper">
               <!--state overview start-->
