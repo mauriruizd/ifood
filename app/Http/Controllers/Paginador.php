@@ -133,7 +133,8 @@ class Paginador extends Controller {
 	}
 
 	public function SettingsFavoritos(){
-		$favoritos = Favorito::join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
+		$favoritos = Favorito::where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+		->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
 		->join('persona_empresas', 'persona_empresas.codigo', '=', 'favoritos_empresa_codigo')
 		->select('persona_empresas.slug', 'productos.denominacion', 'productos.imagen_url', 'productos.denominacion',
 			'favoritos.favoritos_producto_codigo','favoritos.codigo')

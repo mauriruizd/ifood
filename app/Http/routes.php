@@ -28,7 +28,7 @@ Route::get("logout", "ControlUsuarios@ControlLogout");
 
 
 Route::group(['middleware' => 'LoginChecker'], function(){
-	Route::get("login", "Paginador@PrimeraVistaUsuario");
+	Route::get("inicio", "Paginador@PrimeraVistaUsuario");
 
 	Route::get("settings", function(){
 		return Redirect::to('settings/generales');
@@ -54,6 +54,7 @@ Route::group(['middleware' => 'LoginChecker'], function(){
 	Route::get("carrito/pasodos",'Carrito@PasoDos');
 	Route::get("carrito/pasotres", ['middleware' => 'CarritoChecker', 'uses' => 'Carrito@PasoTres']); //Resumen Pedido
 	Route::get("carrito/commit", ['middleware' => 'CarritoChecker', 'uses' => 'Carrito@Commit']);
+	Route::post("carrito/add", "Carrito@Add");
 	Route::get("carrito/add/{id_producto}", "Carrito@AddProducto");
 	Route::get("carrito/add/{id_producto}/{qtd}", "Carrito@AddProducto");
 	Route::get("carrito/add/{id_producto}/{qtd}/{config}", "Carrito@AddProductoConfig");
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'LoginChecker'], function(){
 	Route::get("seleccionarDireccion/{id}", "Carrito@SeleccionarDireccion");
 
 	Route::get("favoritos", "Paginador@Favoritos");
+	Route::get("busquedaAjax", "Paginador@BusquedaAjax");
 });
 
 
@@ -111,8 +113,6 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 Route::get("facebook/login", "ControlUsuarios@FacebookLogin");
 Route::get("facebook", "ControlUsuarios@FacebookRedirect");
 /*----------FIN SOCIALITE----------*/
-
-Route::get("busquedaAjax", "Paginador@BusquedaAjax");
 
 Route::get("delivery", "Carrito@UpdateDelivery");
 

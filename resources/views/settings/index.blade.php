@@ -14,12 +14,12 @@
 <div id="wrap">
 	<div id="top-nav">
 		<div class="center">
-			<a href="{{ URL::to('login') }}" class="logo">
+			<a href="{{ URL::to('inicio') }}" class="logo">
 				<img src="{{ URL::to('img/logo-sin-moto.png') }}" alt="Delcheff" title="Delcheff">
 			</a>
 			@if (Session::has('hungry_user'))
-				<div id="barra_top" class="right">
-					<span class="right" id="saludo">
+				<div id="barra_top" class="right-important inner-20">
+					<span id="saludo">
 						<span class="hi">Hola {{ Session::get('hungry_user')->nombres }} </span>
 						<a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i></a>
 						<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
@@ -32,7 +32,7 @@
 	</div>
 	<div id="sidemenu">
 		<ul>
-			<a href="{{ URL::to('login') }}"><li>Inicio</li></a>
+			<a href="{{ URL::to('inicio') }}"><li>Inicio</li></a>
 			<a href="{{ URL::to('empresas') }}"><li>Empresas</li></a>
 			<a href="{{ URL::to('categorias') }}"><li>Categorias</li></a>
 			<a href="{{ URL::to('favoritos') }}"><li>Favoritos</li></a>

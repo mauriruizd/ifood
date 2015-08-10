@@ -1,6 +1,9 @@
 @extends('user')
 @section('page-content')
 	<div class="center" id="center">
+		@if(Session::has('msg'))
+			<span class="msg">{{ Session::get('msg') }}</span>
+		@endif
 		<div id="user-ask">
 			<input type="text" id="quiero" placeholder="Qué deseas comer hoy?" autofocus>
 		</div>
@@ -36,19 +39,51 @@
 		</div>
 	</div>
 	<script>
-		var quiero = document.getElementById("quiero");
-		var resultados = document.getElementById("resultados");
-		var ajaxTimer;
-		$('#quiero').on('keyup', function(){
-			if ($('#quiero').val() == '')
-				return;
-			if (typeof ajaxTimer == 'number'){
-				clearTimeout(ajaxTimer);
-				ajaxTimer = setTimeout(buscar, 300);
-			} else {
-				ajaxTimer = setTimeout(buscar, 300);
-				$('#resultados').html('');
+		var buscador = {
+			counter : 0,
+			calls : [],
+			input : document.getElementById('quiero'),
+			output : document.getElementById('resultados'),
+			url : '{{ URL::to('busquedaAjax') }}',
+			makeNew : function(){
+				if (buscador.input.value !== '') {
+					buscador.abort();
+					var ajax = new XMLHttpRequest();
+					ajax.counter = buscador.counter;
+					ajax.onreadystatechange = function(){
+						if(ajax.readyState == 4 && ajax.status == 200){
+							buscador.respond(ajax.responseText);
+						}
+					}
+					ajax.open('GET', buscador.url + '?busq=' + buscador.input.value, true);
+					ajax.send();
+					buscador.calls.push(ajax);
+					buscador.counter++;
+				} else {
+					buscador.abort(true);
+					buscador.clearOutput();
+				}
+			},
+			respond : function(res){
+				buscador.output.innerHTML = res;
+			},
+			abort : function(all){
+				if(typeof all == 'undefined')
+					all = false;
+				if (buscador.calls.length == 0)
+					return;
+				for(var i=0; i < buscador.calls.length; i++){
+					if(buscador.counter != buscador.calls[i].counter || all) {
+						buscador.calls[i].abort();
+					}
+				}
+			},
+			clearOutput : function(){
+				buscador.output.innerHTML = '';
 			}
+		};
+		$('#quiero').on('keyup', function(){
+			setTimeout(buscador.makeNew, 150);
 		});
 
 		$('.tab')[0].style.display = 'block';
@@ -61,17 +96,5 @@
 				$('.tab')[index].style.display = 'block';
 			});
 		});
-
-		function buscar(){
-			var busq = new XMLHttpRequest;
-			busq.onreadystatechange = function(){
-				if (busq.readyState == 4 && busq.status == 200){
-					resultados.innerHTML = busq.responseText;
-				}
-			}
-			busq.open("GET", "{{ URL::to('busquedaAjax') }}?busq=" + quiero.value, true);
-			busq.send();
-		}
-
 	</script>
 @stop
