@@ -2,25 +2,29 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class ControlPanel extends Controller {
+	public function __construct(){
+		$this->middleware('auth',['only'=>'control']);
+	}
 
-	public function index(){
-		//$user
+	public function control(){
+
 		return view('admin.panel');
-
 	}
 	public function usuario(){
-		return view('admin.usuario');
+		$users = User::paginate(5);
+	return view('usuario.create', compact('users'));
 
 	}
 	public function cadastro(){
 		return view('admin.cadastro');
 
 	}
-		public function promociones(){
+	public function promociones(){
 		return view('admin.promociones');
 
 	}
@@ -45,6 +49,12 @@ class ControlPanel extends Controller {
 	public function vegana(){
 		return view('admin.vegana');
 	}
+	public function login(){
+		/*$hash = User::find(6);
+		$hash->password=Hash::make('123');
+		$hash->save();*/
 
+		return view('admin.login');
+	}
 
 }
