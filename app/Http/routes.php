@@ -94,13 +94,20 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 
 /*-----------REST-------------*/
 	Route::resource("v1/api/empresas", "RestEmpresas", ['only' => ['index', 'show']]);
+	Route::get('v1/api/empresas/{id}/productos', "RestEmpresas@productos");
+	Route::get('v1/api/empresas/{id}/categorias', "RestEmpresas@categorias");
+	Route::get('v1/api/empresas/{id}/subcategorias', "RestEmpresas@subcategorias");
+	Route::get('v1/api/empresas/{id}/extras', "RestEmpresas@extras");
+	Route::get('v1/api/empresas/{id}/pizza/especialidades', "RestEmpresas@especialidades_pizza");
 	Route::resource("v1/api/categorias", "RestCategorias", ["only" => ['index', 'show']]);
 	Route::resource("v1/api/clientes", "RestClientes", ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 	Route::post("v1/api/clientes/login", "RestClientes@login");
 
 	Route::resource("v1/api/direcciones", "RestDirecciones", ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 	Route::resource("v1/api/productos", "RestProductos", ["only" => ['index', 'show']]);
+	Route::get("v1/api/productos/{id}/extras", "RestProductos@extras");
 	Route::resource("v1/api/favoritos", "RestFavoritos", ["only" => ['index', 'show', 'store', 'destroy']]);
+	Route::resource("v1/api/ciudades", "RestCiudades", ["only" => ['index']]);
 
 	Route::get("session", function(){
 		dd(Session::all());

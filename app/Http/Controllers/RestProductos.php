@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Extra;
 use Input;
 
 use App\Producto;
@@ -17,32 +18,12 @@ class RestProductos extends Controller {
 	 */
 	public function index()
 	{
-		$empresa_codigo = Input::query('empresa_codigo');
-		$n = Input::has('n') ? Input::query('n') : 5;
-		$productos = Producto::where('empresa_codigo', '=', $empresa_codigo)
-		->paginate($n);
+		$productos = Producto::select('codigo', 'denominacion', 'imagen_url', 'descripcion', 'categoria_codigo', 'empresa_codigo',
+			'precio')
+			->where('estado', '=', 'activo')
+		->paginate(10);
 
 		return $productos;
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
 	}
 
 	/**
@@ -53,40 +34,26 @@ class RestProductos extends Controller {
 	 */
 	public function show($id)
 	{
-		return Producto::find($id);
+		return Producto::select('codigo', 'denominacion', 'imagen_url', 'descripcion', 'categoria_codigo', 'empresa_codigo',
+			'precio')
+			->where('estado', '=', 'activo')
+		->find($id);
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Retorna los extras del producto
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param int $id
+	 * @return mixed
+	 *
 	 */
-	public function edit($id)
-	{
-		//
-	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	public function extras($id){
+		return Extra::join('productos', 'productos.subcategoria_codigo', '=', 'producto_sub_extras.subcategoria_codigo')
+			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
+			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra')
+			->where('productos.codigo', '=', $id)
+			->get();
 	}
 
 }

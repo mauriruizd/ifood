@@ -37,14 +37,16 @@
 							<td><b><i>Tamaño:</i></b></td>
 							<td><b><i>Precio:</i></b></td>
 						</tr>
+						{!! $i = 1 !!}
 						@foreach ($filtrosPizza as $opcion)
 							<tr>
 								<td>
-									<input type="radio" name="config_pizza" class="config_pizza" value="{{ $opcion->config_pizza }}"
+									<input type="radio" name="config_pizza" id="config_pizza_{{$i}}" class="config_pizza radio" value="{{ $opcion->config_pizza }}"
 									@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
 										{{ 'checked' }}
 									@endif
 									>
+									<label for="config_pizza_{{$i}}"></label>
 								</td>
 								<td>{{ $opcion->masa_nombre }}</td>
 								<td>{{ $opcion->tamanho_nombre }}</td>
