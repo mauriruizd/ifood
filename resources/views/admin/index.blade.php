@@ -94,7 +94,7 @@
   </head>
   
 
-  <body ng-controller="ControladorFiltros">
+  <body>
 
   <section id="container" >
       <!--header start-->
@@ -117,8 +117,8 @@
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="{{URL::to('admin/img/avatar1_small.jpg')}}">
-                            <span class="username">Marcos Martinez</span>
+                           <!-- <img alt="" src="{{URL::to('admin/img/avatar1_small.jpg')}}">-->
+                            <span class="username">{!! Auth::user()->name !!}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
@@ -126,7 +126,7 @@
                           <!--  <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>-->
-                            <li class="red"><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li class="red"><a href="/logout"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -165,6 +165,7 @@
                         
                       </ul>
                   </li>
+                  @if(Auth::user()->roles==1)
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -176,13 +177,8 @@
                           <li><a  href="calendar.html">Cotizaciones</a></li>
                       </ul>
                   </li>
-                  <li>
-                      <a href="google_maps.html" >
-                          <i class="fa  fa-bar-chart-o"></i>
-                          <span>Informes</span>
-                      </a>
-                  </li>
 
+                  @endif
 
 
 

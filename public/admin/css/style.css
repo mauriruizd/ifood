@@ -5708,11 +5708,13 @@ a.guest-on i {
     .cuadro_pedido{
         width: 100%;
         min-height: 600px;
-
-       
         height: auto;
-        
     }
+
+#cuadro2{
+    padding: 10px;
+}
+
     .select_ordenes{
 
         margin: 0 auto;

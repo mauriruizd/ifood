@@ -134,13 +134,32 @@ Route::get("param/{par}", "Paginador@param");
 
 
 /*------ADMINISTRACION PARA LAS EMPRESAS-------*/
-Route::get("control", "ControlPanel@index");
+Route::get("control", "ControlPanel@control");
+Route::get("login","ControlPanel@login");
+
+
+
+
 Route::get("control/usuarios","ControlPanel@usuario");
 Route::get("control/cadastro","ControlPanel@cadastro");
 Route::get("control/cadastro/pizza","ControlPanel@pizza");
 Route::get("control/cadastro/lomito","ControlPanel@lomito");
 Route::get("control/cadastro/hamburguesas","ControlPanel@hamburguesas");
 Route::get("control/cadastro/bebidas","ControlPanel@bebidas");
+Route::get("control/cadastro/helado","ControlPanel@helado");
+Route::get("control/cadastro/oriental","ControlPanel@oriental");
+Route::get("control/cadastro/vegana","ControlPanel@vegana");
 Route::get("control/promociones","ControlPanel@promociones");
+
+Route::resource('usuario', 'EmpresaController');
+
+Route::resource('log','LogController');
+Route::get('logout', 'LogController@logout');
+//Route::POST('controls', ['as'=>'controls','uses'=>'LogController@LoginControl']);
+
+
+
+
+
 /*------ADMINISTRACION PARA LAS EMPRESAS FIN-------*/
 

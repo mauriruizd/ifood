@@ -30,6 +30,7 @@ class Kernel extends HttpKernel {
 		'LoginChecker' => 'App\Http\Middleware\LoginChecker',
 		'CarritoChecker' => 'App\Http\Middleware\CarritoChecker',
 		'CORS' => 'App\Http\Middleware\CORS',
+		'admin'=> 'App\Http\Middleware\Admin',
 	];
 
 }

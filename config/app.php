@@ -138,6 +138,7 @@ return [
 		'Laravel\Socialite\SocialiteServiceProvider',
 
 
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -146,6 +147,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		'Collective\Html\HtmlServiceProvider',
 
 	],
 
@@ -196,6 +198,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Moneda'	=> 'App\Moneda',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+		'Form' => 'Collective\Html\FormFacade',
+		'Html' => 'Collective\Html\HtmlFacade',
 
 	],
 
