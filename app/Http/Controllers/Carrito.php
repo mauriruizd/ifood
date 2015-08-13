@@ -122,7 +122,7 @@ class Carrito extends Controller {
 		}
 		Session::forget('subtotal');
 		Session(['carrito.delivery' => 0, 'carrito.direccion' => 0, 'carrito.items' => array()]);
-		return Redirect::to('login')->with('msg', 'Pedido concretado con exito!');
+		return Redirect::to('inicio')->with('msg', 'Pedido concretado con exito!');
 	}
 
 	public function SeleccionarDireccion($id){
@@ -136,9 +136,11 @@ class Carrito extends Controller {
 
 	public function Add(){
 		$nuevoProd = Input::all();
-		//dd($nuevoProd);
 		$id = $nuevoProd['id_prod'];
 		$cant = $nuevoProd['spinner-value'];
+		$lista_extras = isset($nuevoProd['extras']) ? $nuevoProd['extras'] : [];
+		$sabores_extras = isset($nuevoProd['sabores_extra']) ? $nuevoProd['sabores_extra'] : [];
+		//dd($nuevoProd);
 		unset($nuevoProd['id_prod']);
 		unset($nuevoProd['_token']);
 		unset($nuevoProd['spinner-value']);
@@ -155,6 +157,9 @@ class Carrito extends Controller {
 			->first();
 		$nuevoPedido = array('producto' => $producto, 'cantidad' => $cant, 'configExtra' => null);
 		if(count($nuevoProd) !== 0){
+			foreach($sabores_extras as $sabor_extra){
+				$producto->denominacion .= ', '.Producto::select('denominacion')->find($sabor_extra)->denominacion;
+			}
 			if(isset($nuevoProd['config_pizza'])){
 				$configPizza = $this->ConfigPizza($nuevoProd['config_pizza']);
 				$producto->denominacion .= $configPizza['denominacion'];
@@ -163,24 +168,19 @@ class Carrito extends Controller {
 				unset($nuevoProd['config_pizza']);
 			}
 			$count = 1;
-			$extras_set = false;
-			//dd($nuevoProd);
-			foreach($nuevoProd as $configs => $on){
-				if($pos = strpos($configs, 'E:') == false){
-					$extras_set = true;
-					$extra = $this->GetExtra(substr($configs, ($pos + 1)));
-					if(!is_null($extra)){
-						$extras['nombre'] .= $extra->nombres;
-						$extras['precio'] += $extra->precio_extra;
-						$extras['extras'][] = $extra;
-						if ($count < count($nuevoProd)){
-							$extras['nombre'] .= ' + ';
-						}
-						$count++;
+			foreach($lista_extras as $configs){
+				$extra = $this->GetExtra($configs);
+				if(!is_null($extra)){
+					$extras['nombre'] .= $extra->nombres;
+					$extras['precio'] += $extra->precio_extra;
+					$extras['extras'][] = $extra;
+					if ($count < count($lista_extras)){
+						$extras['nombre'] .= ' + ';
 					}
+					$count++;
 				}
 			}
-			if($extras_set){
+			if(!is_null($lista_extras)){
 				$nuevoPedido['configExtra'] = $extras;
 				$producto->precio += $extras['precio'];
 			}

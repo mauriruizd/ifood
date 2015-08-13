@@ -57,18 +57,6 @@
 					height: '183px'
 				}, 100)
 			});
-			/*
-			document.getElementById("page-content").addEventListener("click", function(){
-				document.getElementById("sidemenu").style.height = '0';
-			});
-			document.getElementsByClassName("sidemenubtn")[0].addEventListener("click", function(e){
-				e.preventDefault();
-				if(document.getElementById("sidemenu").clientHeight == 0){
-					document.getElementById("sidemenu").style.height = 'initial';
-				} else {
-					document.getElementById("sidemenu").style.height = '0';
-				}
-			});*/
 		</script>
 		@include('footer')
 		@yield('footer')

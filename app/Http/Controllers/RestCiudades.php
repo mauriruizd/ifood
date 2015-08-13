@@ -16,12 +16,12 @@ class RestCiudades extends Controller {
 	 */
 	public function index()
 	{
-		return Ciudad::all();
+		return Ciudad::select('codigo', 'nombre', 'imagen_url')->where('estado', '=', 1)->get();
 	}
 
 	public function show($id)
 	{
-		//
+		return Ciudad::select('codigo', 'nombre', 'imagen_url')->where('estado', '=', 1)->find($id);
 	}
 
 

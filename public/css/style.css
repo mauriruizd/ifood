@@ -365,6 +365,9 @@ table, table td{
 #filtros-activos > div{
 	display: none;
 }
+.filtro{
+	transition: all 0.5s ease;
+}
 .filtro-seleccionado{
 	background-color: rgba(0,0,0,0.1);
 	border-bottom: 4px solid #E4B900;
