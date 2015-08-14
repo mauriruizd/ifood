@@ -30,10 +30,13 @@ margin-top: 10px;
 }
 .input-group{
 top: 10px;
-left: 10px;
+
+
+  
+
 }
 .input-group input[type=text]{
-  width: 350px;
+  
   background: #fff;
   height: 34px;
 }
