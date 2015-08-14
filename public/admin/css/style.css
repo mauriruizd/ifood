@@ -4378,9 +4378,9 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 
 /*formalarios*/
 .form_box{
-    width: 300px;
+    width: 95%;
     height: auto;
-    margin: 5px;
+    margin: 0 auto;
 }
 #caja{
     display: inline-block;
@@ -4389,6 +4389,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 
    
 }
+
 .text_class{
      padding-bottom: 10px;
 }
@@ -4407,10 +4408,13 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 }
 .text_class textarea {
     background: #e5e6e7;
-    width: 340px;
+    width: 100%;
     height: 90px;
     border:0;
 
+}
+.btngrande{
+padding: 20px;
 }
 .text_class input[type=checkbox] {
     background: red;
@@ -4428,29 +4432,31 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
     padding: 20px;
 }
 .cuadro_de_cat{
-
-    width: 305px;
+    min-width: ;
     height: auto;
 }
 .cuadro_gris{
     vertical-align: text-top;
     display: inline-block;
-   width:353px;
+    min-width: 283px;
+   width:100%;
     height: auto;
     border:1px solid silver;
+    margin-top: 10px;
 }
 .cuadro_gris0{
     vertical-align: text-top;
     display: inline-block;
-   width:1000px;
+   width:100%;
     height: auto;
     border:1px solid silver;
+    margin-top: 10px;
 }
 .cuadro_gris1{
     vertical-align: text-top;
     display: inline-block;
    width:310px;
-    height: auto;
+    height: 520px;
     border:1px solid silver;
 }
 .form_box1{
@@ -4462,14 +4468,14 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
   #caja1{
     
     display: inline-block;
-    width: 100px;
+    width: 130px;
     height: 30px;
   }
   #caja1 input[type=text] {
-    background: #e5e6e7;
-    width: 80px;
+
+    width: 120px;
     height: 32px;
-    border:0;
+
 }
 
 /*multiselect*/
