@@ -42,9 +42,15 @@ class PizzaControllerMasa extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store( Request  $request)
 	{
-		//
+		MasaPizza::create([
+			'nombre'=>$request['nombre'],
+		    'estado'=>1,
+		]);
+
+	Session::flash('message', 'Masa creado Exitosamente');
+		return Redirect::to('/PizzaControlMasa/create');
 	}
 
 	/**
@@ -64,9 +70,10 @@ class PizzaControllerMasa extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
-		//
+		$masaPizza = MasaPizza::find($codigo);
+		return view('usuario.edit_masa',['masaPizza'=>$masaPizza]);
 	}
 
 	/**
@@ -75,9 +82,14 @@ class PizzaControllerMasa extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($codigo, Request $request)
 	{
-		//
+		$masaPizza = MasaPizza::find($codigo);
+		$masaPizza->fill($request->all());
+		$masaPizza->save();
+		Session::flash('message','Masa actualizado exitosamente' );
+		return Redirect::to('/PizzaControlMasa/create');
+
 	}
 
 	/**
@@ -86,9 +98,11 @@ class PizzaControllerMasa extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($codigo)
 	{
-		//
+		$masaPizza = MasaPizza::destroy($codigo);
+		Session::flash('message','Masa Eliminado exitosamente' );
+		return Redirect::to('/PizzaControlMasa/create');
 	}
 
 }
