@@ -15,6 +15,7 @@ use App\Pedido;
 use App\PedidoDetalle;
 use App\PedidoDetalleExtra;
 use App\ArraySort;
+use App\Moneda;
 use App\Extra;
 use App\Empresa;
 use App\DireccionCliente;
@@ -45,9 +46,23 @@ class Carrito extends Controller {
 		Session(['carrito.delivery.total' => $total]);
 	}
 
+	private function getSubtotal(){
+		$items = Session::get('carrito.items');
+		$subtotal = 0;
+		foreach($items as $item){
+			$subtotal += $item['cantidad']*$item['producto']->precio;
+		}
+		$total = Session::get('carrito.delivery.total') + $subtotal;
+		if(Input::has('frmt') && Input::query('frmt')=='true'){
+			$subtotal = Moneda::guaranies($subtotal);
+			$total = Moneda::guaranies($total);
+		}
+		return ['subtotal' => $subtotal, 'total'=> $total];
+	}
+
 	public function VistaCarrito(){
+		Session(['carrito.subtotal' => $this->getSubtotal()['subtotal']]);
 		$pedidos = Session::get('carrito');
-		//dd($pedidos);
 		return view('food.carrito', compact('pedidos'));
 	}
 
@@ -125,11 +140,15 @@ class Carrito extends Controller {
 		return Redirect::to('inicio')->with('msg', 'Pedido concretado con exito!');
 	}
 
-	public function SeleccionarDireccion($id){
+	public function SeleccionarDireccion(){
+		$datos = Input::all();
+		if(!isset($datos['direccion'])){
+			return Redirect::back()->with('msg', 'Seleccione una direccion');
+		}
 		if(Session::has('carrito.direccion')){
-			Session(['carrito.direccion' => $id]);
+			Session(['carrito.direccion' => $datos['direccion']]);
 		} else {
-			Session::put('carrito.direccion', $id);
+			Session::put('carrito.direccion', $datos['direccion']);
 		}
 		return Redirect::to('carrito/pasotres');
 	}
@@ -219,7 +238,7 @@ class Carrito extends Controller {
 
 	public function UpdateProducto($id, $qtd){
 		Session(['carrito.items.'.$id.".cantidad" => $qtd]);
-		$item = Session::get('carrito.items.'.$id);
+		return $this->getSubtotal();
 	}
 
 	public function RemoveProducto($id_pedido){

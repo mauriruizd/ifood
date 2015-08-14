@@ -2,7 +2,7 @@
 @section('page-content')
 	<div id="center">
 		@if(count($pedidos['items']) > 0)
-		<table class="tabla-collapse degradegris">
+		<table class="tabla-collapse">
 			<thead>
 				<tr>
 					<th>Empresa</th>
@@ -14,9 +14,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-					$subtotal = 0;
-				?>
 				@foreach($pedidos['items'] as $pedido)
 				<tr class="item">
 					<input type="hidden" class="id_producto" value="{{ $pedido['producto']->codigo }}">
@@ -36,7 +33,7 @@
 					</td>
 					<td>{{ $pedido['producto']->denominacion }}<span class="carrito-extras">{{ $pedido['configExtra']['nombre'] }}</span></td>
 					<td>
-						<div class="spinner spinner-carrito">
+						<!--<div class="spinner spinner-carrito">
 						<div class="spinner-number">
 							<input type="text" disabled name="spinner-value" class="spinner-value" value="{{ $pedido['cantidad'] }}">
 						</div>
@@ -44,41 +41,48 @@
 							<span class="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
 							<span class="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
 						</div>
-					</div>
+					</div>-->
+						<div class="spinner">
+							<div class="pointer spinner-arrow-up">
+								<i class="fa fa-plus"></i>
+							</div>
+							<div>
+								<input type="text" name="spinner-value" class="spinner-value" readonly="readonly" value="{{ $pedido['cantidad'] }}">
+							</div>
+							<div class="pointer spinner-arrow-down">
+								<i class="fa fa-minus pointer"></i>
+							</div>
+						</div>
 					</td>
 					<td>{{ Moneda::guaranies($pedido['producto']->precio) }}</td>
 					<td><a href="{{ URL::to('carrito/remove/'.$pedido['producto']->codigo) }}"><i class="fa fa-times red"></i></td>
 				</tr>
-				<?php
-					$subtotal += $pedido['producto']->precio * $pedido['cantidad'];
-					Session(['carrito.subtotal' => $subtotal]);
-				?>
 				@endforeach
-				<tr class="no-borders">
-					<td class="keep-left"></td>
+				<tr>
+					<td></td>
 					<td></td>
 					<td>Subtotal</td>
 					<td></td>
 					<td></td>
-					<td class="keep-left keep-right">{{ Moneda::guaranies($subtotal) }}</td>
+					<td ><span id="subt">{{ Moneda::guaranies($pedidos['subtotal']) }}</span></td>
 				</tr>
 				@foreach($pedidos['delivery'] as $empresa => $costo)
-					<tr class="no-borders">
-						<td class="keep-left"></td>
+					<tr>
+						<td></td>
 						<td></td>
 						<td>Delivery {{ $empresa }}</td>
 						<td></td>
 						<td></td>
-						<td class="keep-left keep-right">{{ Moneda::guaranies($costo) }}</td>
+						<td>{{ Moneda::guaranies($costo) }}</td>
 					</tr>
 				@endforeach
-				<tr class="no-borders">
-					<td class="keep-left"></td>
+				<tr>
+					<td></td>
 					<td></td>
 					<td>Total</td>
 					<td></td>
 					<td></td>
-					<td class="keep-left keep-right"><strong>{{ Moneda::guaranies($pedidos['delivery']['total'] + $subtotal) }}<strong></td>
+					<td><strong><span id="tot">{{ Moneda::guaranies($pedidos['delivery']['total'] + $pedidos['subtotal']) }}</span><strong></td>
 				</tr>
 			</tbody>
 		</table>
@@ -97,7 +101,14 @@
 				codigo : (codigoDOM || 0),
 				update : function(){
 					var ajax = new XMLHttpRequest;
-					ajax.open("GET", "carrito/update/" + this.codigo.value + "/" + this.value.value);
+					ajax.onreadystatechange = function () {
+						if(ajax.readyState==4 && ajax.status==200){
+							var resp = JSON.parse(ajax.responseText);
+							$('#subt').html(resp.subtotal);
+							$('#tot').html(resp.total);
+						}
+					}
+					ajax.open("GET", "carrito/update/" + this.codigo.value + "/" + this.value.value + '?frmt=true');
 					ajax.send();
 				}
 			}

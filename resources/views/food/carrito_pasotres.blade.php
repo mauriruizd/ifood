@@ -3,6 +3,16 @@
 	<div id="center">
 		<h1>Resumen del pedido</h1>
 		<table class="tabla-collapse">
+			<thead>
+				<tr>
+					<td>
+						Descripción
+					</td>
+					<td>
+						Detalle
+					</td>
+				</tr>
+			</thead>
 			<tr>
 				<td><strong>Cantidad de items</strong></td>
 				<td>{{ $items }}</td>

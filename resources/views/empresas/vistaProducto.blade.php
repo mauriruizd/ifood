@@ -31,6 +31,7 @@
 				<div id="carrito" class="texto">
 					@if(count($filtrosPizza) > 0)
 					<table class="tabla-collapse">
+						<thead>
 						<tr>
 							<td>&nbsp;</td>
 							<td><b><i>Masa</i></b></td>
@@ -39,6 +40,8 @@
 							<td><b><i>Cant. de Sabores</i></b></td>
 							<td><b><i>Precio</i></b></td>
 						</tr>
+						</thead>
+						<tbody>
 						<?php $i = 1; ?>
 						@foreach ($filtrosPizza as $opcion)
 							<tr>
@@ -58,17 +61,22 @@
 							</tr>
 							<?php $i++; ?>
 						@endforeach
+						</tbody>
 					</table>
 					@else
 						Precio: {{ Moneda::guaranies($producto->precio) }} <br>
 					@endif
 					@if(count($agregados) > 0)
+						<h1>Elija los agregados (opcional)</h1>
 						<table class="tabla-collapse">
+							<thead>
 							<tr>
 								<td>Extra</td>
 								<td>Costo</td>
 								<td>Agregar</td>
 							</tr>
+							</thead>
+							<tbody>
 							@foreach($agregados as $agregado)
 								<tr>
 									<td>{{ $agregado->nombres }}</td>
@@ -76,53 +84,31 @@
 									<td><input type="checkbox" name="extras[]" value="{{ $agregado->codigo }}" id="E:{{ $agregado->codigo }}"></td>
 								</tr>
 							@endforeach
+							</tbody>
 						</table>
 					@endif
 						@if(!is_null($sabores_extras))
 							<div id="mas_sabores" style="display: none;">
+								<h1>Elija los sabores adicionales (opcional)</h1>
 								<table class="tabla-collapse">
+									<thead>
 									<tr>
-										<td>Agregar</td>
 										<td>Sabor</td>
+										<td>Agregar</td>
 									</tr>
+									</thead>
+									<tbody>
 									@foreach($sabores_extras as $sabor)
 										<tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
 											<td>{{ $sabor->denominacion }}</td>
+											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
 										</tr>
-										<tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr><tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr><tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr><tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox" class="sabor_extra" name="sabores_extra[]" value="{{ $sabor->codigo }}"></td>
-											<td>{{ $sabor->denominacion }}</td>
-										</tr>
-
-
-
 									@endforeach
+									</tbody>
 								</table>
 								</div>
 						@endif
-						<div class="spinner">
+						<!--<div class="spinner">
 							<div class="spinner-number">
 								<input type="text" name="spinner-value" readonly="readonly" class="spinner-value" value="1">
 							</div>
@@ -130,7 +116,12 @@
 								<span class="spinner-arrow-up"><i class="fa fa-angle-up"></i></span>
 								<span class="spinner-arrow-down"><i class="fa fa-angle-down"></i></span>
 							</div>
-						</div>
+						</div>-->
+							<div class="spinner">
+								<div class="pointer"><i class="fa fa-plus"></i></div>
+								<div><input type="text" readonly="readonly" value="1" id="spinner-value" name="spinner-value"></div>
+								<div class="pointer"><i class="fa fa-minus"></i></div>
+							</div>
 				</div>
 				<span id="cartClick" style="position: relative; height: 60px; display: inline-block" class="form-submit-only lato">
 					<i class="fa fa-cart-plus white" style="vertical-align: middle"></i> {{ $estaEnCarrito ? 'Modificar pedido' : 'Agregar al carrito' }}
@@ -176,8 +167,7 @@
 			});
 			return spinner;
 		};
-		spinn = new spinner(document.getElementsByClassName("spinner-value")[0],
-		document.getElementsByClassName("spinner-arrow-up")[0], document.getElementsByClassName("spinner-arrow-down")[0]);
+		spinn = new spinner($('#spinner-value')[0], $('.spinner:first div:first')[0], $('.spinner:first div:last')[0]);
 
 		function moreSabores(max){
 			sabores.elegidos = 0;

@@ -89,10 +89,12 @@
 		$('.tab')[0].style.display = 'block';
 		$('.filtro').each(function(index){
 			$(this).on('click', function(evt){
+				evt.preventDefault();
+				if(index == $('.filtro-seleccionado:first').index('.filtro'))
+					return;
 				$('.tab').hide('fast');
 				$('.filtro').removeClass('filtro-seleccionado');
 				$(this).addClass('filtro-seleccionado');
-				evt.preventDefault();
 				$('.tab')[index].style.display = 'block';
 			});
 		});
