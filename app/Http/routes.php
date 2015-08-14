@@ -142,7 +142,7 @@ Route::get("login","ControlPanel@login");
 
 Route::get("control/usuarios","ControlPanel@usuario");
 Route::get("control/cadastro","ControlPanel@cadastro");
-Route::get("control/cadastro/pizza","ControlPanel@pizza");
+
 Route::get("control/cadastro/lomito","ControlPanel@lomito");
 Route::get("control/cadastro/hamburguesas","ControlPanel@hamburguesas");
 Route::get("control/cadastro/bebidas","ControlPanel@bebidas");
@@ -151,12 +151,31 @@ Route::get("control/cadastro/oriental","ControlPanel@oriental");
 Route::get("control/cadastro/vegana","ControlPanel@vegana");
 Route::get("control/promociones","ControlPanel@promociones");
 
+Route::get("control/cadastro/pizza","ControlPanel@pizza");
+Route::get("control/cadastro/pizzaEspecialidad","ControlPanel@pizzaEspecialidad");
+
+
+
 Route::resource('usuario', 'EmpresaController');
+Route::resource('pizza', 'PizzaController');
+
+Route::post('pizza/create/tamanho', ['as'=>'pizza.TamanhoEspecialidad','uses'=>'PizzaController@TamanhoEspecialidad']);
+Route::delete('pizza/create/delete/{deleteEspecialidad}', ['as'=>'pizza.deleteEspecialidad','uses'=>'PizzaController@deleteEspecialidad']);
+Route::get('pizza/create/editar/{edit_tamanho}', ['as'=>'pizza.edit_tamanho','uses'=>'PizzaController@edit_tamanho']);
+Route::PUT('pizza/create/editar/{update_tamanho}', ['as'=>'pizza.update_tamanho','uses'=>'PizzaController@update_tamanho']);
+
+Route::get('pizza/create/estadotamanho/{update_estado}', ['as'=>'pizza.update_estado','uses'=>'PizzaController@update_estado']);
+
+Route::post('pizza/create/masa',['as'=>'pizza.MasaPizzaCreate', 'uses'=>'PizzaController@MasaPizzaCreate']);
+Route::delete('pizza/create/delete_masa/{deleteMasa}',['as'=>'pizza.deleteMasa', 'uses'=>'PizzaController@deleteMasa']);
 
 Route::resource('log','LogController');
 Route::get('logout', 'LogController@logout');
 //Route::POST('controls', ['as'=>'controls','uses'=>'LogController@LoginControl']);
-
+Route::resource('PizzaControl','PizzaControllerSabor');
+Route::resource('PizzaControlTamanho','PizzaControllerTamanho');
+Route::resource('PizzaControlMasa','PizzaControllerMasa');
+Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 
 
 

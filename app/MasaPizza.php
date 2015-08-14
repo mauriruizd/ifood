@@ -8,5 +8,7 @@ class MasaPizza extends Model {
 	protected $primaryKey = 'codigo';
 
 	public $timestamps = false;
+	protected $fillable = ['nombre', 'estado'];
+
 
 }

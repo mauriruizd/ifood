@@ -9,4 +9,6 @@ class TamanhoPizza extends Model {
 
 	public $timestamps = false;
 
+	protected $fillable = ['codigo','nombre', 'cant_porcion', 'cant_sabores','estado'];
+
 }

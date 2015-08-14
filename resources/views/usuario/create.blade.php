@@ -1,15 +1,9 @@
 @extends("admin.index")
 
-        @include('alerts.request')
 @section("contenido")
 
         <!--main content start-->
-<section id="main-content">
-    <section class="wrapper">
-        <!--state overview start-->
 
-        <!--state overview end-->
-        <!--panel principal-->
 
 
 
@@ -18,10 +12,7 @@
             <section class="panel">
                 <div class="panel-body progress-panel">
 
-                    <div class="task-progress">
-                        <h1><strong>Usuarios </strong></h1>
-                    </div><!--task-progress-->
-                    <hr>
+
 
 
                     <div class="ajuste_user">
@@ -118,30 +109,4 @@
 
 
 
-
-    <script type="text/javascript">
-        function ChangeItem(icon){
-
-            if(icon.className.indexOf('green') > 0){
-                icon.className = icon.className.replace('green', 'red');
-            } else {
-                icon.className = icon.className.replace('red', 'green');
-            }
-        }
-    </script>
-    <!--paginacion-->
-
-    <!--paginacion fin-->
-    <!--panel principal final-->
-    <!--weather statement start-->
-
-</section>
-
-<!--weather statement end-->
-
-</div>
-</div>
-
-</section>
-</section>
 @stop

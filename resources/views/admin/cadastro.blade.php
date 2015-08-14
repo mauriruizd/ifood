@@ -1,12 +1,5 @@
 @extends("admin.index")
 @section("contenido")
-     <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-              <!--state overview start-->
-            
-              <!--state overview end-->
-              <!--panel principal-->
 
 
 
@@ -15,15 +8,13 @@
   <section class="panel">
    <div class="panel-body progress-panel">
     
-    <div class="task-progress">
-        <h1><strong>Producto / Cadastro</strong></h1> 
-    </div><!--task-progress-->
-       <hr>
+
+
        <div class="cat_select">
        <div class="cat_select_marco">
             <div id="categorias_boton">
             <div class="iconos">
-            <a href="{{URL::to('control/cadastro/pizza')}}">
+            <a href="{{URL::to('/pizza/create')}}">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/pizza.png')}}">
             </div>
@@ -44,7 +35,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
-                <a href="{{URL::to('control/cadastro/hamburguesas')}}">
+                <a href="{{URL::to('/PizzaControl')}}">
              <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/hamburguesa.png')}}">
             </div>
@@ -128,34 +119,7 @@
 <!--****************************************************************-->
 
 
- 
 
- 
- <script type="text/javascript">
- function ChangeItem(icon){
-   
-        if(icon.className.indexOf('green') > 0){
-            icon.className = icon.className.replace('green', 'red');
-        } else {
-            icon.className = icon.className.replace('red', 'green');
-        }
- }
- </script>
- <!--paginacion-->
-
- <!--paginacion fin-->
-              <!--panel principal final-->
-                      <!--weather statement start-->
-
-                      </section>
-
-                      <!--weather statement end-->
-
-                  </div>
-              </div>
-
-          </section>
-      </section>
 
 
 

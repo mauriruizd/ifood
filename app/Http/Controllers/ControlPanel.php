@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\EspecialidadPizza;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -24,13 +25,18 @@ class ControlPanel extends Controller {
 		return view('admin.cadastro');
 
 	}
-	public function promociones(){
-		return view('admin.promociones');
+	public function pizza(){
+		return view('admin.PizzaEspecialidad');
 
 	}
-	public function pizza(){
-		return view('admin.pizza');
+	public function pizzaEspecialidad(){
+		return view('admin.PizzaSabor');
+
 	}
+	public function promociones(){
+		return view('admin.promociones');
+	}
+
 	public function lomito(){
 		return view('admin.lomito');
 	}

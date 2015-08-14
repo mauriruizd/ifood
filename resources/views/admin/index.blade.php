@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="miAp" >
   <head>
-    <meta charset="utf-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
@@ -95,6 +95,11 @@
   
 
   <body>
+  @include('alerts.errors')
+  @include('alerts.request')
+
+  @include('alerts.success')
+
 
   <section id="container" >
       <!--header start-->
@@ -195,21 +200,35 @@
 
       <!--main content start-->
 
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+
+              </div><!--blog de pedido fin-->
+              <div class="col-lg-12">
+                  <section class="panel">
+
+
+                      <div class="panel-body">
+                          <header class="panel-heading">
+                              Producto / Cadastro / Hamburguesas
+
+                          </header>
+
 @yield("contenido")
+
+
+                      </div>
+                  </section>
+              </div>
+          </section>
+      </section>
       
 
 
       <!--main content end-->
       <!--footer start-->
-      <footer class="site-footer1">
-          <div class="text-center">
-          <br>
-              2015 &copy; Wigo Creative www.Wigolabs.com
-              <a href="#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
+
       <!--footer end-->
   </section>
 

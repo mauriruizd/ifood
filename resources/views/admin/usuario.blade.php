@@ -1,6 +1,7 @@
 @extends("admin.index")
 @section("contenido")
 
+
  <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
