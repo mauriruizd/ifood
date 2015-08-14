@@ -1,9 +1,8 @@
 @extends("admin.index")
 @section("contenido")
-    @include('alerts.errors')
-    @include('alerts.request')
-<section id="main-content">
-          <section class="wrapper">
+
+<!--<section id="main-content">
+          <section class="wrapper">-->
               <!--state overview start-->
               <div class="row state-overview">
                   <div class="col-lg-3 col-sm-6">
