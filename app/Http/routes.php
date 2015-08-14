@@ -60,7 +60,7 @@ Route::group(['middleware' => 'LoginChecker'], function(){
 	Route::get("carrito/add/{id_producto}/{qtd}/{config}", "Carrito@AddProductoConfig");
 	Route::get("carrito/update/{id_producto}/{qtd}", "Carrito@UpdateProducto");
 	Route::get("carrito/remove/{id_producto}", "Carrito@RemoveProducto");
-	Route::get("seleccionarDireccion/{id}", "Carrito@SeleccionarDireccion");
+	Route::post("carrito/seleccionarDireccion", "Carrito@SeleccionarDireccion");
 
 	Route::get("favoritos", "Paginador@Favoritos");
 	Route::get("busquedaAjax", "Paginador@BusquedaAjax");
