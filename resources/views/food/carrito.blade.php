@@ -84,7 +84,7 @@
 		</table>
 		<a href="{{ URL::to('carrito/pasodos') }}"><input type="button" value="Proceder" class="form-submit-only"></a>
 		@else
-			<h1>Sin productos en el carrito. <a href="{{ URL::to('login') }}">Puede seguir pidiendo!</a></h1>
+			<h1>Sin productos en el carrito. <a href="{{ URL::to('inicio') }}">Puede seguir pidiendo!</a></h1>
 		@endif
 	</div>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>

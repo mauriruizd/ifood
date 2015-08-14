@@ -36,7 +36,6 @@ class Empresas extends Controller {
 			->where('productos.empresa_codigo', $empresa->codigo)
 			->orderBy('categoria_codigo', 'desc')
 			->get();
-			//dd($productos);
 			$p = json_decode(json_encode($productos), true);
 			$productos = ArraySort::group($p, "nombre");
 			return view('empresas.productosEmpresa', compact('empresa', 'productos'));
@@ -46,6 +45,7 @@ class Empresas extends Controller {
 
 
 	public function VistaProducto($empresa, $id_producto){
+		$estaEnCarrito = Session::has('carrito.items.'.$id_producto);
 		$extra = Input::has('config') ? Input::query('config') : null;
 		$producto = Producto::where('codigo', $id_producto)->first();
 		$favorito = Favorito::where('favoritos_producto_codigo', '=', $id_producto)
@@ -55,10 +55,11 @@ class Empresas extends Controller {
 		->join('cat_pizza_tipo_masa', 'cat_pizza_tipo_masa.codigo', '=', 'cat_pizza_detalles.cat_pizza_masa_codigo')
 		->join('cat_pizza_tamanhos', 'cat_pizza_tamanhos.codigo', '=', 'cat_pizza_detalles.cat_pizza_tamanho_codigo')
 		->select('cat_pizza_tipo_masa.nombre as masa_nombre', 'cat_pizza_tamanhos.nombre as tamanho_nombre', 'cat_pizza_detalles.precio', 'cat_pizza_detalles.codigo as config_pizza',
-			'cat_pizza_detalles.cat_pizza_esp_codigo as esp_codigo')
+			'cat_pizza_tamanhos.cant_sabores', 'cat_pizza_tamanhos.cant_porcion', 'cat_pizza_detalles.cat_pizza_esp_codigo as esp_codigo')
 		->where('cat_pizza_config.producto_codigo', '=', $id_producto)
 		->get();
-		$agregados = (count($filtrosPizza) == 0) ? Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
+		$isPizza = (count($filtrosPizza) != 0);
+		$agregados = !$isPizza ? Extra::where('subcategoria_codigo', '=', $producto->subcategoria_codigo)
 			->where('empresa_codigo', '=', $producto->empresa_codigo)
 			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
 			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra', 'producto_sub_extras.codigo')
@@ -67,8 +68,13 @@ class Empresas extends Controller {
 				->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
 				->select('productos_extras.nombres', 'producto_sub_extras.precio_extra', 'producto_sub_extras.codigo')
 				->get();
+		$sabores_extras = $isPizza ? Producto::join('cat_pizza_config', 'cat_pizza_config.producto_codigo', '=', 'productos.codigo')
+			->select('productos.codigo', 'productos.denominacion', 'productos.imagen_url', 'productos.descripcion',
+				'productos.categoria_codigo', 'productos.empresa_codigo')
+			->where('productos.codigo', '!=', $producto->codigo)
+			->get() : null;
 		if(count($producto) > 0){
-			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados'));
+			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados', 'sabores_extras', 'estaEnCarrito'));
 		} else {
 			return view('empresas.vistaProducto')->with('error', 'Producto no encontrado.');
 		}
@@ -122,8 +128,7 @@ class Empresas extends Controller {
 	}
 
 	public function EmpresasDisponibles(){
-		$empresas = Empresa::where('estado', 'activo')
-		->get();
+		$empresas = Empresa::where('estado', 'activo')->get();
 		return view('empresas.todas', compact('empresas'));
 	}
 

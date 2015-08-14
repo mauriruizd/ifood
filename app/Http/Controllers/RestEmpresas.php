@@ -1,10 +1,16 @@
 <?php namespace App\Http\Controllers;
 
+use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\ProductoExtra;
 use Illuminate\Http\Request;
 use App\Empresa;
+use App\Producto;
+use App\CategoriasEmpresa;
+use App\Subcategoria;
+use App\EspecialidadPizza;
 use Input;
 
 class RestEmpresas extends Controller {
@@ -16,34 +22,14 @@ class RestEmpresas extends Controller {
 	 */
 	public function index()
 	{
-		$n = Input::has('n') ? $n = Input::query('n') : 5;
-		$empresa = Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url')
+		$ciudad_codigo = Input::has('ciudad') ? Input::get('ciudad') : 1;
+		$empresa = Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url') //codigo_delivery 'ciudad_codigo'
 		->where('estado', '=', 'activo')
+			->where('ciudad_codigo', '=', $ciudad_codigo)
 		->get();
 
 		return $empresa;
 	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -52,40 +38,31 @@ class RestEmpresas extends Controller {
 	 */
 	public function show($id)
 	{
-		return Empresa::find($id);
+		return Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url') //codigo_delivery 'ciudad_codigo'
+		->find($id);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	public function productos($id){
+		return Producto::where('empresa_codigo', '=', $id)
+			->where('estado', '=', 'activo')
+			->get();
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+	public function categorias($id){
+		return CategoriasEmpresa::where('empresa_codigo', '=', $id)->get();
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	public function subcategorias($id){
+		return Subcategoria::where('empresa_codigo', '=', $id)->get();
+	}
+
+	public function extras($id){
+		return ProductoExtra::where('empresa_codigo', '=', $id)
+			->where('estado', '=', 'activo')->get();
+	}
+
+	public function especialidades_pizza($id){
+		return EspecialidadPizza::where('empresa_codigo', '=', $id)->get();
 	}
 
 }

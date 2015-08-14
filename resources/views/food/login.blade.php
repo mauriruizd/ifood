@@ -89,7 +89,7 @@
 		$('.tab')[0].style.display = 'block';
 		$('.filtro').each(function(index){
 			$(this).on('click', function(evt){
-				$('.tab').hide();
+				$('.tab').hide('fast');
 				$('.filtro').removeClass('filtro-seleccionado');
 				$(this).addClass('filtro-seleccionado');
 				evt.preventDefault();
