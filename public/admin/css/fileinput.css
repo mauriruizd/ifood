@@ -103,7 +103,7 @@
 }
 .file-caption-name{
     display: inline-block;
-    width: 130px;
+   min-width:55px; 
     height: 25px;
     overflow: hidden;
    
