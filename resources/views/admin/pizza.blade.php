@@ -9,116 +9,7 @@
               <!--panel principal-->
 
 
-<script type="text/javascript">
-function dd(){
-    $(".pedido_llegados").draggable({containment:'document', revert:true,
-        start:function(){
-            contents = this;
-        }
-        });
-    $( ".select_ordenes" ).droppable({ accept:'.pedido_llegados',
-        drop: function(){
-            $( this ).append(contents.innerHTML);
-            contents.remove();
-            $( this ).children().last().addClass('minimizado');
-            $( this ).children().last().click(function(){
-                console.log($(this));
-                rollback($(this));
-            });
-        }});
-    $('.btn-delete').on('click', function(){
-        $(this).closest('.pedido_llegados').remove();
-    });
-    $('.eliminar').on('click', function(){
-        var ordenes = $(this).closest('.seleccion_ordenes');
-        ordenes.children('.select_ordenes').children().each(function(index){
-            rollback( $(this) );
-        });
-        ordenes.remove();
-        
-    });
 
-};
- 
-function print( title, w, h) {
-  var left = (screen.width/2)-(w/2);
-  var top = (screen.height/2)-(h/2);
-  return window.open("print.html", title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-} 
-
-
-    function rollback(element){
-        console.log(element);
-        newDIV = document.createElement("div");
-        newDIV.innerHTML = "<div>" +  element.html() + "</div>";
-        newDIV.className = 'pedido_llegados';
-        element.remove();
-        document.getElementById('cuadro_pedido').insertBefore(newDIV, document.getElementById('cuadro_pedido').firstChild);
-        dd();
-    }
-
-
-    function crear_pedido(){
-        var html = '';
-        html += '<div class="pedido_llegados">';
-        html += '<div>';
-        html += '<div class="titulo_orden">N° de Pedido ' + Math.floor(Math.random()*89999+10000) + ' <i id="down" class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->';
-        html += '<div class="info_box">';
-        html += '<p><i class="bol">Nombre: </i>Marcos Martinez</p> ';
-        html += '<p><i class="bol">Telefono: </i>0978655845</p>';
-        html += '<p><i class="bol">Dirección: </i>Barrio San jose al costado de colegio camino de empedrado a tres cuadras de </p>';
-        html += '<div class="room-box">';
-        html += '<h5 class="text-primary"><strong>Pedido:  Pizza</strong></h5>';
-        html += '<p><span class="text-muted">cantidad :</span> 1 </p>';
-        html += '<p><span class="text-muted">Tamanho :</span> Grande </p>';
-        html += '<p><span class="text-muted">Masa :</span> fina  </p>';
-        html += '<p><span class="text-muted">Sabor :</span> 4 quersos, peperoni</p>';
-        html += '<p><span class="text-muted">Destalle :</span>favor si puede sacar el tomate y sim pimienta</p>';
-        html += '<p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>     ';           
-        html += '</div>';
-        html += '<button id="eliminar_box" type="button"class="btn btn-danger btn-delete">';
-        html += '<i class="glyphicon glyphicon-trash"></i>';
-        html += '<span>Eliminar</span>';
-        html += '</button>';
-        html += '</div><!--info_box-->';
-        html += '</div>';
-        html += '</div>';
-        $('#cuadro_pedido').append(html);
-        dd();
-    }
-
-      function crear_orden(){
-        var html = '';
-       
-        html+='<div class="seleccion_ordenes">';
-        html += '<div class="orden_cocina">';
-        html += '<p id="text_orden"> Entrada de Cocina N° '+ Math.floor(Math.random()*899+100) +'</p><!--text_orden-->';
-        html += '</div><!--orden_cocina-->';
-        html += ' <div class="select_ordenes">';
-        html += ' </div><!--select_ordenes-->';
-        html += '<button  type="button"class="eliminar btn btn-danger btn-delete" >';
-        html += '<i class="glyphicon glyphicon-trash"></i>';
-        html += '<span>Eliminar</span>';
-        html += '</button>';
-        html +='&nbsp;';
-        html += '<button  onclick="print()"   ontitle="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" class="btn btn-warning">';
-        html += '<i class="fa fa-print"></i>';
-        html += '<span>Imprimir</span>';
-        html += '</button>';
-        html += '<div id="espacio"></div>';
-        html += '</div>';
-        $('#panel-body').append(html);
-        dd();
-
-    }
-$(document).ready(function(){
-    dd();
-});
-
-
-
-    
-</script>
 
 
   <div id='bok'class="col-lg-12"><!--blog de pedido-->
@@ -280,20 +171,24 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
    
 <div class="cuadro_gris1">
 
+    {!! Form::open(['route'=>'pizza.store','method'=>'POST']) !!}
+    <div class="form_box">
+    <div id="caja">
+    <h3 class="titulo_sabor" >Nuevas Especialidad</h3>
+    {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese su nombre']) !!}
+    </div>
+        <div id="caja">
+            <br>
+            {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
+        </div>
+    </div><!--form_box-->
+    {!! Form::close() !!}
 
-                              <form class="text_class" role="form">
-                                <div class="form_box">
-                                <div id="caja">
-                                 <h3 class="titulo_sabor" >Nuevas Categoria</h3>
-                                         <input id="publish_ad_title" maxlength="130" name="ad[title]" type="text">
-                                </div>
-                                      <div id="caja">
-                                      <br>
-                                       <button type="submit" class="btn btn-danger">Guardar</button>
-                                        </div>
-                                      </div><!--form_box-->
 
-                              </form>
+
+
+
+<br>
                            
 <div class="cuadro_de_cat">
                 <section class="panel">
@@ -306,6 +201,7 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                           <div class="space15"></div>
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
                               <thead>
+
                               <tr>
                                   <th>Categorias</th>  
                                   <th></th>
@@ -314,35 +210,39 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                               </tr>
                               </thead>
                               <tbody>
+
+                              @foreach($pizzaEspecie as $cat_pizza)
                               <tr class="">
-                                  <td>clasicas</td>
-                                  
-                                 <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                       <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
+                                   <td>{{$cat_pizza->nombre}}</td>
 
-
-                             
-                              </tr>
-                              <tr class="">
-                                   <td>Premiun</td> 
-                                  <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                        <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
+                                  <td align="center">
 
 
 
-                                 
-                              </tr>
-                              <tr class="">
-                                  <td>de la casa</td>
-                                   <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td> 
-                                         <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
+                                      {!! link_to_route('pizza.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+
+                                  </td>
+                                  <td align="center">
+                                      {!!Form::open(['route'=>['pizza.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
+
+                                      {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
+                                      {!!Form::close()!!}
+
+
+                                  </td>
 
 
                               </tr>
+                              @endforeach
                               </tbody>
+
                           </table>
+
+                          {!! $pizzaEspecie->render() !!}
                       </div>
+
                   </div>
+
               </section>
                 
 </div><!--cuadro_de_cat-->
@@ -352,50 +252,48 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
   
 </div>
  <div class="cuadro_gris0">
-  
- 
-                              <form class="text_class" role="form">
+
+
+                            {!! Form::open(['route'=>'pizza.TamanhoEspecialidad', 'method'=>'POST']) !!}
+
+
                                 <div class="form_box1">
-                                <div id="caja1">
-                                 <h4 class="titulo_sabor">Tamanho</h4>
-                                         <input id="publish_ad_title" maxlength="130" name="ad[title]" type="text">
-                                </div>
-                                      <div id="caja1">
-                                         <h4 class="titulo_sabor" >categorias</h4>
-                                      
-                                        <select>
-                                          <option value="1">clasicas</option>
-                                          <option value="2">premiun</option>
-                                          <option value="3">de la casa</option>
-                                          <option value="4">especial</option>
-                                        </select>
-                                </div>
-                                <br>
+
+
+
+
+                                         <?php
+                                              // Form::select('cod', $selectEspecie, null, ['id' => 'codespecie', 'class' => 'form-control'])
+                                              //Form::text('precio',null,['class'=>'form-control','placeholder'=>''])
+                                          ?>
+                             <div id="caja1">
+                                <h3 class="titulo_sabor">Tamanho</h3>
+                                     {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'']) !!}
+
+                             </div>
 
                                <div id="caja1">
-                                 <h4 class="titulo_sabor1">Porciones</h4>
-                                         <input id="publish_ad_title" maxlength="50" name="ad[title]" type="text">
+                                 <h3 class="titulo_sabor1">Porciones</h3>
+                                   {!! Form::text('cant_porcion',null,['class'=>'form-control','placeholder'=>'']) !!}
                                 </div>
 
                                <div id="caja1">
-                                 <h4 class="titulo_sabor1">Sabores</h4>
-                                         <input id="publish_ad_title" maxlength="50" name="ad[title]" type="text">
+                                 <h3 class="titulo_sabor1">Sabores</h3>
+                                   {!! Form::text('cant_sabores',null,['class'=>'form-control','placeholder'=>'']) !!}
                                 </div>
-                                <div id="caja1">
-                                 <h4 class="titulo_sabor1">Precio</h4>
-                                         <input id="publish_ad_title" maxlength="50" name="ad[title]" type="text">
-                                </div>
+
 
                                         <br>  <br>
-                                    
-                                          <button type="submit" class="btn btn-danger">Guardar</button>
 
-                                          <br>
+                                    {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
+
+
 
 
 
                                    </div><!--form_box-->
-                              </form>
+                              {!! Form::close() !!}
+
                                  <section class="panel">
                   <header class="panel-heading">
                      
@@ -407,14 +305,14 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
                               <thead>
                               <tr>
-                                  <th>Categorias</th> 
-                                  <th>Tamanho</th>
-                                  <th>Porciones</th>   
-                                  <th>Sabores</th>
-                                  <th>Precio</th> 
+
+                                  <th align="center">Tamanho</th>
+                                  <th align="center">Porciones</th>
+                                  <th align="center">Sabores</th>
+
                                   <th></th>
                                   <th></th> 
-                                  <th >Activar</th> 
+                                  <th align="center">Activar</th>
 
                               </tr>
                               </thead>
@@ -422,57 +320,34 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
  
 
                                <tr class="">
-                                  <td>Clasica</td>
-                                  <td>Grande</td>
-                                  <td>12</td>
-                                   <td>2</td>
-                                    <td>70.000Gs.</td>
-                                 <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                       <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
+                                @foreach( $tamanho  as $tamanhos)
+                                       <td align="center">{{$tamanhos->nombre}}</td>
+                                       <td align="center">{{$tamanhos->cant_porcion}}</td>
+                                       <td align="center">{{$tamanhos->cant_sabores}}</td>
+                                       <td align="center"> {!! link_to_route('pizza.edit_tamanho', $title = 'Editar', $parameters = $tamanhos->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}</td>
                                        <td align="center">
-                                            
-                                <section>
-                                  <!-- Checbox Four -->
-                                    <div class="checkboxFour">
-                                      <input type="checkbox" value="2" id="2" name="" checked />
-                                      <label for="2"></label>
-                                    </div>
-                                </section>
-                                </td>              
+                                           {!! Form::open(['route'=>['pizza.deleteEspecialidad',$tamanhos->codigo], 'method'=>'DELETE']) !!}
+                                           {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
+                                           {!!Form::close()!!}
+                                       </td>
+
+
+                                       <td align="center"> <a href="{{URL::to('pizza/create/estadotamanho/'.$tamanhos->codigo)}}"><button class="btn {{$tamanhos->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$tamanhos->estado?'fa-check':'fa-times'}} "></i></button></a></td>
+
+
+
+
+
                               </tr>
 
-                               <tr class="">
-                                  <td>Premiun</td>
-                                  <td>Grande</td>
-                                  <td>12</td>
-                                   <td>2</td>
-                                    <td>70.000Gs.</td>
-                                 <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                       <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
-                                       <td align="center">
-                                            
-                                <section>
-                                  <!-- Checbox Four -->
-                                    <div class="checkboxFour">
-                                      <input type="checkbox" value="3" id="3" name="" checked />
-                                      <label for="3"></label>
-                                    </div>
-                                </section>
-                                </td>              
-                              </tr>
-                            
+                               @endforeach
 
                                     
                               </tbody>
+
                           </table>
-                                  <ul class="pagination pagination-sm pull-right">
-                                      <li><a href="#">«</a></li>
-                                      <li><a href="#">1</a></li>
-                                      <li><a href="#">2</a></li>
-                                      <li><a href="#">3</a></li>
-                                     
-                                      <li><a href="#">»</a></li>
-                                  </ul>
+                          {!! $tamanho->render() !!}
+
                              
 
                       </div>
@@ -480,7 +355,11 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
 
               </section>
 </div><!--cuadro_gris-->
+
+
   </dd>
+
+
   <dt class="accordion__title">Globales</dt>
   <dd class="accordion__content">
 
@@ -488,23 +367,25 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
 <div class="cuadro_gris1">
 
 
-                              <form class="text_class" role="form">
+
+
+                     {!! Form::open(['route'=>'pizza.MasaPizzaCreate','method'=>'POST']) !!}
+                              <div class="" >
                                 <div class="form_box">
                                 <div id="caja">
                                  <h3 class="titulo_sabor" >Masa</h3>
-                                         <input id="publish_ad_title" maxlength="130" name="ad[title]" type="text">
+                                    {!! Form::text('nombre',null,['class'=>'form-control']) !!}
                                 </div>
-                                  <div id="caja1">
-                                 <h3 class="titulo_sabor" >Precio</h3>
-                                         <input id="publish_ad_title" maxlength="130" name="ad[title]" type="text">
-                                </div>
+                                    <br>
+
                                       <div id="caja">
                                       <br>
-                                       <button type="submit" class="btn btn-danger">Guardar</button>
+                                          {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
                                         </div>
                                       </div><!--form_box-->
 
-                              </form>
+                              </div>
+                     {!! Form::close() !!}
                            
 <div class="cuadro_de_cat">
                 <section class="panel">
@@ -515,36 +396,50 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
                       <div class="adv-table editable-table ">
 
                           <div class="space15"></div>
+
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
                               <thead>
+
                               <tr>
-                                  <th>Masa</th>  
-                                  <th>Precio</th>
-                                  <th></th> 
-                                  <th></th> 
+                                  <th>Categorias</th>
+                                  <th></th>
+                                  <th></th>
 
                               </tr>
                               </thead>
                               <tbody>
-                              <tr class="">
-                                  <td>Gruesa</td>
-                                  <td>5.500Gs.</td>
-                                 <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                       <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
+
+                              @foreach($masaPizza as $cat_pizza)
+                                  <tr class="">
+                                      <td>{{$cat_pizza->nombre}}</td>
+
+                                      <td align="center">
 
 
-                             
-                              </tr>
-                              <tr class="">
-                                   <td>fina</td> 
-                                    <td>5.500Gs.</td>
-                                  <td align="center"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></td>
-                                        <td align="center"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></td>
 
-                              </tr>
-                             
+                                          {!! link_to_route('pizza.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+
+                                      </td>
+                                      <td align="center">
+                                          {!!Form::open(['route'=>['pizza.deleteMasa',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
+
+                                          {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
+                                          {!!Form::close()!!}
+
+
+                                      </td>
+
+
+                                  </tr>
+                              @endforeach
                               </tbody>
+
                           </table>
+
+                          {!! $pizzaEspecie->render() !!}
+
+
+
                       </div>
                   </div>
               </section>
@@ -635,6 +530,8 @@ $(this).next().show().prev().addClass('active').siblings().removeClass('active')
   
 </div><!--panel_cadastro-->
 </div>
+
+
      
 
                               
