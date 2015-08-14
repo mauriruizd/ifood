@@ -9,4 +9,7 @@ class EspecialidadPizza extends Model {
 
 	public $timestamps = false;
 
+	protected $fillable = ['nombre', 'empresa_codigo', 'estado'];
+
+
 }
