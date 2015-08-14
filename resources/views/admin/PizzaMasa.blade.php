@@ -18,8 +18,8 @@
                                       <div class="form_box1">
 
 
-                                              <h3 class="titulo_sabor" >Nuevas Especialidad</h3>
-                                             {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese su nombre']) !!}
+                                              <h3 class="titulo_sabor" >Tipo de Mapa</h3>
+                                             {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese tipo de masa']) !!}
 
                                           <br>
 
@@ -60,11 +60,11 @@
 
 
 
-                                      {!! link_to_route('PizzaControl.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+                                      {!! link_to_route('PizzaControlMasa.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
 
                                   </td>
                                   <td align="center">
-                                      {!!Form::open(['route'=>['PizzaControl.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
+                                      {!!Form::open(['route'=>['PizzaControlMasa.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
 
                                       {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
                                       {!!Form::close()!!}
