@@ -60,11 +60,11 @@
 
 
 
-                                      {!! link_to_route('PizzaControlMasa.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+                                      {!! link_to_route('PizzaControl.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
 
                                   </td>
                                   <td align="center">
-                                      {!!Form::open(['route'=>['PizzaControlMasa.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
+                                      {!!Form::open(['route'=>['PizzaControl.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
 
                                       {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
                                       {!!Form::close()!!}

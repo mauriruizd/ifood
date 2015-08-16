@@ -175,6 +175,7 @@ Route::get('logout', 'LogController@logout');
 Route::resource('PizzaControl','PizzaControllerSabor');
 Route::resource('PizzaControlTamanho','PizzaControllerTamanho');
 Route::resource('PizzaControlMasa','PizzaControllerMasa');
+Route::resource('PizzaControlDetalle','PizzaControllerDetalle');
 Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 
 
