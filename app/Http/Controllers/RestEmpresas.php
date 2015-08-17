@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\ConfigPizza;
 use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -56,6 +57,15 @@ class RestEmpresas extends Controller {
 		return Subcategoria::where('empresa_codigo', '=', $id)->get();
 	}
 
+	public function productos_subcategorias($id_empresa, $id_subcat){
+		return Producto::select('codigo', 'denominacion', 'imagen_url', 'descripcion', 'categoria_codigo', 'empresa_codigo',
+			'precio')
+			->where('estado', '=', 'activo')
+			->where('empresa_codigo', '=', $id_empresa)
+			->where('subcategoria_codigo', '=', $id_subcat)
+			->get();
+	}
+
 	public function extras($id){
 		return ProductoExtra::where('empresa_codigo', '=', $id)
 			->where('estado', '=', 'activo')->get();
@@ -63,6 +73,13 @@ class RestEmpresas extends Controller {
 
 	public function especialidades_pizza($id){
 		return EspecialidadPizza::where('empresa_codigo', '=', $id)->get();
+	}
+
+	public function configuraciones_pizza($id){
+		return ConfigPizza::join('cat_pizza_especialidades', 'cat_pizza_especialidades.codigo', '=', 'cat_pizza_config.cat_pizza_esp_codigo')
+			->select('cat_pizza_config.codigo', 'cat_pizza_config.producto_codigo', 'cat_pizza_config.cat_pizza_esp_codigo')
+			->where('cat_pizza_especialidades.empresa_codigo', '=', $id)
+			->get();
 	}
 
 }

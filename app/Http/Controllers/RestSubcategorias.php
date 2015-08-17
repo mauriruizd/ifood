@@ -1,8 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\ProductoExtra;
+use App\Subcategoria;
 use Illuminate\Http\Request;
 
 class RestSubcategorias extends Controller {
@@ -14,27 +17,7 @@ class RestSubcategorias extends Controller {
 	 */
 	public function index()
 	{
-		//
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
+		return Subcategoria::all();
 	}
 
 	/**
@@ -45,40 +28,18 @@ class RestSubcategorias extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		return Subcategoria::find($id);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	public function extras($id){
+		return Extra::where('subcategoria_codigo', '=', $id)->get();
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	public function productos_extras($id){
+		return ProductoExtra::join('producto_sub_extras', 'producto_sub_extras.pextra_codigo', '=', 'productos_extras.codigo')
+			->select('productos_extras.codigo', 'productos_extras.nombres', 'producto_sub_extras.precio_extra')
+			->where('producto_sub_extras.subcategoria_codigo', '=', $id)
+			->get();
 	}
 
 }

@@ -53,6 +53,20 @@ class ControlUsuarios extends Controller {
 
 	public function FacebookLogin(){
 		$socialUser = Socialize::with('facebook')->user();
+		return $this->SocialLogin($socialUser);
+	}
+
+	public function GoogleRedirect(){
+		return Socialize::with('google')->redirect();
+	}
+
+	public function GoogleLogin(){
+		$socialUser = Socialize::with('google')->user();
+		return $this->SocialLogin($socialUser);
+	}
+
+	private function SocialLogin($socialUser){
+		$logged = 0;
 		$user = Usuario::where('email', '=', $socialUser->email)
 			->select('codigo', 'nombres', 'apellidos', 'email', 'celular')
 			->first();

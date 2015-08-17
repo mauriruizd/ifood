@@ -21,7 +21,8 @@ use App\DireccionCliente;
 class Paginador extends Controller {
 
 	public function index(){
-		$empresas = Empresa::orderBy(DB::raw('RAND()'))->take(5)->get();
+		$empresas = Empresa::where('estado', '=', 1)
+		->orderBy(DB::raw('RAND()'))->take(5)->get();
 		return view('food.hello', compact('empresas'));
 	}
 
@@ -38,8 +39,8 @@ class Paginador extends Controller {
 
 	public function PrimeraVistaUsuario(){
 		if(Session::has('hungry_user')){
-			$categorias = Categoria::all();
-			$empresas = Empresa::where('estado', '=', 'activo')
+			$categorias = Categoria::where('estado', '=', 1)->get();
+			$empresas = Empresa::where('estado', '=', 1)
 			->get();
 			$favoritos = Favorito::join('productos', 'favoritos.favoritos_producto_codigo', '=', 'productos.codigo')
 			->join('persona_empresas', 'favoritos.favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
@@ -54,14 +55,15 @@ class Paginador extends Controller {
 
 	public function VistaCategoria($categoria){
 		$categoria = Categoria::where('slug', $categoria)
-		->select('slug', 'codigo', 'nombre')
-		->first();
+			->where('estado', '=', 1)
+			->select('slug', 'codigo', 'nombre')
+			->first();
 		if(count($categoria) < 1)
 			return view('food.categoria')->with('error', 'Categoria no encontrada.');
 		$empresas = Empresa::join('persona_empresas_categoria', 'persona_empresas.codigo', '=', 'persona_empresas_categoria.empresa_codigo')
 		->select('persona_empresas.*', 'persona_empresas_categoria.categoria_codigo')
 		->where('categoria_codigo', '=', $categoria->codigo)
-		->where('estado', '=', 'activo')
+		->where('estado', '=', 1)
 		->get();
 		if(count($empresas) > 0){
 			return view('food.categoria', compact('empresas', 'categoria'));
@@ -71,7 +73,7 @@ class Paginador extends Controller {
 	}
 
 	public function CategoriasDisponibles(){
-		$categorias = Categoria::all();
+		$categorias = Categoria::where('estado', '=', 1)->get();
 		return view('food.todasCategorias', compact('categorias'));
 	}
 
