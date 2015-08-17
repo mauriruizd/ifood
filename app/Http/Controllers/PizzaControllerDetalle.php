@@ -1,9 +1,15 @@
 <?php namespace App\Http\Controllers;
 
+use App\TamanhoPizza;
+use App\EspecialidadPizza;
+use App\MasaPizza;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Session;
+use Redirect;
+use Auth;
 
 class PizzaControllerDetalle extends Controller {
 
@@ -24,7 +30,23 @@ class PizzaControllerDetalle extends Controller {
 	 */
 	public function create()
 	{
-		return view('admin.PizzaDetalle');
+		$pizzaEspecie = EspecialidadPizza::all();
+		$selectEspecie = array();
+		foreach ($pizzaEspecie as $pizzaEspecies){
+			$selectEspecie[$pizzaEspecies->codigo] = $pizzaEspecies->nombre;
+		}
+		$pizzaTamanho = TamanhoPizza::all();
+		$selectTamanho = array();
+		foreach ($pizzaTamanho as $pizzaTamanhos){
+			$selectTamanho[$pizzaTamanhos->codigo] = $pizzaTamanhos->nombre;
+		}
+		$pizzaMasa = MasaPizza::all();
+		$selectMasa=array();
+		foreach($pizzaMasa as $pizzaMasas){
+			$selectMasa[$pizzaMasas->codigo] = $pizzaMasas->nombre;
+		}
+
+		return view('admin.PizzaDetalle', compact('pizzaEspecie','selectEspecie','pizzaTamanho','selectTamanho','pizzaMasa','selectMasa'));
 	}
 
 	/**
@@ -34,7 +56,7 @@ class PizzaControllerDetalle extends Controller {
 	 */
 	public function store()
 	{
-		//
+
 	}
 
 	/**

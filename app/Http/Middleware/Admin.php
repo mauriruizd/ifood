@@ -20,7 +20,7 @@ class Admin {
 	{
 		if($this->auth->user()->codigo !=1){
 			Session::flash('mensage-error', 'Sin Privilegios');
-			return redirect()->to('/panel');
+			return redirect()->to('/login');
 		}
 		return $next($request);
 	}
