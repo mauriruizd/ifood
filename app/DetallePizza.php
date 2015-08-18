@@ -9,4 +9,6 @@ class DetallePizza extends Model {
 
 	public $timestamps = false;
 
+	protected $fillable = ['codigo','cat_pizza_masa_codigo','cat_pizza_tamanho_codigo','cat_pizza_esp_codigo','precio','estado'];
+
 }
