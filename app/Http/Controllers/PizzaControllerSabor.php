@@ -23,8 +23,7 @@ class PizzaControllerSabor extends Controller {
 	 */
 	public function index()
 	{
-		$PizzaEspecialidad = EspecialidadPizza::paginate(4);
-		return view('admin.PizzaEspecialidad', compact('PizzaEspecialidad'));
+
 	}
 
 
@@ -35,7 +34,7 @@ class PizzaControllerSabor extends Controller {
 	 */
 	public function create()
 	{
-		$PizzaEspecialidad = EspecialidadPizza::paginate(4);
+		$PizzaEspecialidad = EspecialidadPizza::where('empresa_codigo','=',Auth::user()->persona_empresa_codigo)->paginate(4);
 		return view('admin.PizzaSabor', compact('PizzaEspecialidad'));
 	}
 
@@ -54,7 +53,7 @@ class PizzaControllerSabor extends Controller {
 		]);
 
 		Session::flash('message','Especialidad creado exitosamente');
-		return Redirect::to('pizza/create');
+		return Redirect::to('PizzaControl/create');
 		
 	}
 
@@ -97,9 +96,12 @@ class PizzaControllerSabor extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($codigo)
 	{
-		//
+		EspecialidadPizza::destroy($codigo);
+		Session::flash('message','Especialidad Eliminado exitosamente');
+		return Redirect::to('PizzaControl/create');
+
 	}
 
 }
