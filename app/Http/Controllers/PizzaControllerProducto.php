@@ -1,20 +1,19 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
 use App\TamanhoPizza;
 use App\EspecialidadPizza;
 use App\MasaPizza;
-
-use App\Http\Requests;
-use App\Http\Requests\EspecialidadRequest;
-use App\Http\Controllers\Controller;
-
+use App\Producto;
+use App\DetallePizza;
 use Illuminate\Http\Request;
 use Session;
 use Redirect;
 use Auth;
-use Illuminate\Routing\Route;
 
-class PizzaControllerSabor extends Controller {
+class PizzaControllerProducto extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -26,7 +25,6 @@ class PizzaControllerSabor extends Controller {
 
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -34,8 +32,15 @@ class PizzaControllerSabor extends Controller {
 	 */
 	public function create()
 	{
-		$PizzaEspecialidad = EspecialidadPizza::where('empresa_codigo','=',Auth::user()->persona_empresa_codigo)->paginate(4);
-		return view('admin.PizzaSabor', compact('PizzaEspecialidad'));
+		$DetallePizza = EspecialidadPizza::where('empresa_codigo','=', Auth::user()->persona_empresa_codigo)
+			->get();
+
+		$selectDetalle = array();
+		foreach ($DetallePizza as $DetallePizzas){
+			$selectDetalle[$DetallePizzas->codigo] = $DetallePizzas->nombre;
+		}
+
+		return view('admin.PizzaEspecialidad',compact('DetallePizza','selectDetalle'));
 	}
 
 	/**
@@ -43,18 +48,9 @@ class PizzaControllerSabor extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(EspecialidadRequest $request)
+	public function store()
 	{
-		EspecialidadPizza::create([
-			'nombre'=>$request['nombre'],
-
-			'empresa_codigo'=>Auth::user()->persona_empresa_codigo,
-			//'roles'=> $request['activo'],
-		]);
-
-		Session::flash('message','Especialidad creado exitosamente');
-		return Redirect::to('PizzaControl/create');
-		
+		//
 	}
 
 	/**
@@ -96,12 +92,9 @@ class PizzaControllerSabor extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($codigo)
+	public function destroy($id)
 	{
-		EspecialidadPizza::destroy($codigo);
-		Session::flash('message','Especialidad Eliminado exitosamente');
-		return Redirect::to('PizzaControl/create');
-
+		//
 	}
 
 }

@@ -14,7 +14,7 @@
        <div class="cat_select_marco">
             <div id="categorias_boton">
             <div class="iconos">
-            <a href="{{URL::to('/PizzaControl')}}">
+            <a href="{{URL::to('PizzaControlProducto/create')}}">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/pizza.png')}}">
             </div>

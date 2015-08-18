@@ -4472,6 +4472,20 @@ padding: 20px;
     width: 130px;
     height: 30px;
   }
+#caja2{
+
+    display: inline-block;
+    width: 230px;
+    height: 30px;
+    padding: 20px;
+}
+#caja3{
+
+    display: inline-block;
+    width: 400px;
+   height: auto;
+    padding: 20px;
+}
   #caja1 input[type=text] {
 
     width: 120px;
