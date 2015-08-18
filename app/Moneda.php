@@ -1,9 +1,13 @@
 <?php namespace App;
 
 class Moneda{
-	public static function guaranies($cantidad){
+	public static function guaranies($cantidad, $numeral=false){
+		$numero = number_format($cantidad, 0, '', '.');
+		if($numeral){
+			return $numero;
+		}
 		$precio = 'Gs. ';
-		$precio .= (string)number_format($cantidad, 0, '', '.');
+		$precio .= (string)$numero;
 		return $precio;
 	}
 }
