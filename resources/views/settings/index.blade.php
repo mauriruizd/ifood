@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tengo Hambre</title>
+	<title>DelCheff</title>
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="{{URL::to('css/style.css')}}">
 	<link rel="stylesheet" href="{{URL::to('css/font-awesome.css')}}">
-	<link rel="icon" href="{{URL::to('img/favicon-red.ico')}}">
+	<link rel="icon" href="{{URL::to('favicon.ico')}}">
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
@@ -21,10 +21,10 @@
 				<div id="barra_top" class="right-important inner-20">
 					<span id="saludo">
 						<span class="hi">Hola {{ Session::get('hungry_user')->nombres }} </span>
-						<a href="{{ URL::to('salir') }}"><i class="fa fa-sign-out"></i></a>
-						<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
-						<a href="{{ URL::to('carrito') }}"><i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
-						<a href="#" class="sidemenubtn"><i class="fa fa-bars"></i></a>
+						<a href="{{ URL::to('salir') }}">Salir <i class="fa fa-sign-out"></i></a>
+						<a href="{{ URL::to('settings') }}">Ajustes <i class="fa fa-cog"></i></a>
+						<a href="{{ URL::to('carrito') }}">Carrito <i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
+						<a href="#" class="sidemenubtn">Menu <i class="fa fa-bars"></i></a>
 					</span>
 				</div>
 			@endif
