@@ -25,7 +25,7 @@ class RestEmpresas extends Controller {
 	{
 		$ciudad_codigo = Input::has('ciudad') ? Input::get('ciudad') : 1;
 		$empresa = Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url') //codigo_delivery 'ciudad_codigo'
-		->where('estado', '=', 'activo')
+		->where('estado', '=', 1)
 			->where('ciudad_codigo', '=', $ciudad_codigo)
 		->get();
 
@@ -40,17 +40,18 @@ class RestEmpresas extends Controller {
 	public function show($id)
 	{
 		return Empresa::select('codigo', 'denominacion', 'direccion', 'telefono', 'logo_url') //codigo_delivery 'ciudad_codigo'
+		 ->where('estado', '=', 1)
 		->find($id);
 	}
 
 	public function productos($id){
 		return Producto::where('empresa_codigo', '=', $id)
-			->where('estado', '=', 'activo')
 			->get();
 	}
 
 	public function categorias($id){
-		return CategoriasEmpresa::where('empresa_codigo', '=', $id)->get();
+		return CategoriasEmpresa::where('empresa_codigo', '=', $id)
+			->get();
 	}
 
 	public function subcategorias($id){
@@ -68,7 +69,7 @@ class RestEmpresas extends Controller {
 
 	public function extras($id){
 		return ProductoExtra::where('empresa_codigo', '=', $id)
-			->where('estado', '=', 'activo')->get();
+			->where('estado', '=', 1)->get();
 	}
 
 	public function especialidades_pizza($id){
