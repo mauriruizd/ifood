@@ -24,7 +24,7 @@ Route::controllers([
 Route::get("/", "Paginador@index");
 Route::post("login", "ControlUsuarios@ControlLogin");
 Route::post("register", "ControlUsuarios@ControlRegister");
-Route::get("logout", "ControlUsuarios@ControlLogout");
+Route::get("salir", "ControlUsuarios@ControlLogout");
 
 
 Route::group(['middleware' => 'LoginChecker'], function(){
@@ -97,9 +97,15 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 	Route::get('v1/api/empresas/{id}/productos', "RestEmpresas@productos");
 	Route::get('v1/api/empresas/{id}/categorias', "RestEmpresas@categorias");
 	Route::get('v1/api/empresas/{id}/subcategorias', "RestEmpresas@subcategorias");
+	Route::get('v1/api/empresas/{id}/subcategorias/{id_subcat}', "RestEmpresas@subcategorias");
+	Route::get('v1/api/empresas/{id}/subcategorias/{id_subcat}/productos', "RestEmpresas@productos_subcategorias");
 	Route::get('v1/api/empresas/{id}/extras', "RestEmpresas@extras");
 	Route::get('v1/api/empresas/{id}/pizza/especialidades', "RestEmpresas@especialidades_pizza");
+	Route::get('v1/api/empresas/{id}/pizza/configuraciones', "RestEmpresas@configuraciones_pizza");
 	Route::resource("v1/api/categorias", "RestCategorias", ["only" => ['index', 'show']]);
+	Route::resource("v1/api/subcategorias", "RestSubcategorias", ["only" => ['index', 'show']]);
+	Route::get("v1/api/subcategorias/{id}/extras", "RestSubcategorias@extras");
+	Route::get("v1/api/subcategorias/{id}/productos-extras", "RestSubcategorias@productos_extras");
 	Route::resource("v1/api/clientes", "RestClientes", ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 	Route::post("v1/api/clientes/login", "RestClientes@login");
 
@@ -111,7 +117,6 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 
 	Route::get("session", function(){
 		dd(Session::all());
-		//dd(Session::all());
 	});
 
 /*----------FIN REST----------*/
@@ -119,6 +124,9 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 /*-----------SOCIALITE-------------*/
 Route::get("facebook/login", "ControlUsuarios@FacebookLogin");
 Route::get("facebook", "ControlUsuarios@FacebookRedirect");
+
+Route::get("google/login", "ControlUsuarios@GoogleLogin");
+Route::get("google", "ControlUsuarios@GoogleRedirect");
 /*----------FIN SOCIALITE----------*/
 
 Route::get("delivery", "Carrito@UpdateDelivery");

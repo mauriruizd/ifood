@@ -28,7 +28,7 @@ class Empresas extends Controller {
 
 	public function VistaEmpresa($empresaParam){
 		$empresa = Empresa::where('slug', $empresaParam)
-		->where('estado', '=', 'activo')
+		->where('estado', '=', 1)
 		->first();
 		if(count($empresa) > 0){
 			$productos = Producto::join('categorias', 'productos.categoria_codigo', '=', 'categorias.codigo')
@@ -81,7 +81,7 @@ class Empresas extends Controller {
 	}
 
 	public function PanelEmpresa($empresaParam){
-		$empresa = Empresa::where('slug', $empresaParam)->first();
+		$empresa = Empresa::where('slug', $empresaParam)->where('estado', '=', 1)->first();
 		$pedidos = Pedido::join('usuarios_fast_food', 'usuarios_fast_food.id', '=', 'pedidos_fast_food.id_usuario')
 		->where('pedidos_fast_food.id_empresa', '=', $empresa->id)
 		->select('pedidos_fast_food.*', 'usuarios_fast_food.nickname', 'usuarios_fast_food.direccion', 
@@ -128,7 +128,7 @@ class Empresas extends Controller {
 	}
 
 	public function EmpresasDisponibles(){
-		$empresas = Empresa::where('estado', 'activo')->get();
+		$empresas = Empresa::where('estado', 1)->get();
 		return view('empresas.todas', compact('empresas'));
 	}
 

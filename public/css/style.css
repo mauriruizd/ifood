@@ -110,7 +110,7 @@ body{
 #top{
 	width: 100%;
 	height: 1080px;
-	background-image: url('../img/sandwich-min.png');
+	background-image: url('../img/sandwich-min.jpg');
 	background-position: 0 -100px;
 	background-size: 2000px;
 	background-attachment: fixed;
@@ -201,9 +201,10 @@ body{
 #pedidos_nuevos{
 	display: block;
 	height: 30%;
+	width: 100%;
 }
 #pedidos_nuevos ul{
-	width: 800px;
+	width: 100%;
 	height: 50px;
 	margin: 0 auto;
 	overflow: hidden;
@@ -211,7 +212,7 @@ body{
 }
 #pedidos_nuevos li{
 	display: block;
-	width: 800px;
+	width: 100%;
 	height: 50px;
 	color: white;
 	font-size: 30px;

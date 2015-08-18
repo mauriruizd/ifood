@@ -21,7 +21,7 @@
 				<div id="barra_top" class="right-important inner-20">
 					<span id="saludo">
 						<span class="hi">Hola {{ Session::get('hungry_user')->nombres }} </span>
-						<a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i></a>
+						<a href="{{ URL::to('salir') }}"><i class="fa fa-sign-out"></i></a>
 						<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
 						<a href="{{ URL::to('carrito') }}"><i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
 						<a href="#" class="sidemenubtn"><i class="fa fa-bars"></i></a>
