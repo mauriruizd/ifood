@@ -8,5 +8,6 @@ class ConfigPizza extends Model {
 	protected $primaryKey = 'codigo';
 
 	public $timestamps = false;
+	protected $fillable = ['cat_pizza_esp_codigo','producto_codigo'];
 
 }

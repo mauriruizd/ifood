@@ -8,10 +8,14 @@ use App\EspecialidadPizza;
 use App\MasaPizza;
 use App\Producto;
 use App\DetallePizza;
+use App\ConfigPizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 use Session;
 use Redirect;
 use Auth;
+
 
 class PizzaControllerProducto extends Controller {
 
@@ -48,9 +52,40 @@ class PizzaControllerProducto extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+
+		$imagenInput = Input::file('image');
+		$nombre_imagen = $imagenInput->getClientOriginalName();
+		$imagenInput->move('admin.imagen',$nombre_imagen);
+		$imagen_final = 'admin.imagen/'.$nombre_imagen;
+
+		$int_imagen= Image::make($imagen_final);
+		$int_imagen->resize(568,null, function($constraint){
+			$constraint->aspectRatio();
+		});
+		$int_imagen->save($imagen_final);
+
+
+		$produc = Producto::create([
+			'denominacion'=>$request['nombre'],
+			'subcategoria_codigo'=>$request['especialidad'],
+			'categoria_codigo'=>3,
+			'descripcion'=>$request['descrip'],
+			'empresa_codigo'=>Auth::user()->persona_empresa_codigo,
+			'imagen_url'=>$imagen_final,
+
+		]);
+		ConfigPizza::create([
+			'producto_codigo'=>$produc->codigo,
+			'cat_pizza_esp_codigo'=>$request['especialidad'],
+		]);
+
+		Session::flash('message','Producto creado exitosamente');
+		//return Redirect::back();
+
+		return Redirect::to('/PizzaControlProducto/create');
+
 	}
 
 	/**
@@ -72,7 +107,7 @@ class PizzaControllerProducto extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+
 	}
 
 	/**

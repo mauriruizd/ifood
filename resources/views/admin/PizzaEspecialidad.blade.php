@@ -13,12 +13,12 @@
 
                               <div class="cuadro_gris0">
 
-                                {!! Form::open(['route'=>'PizzaControlDetalle.store', 'method'=>'POST']) !!}
+                                  {!! Form::open(['route'=>'PizzaControlProducto.store','method'=>'POST','files' => true]) !!}
 
 
                                           <div id="caja3">
                                               <h3 class="titulo_sabor" >Sabor</h3>
-                                          {!! Form::text('precio',null,['class'=>'form-control','placeholder'=>'']) !!}
+                                          {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'']) !!}
                                           </div>
                                           <div id="caja3">
                                               <h3 class="titulo_sabor" >categorias</h3>
@@ -30,7 +30,7 @@
 
                                           <div id="caja3">
                                               <h3 class="titulo_sabor" >Detalle</h3>
-                                              {!! Form::textarea('area', null, ['class' => 'form-control']) !!}
+                                              {!! Form::textarea('descrip', null, ['class' => 'form-control']) !!}
 
 
                                           </div>
