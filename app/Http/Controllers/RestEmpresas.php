@@ -46,6 +46,8 @@ class RestEmpresas extends Controller {
 
 	public function productos($id){
 		return Producto::where('empresa_codigo', '=', $id)
+			->select('codigo', 'denominacion', 'imagen_url', 'descripcion', 'categoria_codigo',
+				'subcategoria_codigo', 'empresa_codigo', 'precio')
 			->get();
 	}
 
@@ -73,7 +75,8 @@ class RestEmpresas extends Controller {
 	}
 
 	public function especialidades_pizza($id){
-		return EspecialidadPizza::where('empresa_codigo', '=', $id)->get();
+		return EspecialidadPizza::select('codigo', 'nombre', 'empresa_codigo')
+			->where('empresa_codigo', '=', $id)->get();
 	}
 
 	public function configuraciones_pizza($id){

@@ -17,7 +17,8 @@ class RestSubcategorias extends Controller {
 	 */
 	public function index()
 	{
-		return Subcategoria::all();
+		return Subcategoria::select('codigo', 'nombre', 'empresa_codigo')
+			->get();
 	}
 
 	/**
@@ -28,7 +29,8 @@ class RestSubcategorias extends Controller {
 	 */
 	public function show($id)
 	{
-		return Subcategoria::find($id);
+		return Subcategoria::select('codigo', 'nombre', 'empresa_codigo')
+			->find($id);
 	}
 
 	public function extras($id){
