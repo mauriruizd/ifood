@@ -214,8 +214,12 @@
                               Producto / Cadastro / Hamburguesas
 
                           </header>
+                          <div class="container-fluid">
+                              <div class="row">
+                                  @yield("contenido")
+                              </div>
 
-@yield("contenido")
+                          </div>
 
 
                       </div>
