@@ -118,7 +118,6 @@ class PizzaControllerDetalle extends Controller {
 		$selectEspecie=$selector['selectEspecie'];
 		$selectMasa =$selector['selectMasa'];
 		$selectTamanho=$selector['selectTamanho'];
-
 		$detaPizza = DetallePizza::find($codigo);
 		return view('usuario.edit_detalle',['detaPizza'=>$detaPizza, 'selectEspecie'=>$selectEspecie, 'selectMasa'=>$selectMasa,'selectTamanho'=>$selectTamanho]);
 	}
@@ -130,7 +129,6 @@ class PizzaControllerDetalle extends Controller {
 	 * @return Response
 	 */
 	public function update($codigo)
-
 	{
 
 	}
@@ -153,6 +151,7 @@ class PizzaControllerDetalle extends Controller {
 	 */
 	public function destroy($codigo)
 	{
+
 		DetallePizza::destroy($codigo);
 		Session::flash('message','Detaller eliminado correctamente');
 		return Redirect::to('/PizzaControlDetalle/create');
