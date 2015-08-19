@@ -18,12 +18,41 @@ use Auth;
 
 
 class PizzaControllerProducto extends Controller {
+	protected function crearImagen($inputImagen){
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+		$imagenInput = $inputImagen;
+		$nombre_imagen = $imagenInput->getClientOriginalName();
+		$imagenInput->move('img/productos/'.Auth::user()->persona_empresa_codigo,$nombre_imagen);
+		$imagen_final = 'img/productos/'.Auth::user()->persona_empresa_codigo.'/'.$nombre_imagen;
+
+		$int_imagen= Image::make($imagen_final);
+		$int_imagen->resize(568,null, function($constraint){
+			$constraint->aspectRatio();
+		});
+		$int_imagen->save($imagen_final);
+		return $imagen_final;
+	}
+
+	protected function crearSelect(){
+		$pizzaEspecie = EspecialidadPizza::where('empresa_codigo','=', Auth::user()->persona_empresa_codigo)
+			->get();
+
+		$selectEspecie = array();
+		foreach ($pizzaEspecie as $pizzaEspecies){
+			$selectEspecie[$pizzaEspecies->codigo] = $pizzaEspecies->nombre;
+		}
+		$pizzaTamanho = TamanhoPizza::all();
+		$selectTamanho = array();
+		foreach ($pizzaTamanho as $pizzaTamanhos){
+			$selectTamanho[$pizzaTamanhos->codigo] = $pizzaTamanhos->nombre;
+		}
+		$pizzaMasa = MasaPizza::all();
+		$selectMasa=array();
+		foreach($pizzaMasa as $pizzaMasas){
+			$selectMasa[$pizzaMasas->codigo] = $pizzaMasas->nombre;
+		}
+		return ['selectTamanho'=>$selectTamanho,'selectMasa'=>$selectMasa,'selectEspecie'=>$selectEspecie];
+	}
 	public function index()
 	{
 
@@ -35,7 +64,13 @@ class PizzaControllerProducto extends Controller {
 	 * @return Response
 	 */
 	public function create()
+
 	{
+		$listaProd = Producto::join('cat_pizza_config','cat_pizza_config.producto_codigo','=','productos.codigo')
+			->join('cat_pizza_especialidades','cat_pizza_especialidades.codigo','=','cat_pizza_config.cat_pizza_esp_codigo')
+			->select('cat_pizza_especialidades.nombre as especialidad_nombre','productos.denominacion','productos.descripcion','productos.imagen_url','productos.estado','productos.codigo')
+			->where('cat_pizza_especialidades.empresa_codigo', '=', Auth::user()->persona_empresa_codigo)
+			->get();
 		$DetallePizza = EspecialidadPizza::where('empresa_codigo','=', Auth::user()->persona_empresa_codigo)
 			->get();
 
@@ -44,7 +79,7 @@ class PizzaControllerProducto extends Controller {
 			$selectDetalle[$DetallePizzas->codigo] = $DetallePizzas->nombre;
 		}
 
-		return view('admin.PizzaEspecialidad',compact('DetallePizza','selectDetalle'));
+		return view('admin.PizzaEspecialidad',compact('DetallePizza','selectDetalle','listaProd'));
 	}
 
 	/**
@@ -54,17 +89,8 @@ class PizzaControllerProducto extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		$imagen_final = $this->crearImagen(Input::file('image'));
 
-		$imagenInput = Input::file('image');
-		$nombre_imagen = $imagenInput->getClientOriginalName();
-		$imagenInput->move('admin.imagen',$nombre_imagen);
-		$imagen_final = 'admin.imagen/'.$nombre_imagen;
-
-		$int_imagen= Image::make($imagen_final);
-		$int_imagen->resize(568,null, function($constraint){
-			$constraint->aspectRatio();
-		});
-		$int_imagen->save($imagen_final);
 
 
 		$produc = Producto::create([
@@ -74,6 +100,7 @@ class PizzaControllerProducto extends Controller {
 			'descripcion'=>$request['descrip'],
 			'empresa_codigo'=>Auth::user()->persona_empresa_codigo,
 			'imagen_url'=>$imagen_final,
+			'estado'=>1,
 
 		]);
 		ConfigPizza::create([
@@ -105,8 +132,18 @@ class PizzaControllerProducto extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
+		$ProductoPizza = Producto::join('cat_pizza_config','cat_pizza_config.producto_codigo','=','productos.codigo')
+			->join('cat_pizza_especialidades','cat_pizza_especialidades.codigo','=','cat_pizza_config.cat_pizza_esp_codigo')
+			->select('cat_pizza_especialidades.nombre as especialidad_nombre','productos.denominacion','productos.descripcion','productos.imagen_url','productos.estado','productos.codigo',
+				'cat_pizza_especialidades.codigo as especialidad_codigo')
+			->find($codigo);
+
+		$selectDetalle = $this->crearSelect();
+		$selectDetalle =$selectDetalle['selectEspecie'];
+
+		return view('usuario.edit_Pizza_producto',['ProductoPizza'=>$ProductoPizza, 'selectDetalle'=>$selectDetalle]);
 
 	}
 
@@ -116,9 +153,34 @@ class PizzaControllerProducto extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($codigo, Request $request)
 	{
-		//
+		$ProductoPizza = Producto::find($codigo);
+
+		$ProductoPizza->fill($request->all());
+		if(isset($request->all()['image']))
+			$ProductoPizza->imagen_url = $this->crearImagen(Input::file('image'));
+		$ProductoPizza->save();
+		ConfigPizza::where('producto_codigo','=',$codigo)
+			->update([
+				'cat_pizza_esp_codigo'=>$request->all()['especialidad']
+			]);
+		Session::flash('message','Producto actualizado exitosamente' );
+		return Redirect::to('/PizzaControlProducto/create');
+
+
+
+
+	}
+	public function update_estado($codigo)
+	{
+		$estado = Producto::find($codigo);
+		$estado->estado=$estado->estado?0:1;
+		$estado->save();
+		Session::flash('message','Estado actualizado exitosamente');
+		return Redirect::to('/PizzaControlProducto/create');
+
+
 	}
 
 	/**
@@ -127,9 +189,14 @@ class PizzaControllerProducto extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($codigo)
 	{
-		//
+		ConfigPizza::where('producto_codigo', '=', $codigo)->delete();
+		Producto::destroy($codigo);
+
+
+		Session::flash('message','Producto eliminado correctamente');
+		return Redirect::to('/PizzaControlProducto/create');
 	}
 
 }
