@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca52d206-487b-4fca-bcdf-ae32479952ee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/food/hello.blade.php" afterPath="$PROJECT_DIR$/resources/views/food/hello.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/user.blade.php" afterPath="$PROJECT_DIR$/resources/views/user.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ifood.iws" />
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8846154">
-              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="28" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.39030612">
+              <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -87,10 +87,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hello.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hello.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/food/hello.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21683674">
+            <state vertical-scroll-proportion="-3.2692308">
               <caret line="12" column="110" selection-start-line="12" selection-start-column="110" selection-end-line="12" selection-end-column="110" />
               <folding />
             </state>
@@ -162,10 +162,10 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/config/local/database.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
-        <option value="$PROJECT_DIR$/resources/views/user.blade.php" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/resources/views/settings/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/food/hello.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/user.blade.php" />
       </list>
     </option>
   </component>
@@ -705,12 +705,6 @@
       <option name="number" value="Default" />
       <updated>1438016524334</updated>
     </task>
-    <task id="LOCAL-00005" summary="modificaciones en el router">
-      <created>1438104956546</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1438104956546</updated>
-    </task>
     <task id="LOCAL-00006" summary="creacion de categorias de hamburguesas">
       <created>1438105034030</created>
       <option name="number" value="00006" />
@@ -999,7 +993,13 @@
       <option name="project" value="LOCAL" />
       <updated>1439949809672</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Cambios menores en la pantalla principal">
+      <created>1439953768757</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1439953768757</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1061,7 +1061,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="se a agragado link bootstrap de file" />
     <MESSAGE value="se a agragado categoria lomitos" />
     <MESSAGE value="se a modificado en pizza" />
     <MESSAGE value="se a agragado modificaiones" />
@@ -1086,7 +1085,8 @@
     <MESSAGE value="Config Database mas una vez" />
     <MESSAGE value="Agragadas ambas configuraciones de bases de datos" />
     <MESSAGE value="Cambios en el menu WEB" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios en el menu WEB" />
+    <MESSAGE value="Cambios menores en la pantalla principal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios menores en la pantalla principal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1429,14 +1429,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3396227">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.592592">
@@ -1453,14 +1445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8846154">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="28" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/settings/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.576923">
@@ -1471,8 +1455,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/food/hello.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21683674">
+        <state vertical-scroll-proportion="-3.2692308">
           <caret line="12" column="110" selection-start-line="12" selection-start-column="110" selection-end-line="12" selection-end-column="110" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.3396227">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39030612">
+          <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
           <folding />
         </state>
       </provider>
