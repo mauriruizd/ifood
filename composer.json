@@ -10,7 +10,6 @@
 		"cboden/ratchet": "^0.3.3",
 		"laravel/socialite": "^2.0",
 	  "intervention/image": "2.*",
-		"react/zqm" : "0.3.*"
 
 	},
 	"require-dev": {
