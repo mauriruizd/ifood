@@ -649,12 +649,6 @@
       <option name="number" value="Default" />
       <updated>1438016524334</updated>
     </task>
-    <task id="LOCAL-00001" summary="se a agragado la carpeta admin">
-      <created>1438023485836</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1438023485836</updated>
-    </task>
     <task id="LOCAL-00002" summary="se a agragado la carpeta admin">
       <created>1438023848260</created>
       <option name="number" value="00002" />
@@ -943,7 +937,13 @@
       <option name="project" value="LOCAL" />
       <updated>1439946726763</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Quitado temporalmente react/zmq del composer.json">
+      <created>1439946770057</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1439946770058</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="ToolWindowManager">
