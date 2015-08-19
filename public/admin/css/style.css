@@ -16,7 +16,15 @@ body {
     margin: 0px !important;
     font-size:13px;
 }
+.imgproductos img{
+    display: block;
+    width: 150px;
+    height: auto;
 
+}
+.texto{
+    height: 30px;
+}
 
 ul li {
     list-style: none;
@@ -4486,6 +4494,13 @@ padding: 20px;
    height: auto;
     padding: 20px;
 }
+#caja3{
+
+    display: inline-block;
+    width: 400px;
+    height: auto;
+    padding: 20px;
+}
   #caja1 input[type=text] {
 
     width: 120px;
@@ -5797,7 +5812,7 @@ a.guest-on i {
        margin-bottom: 20px;
     }
     .cat_select_marco{
-top: 10%;
+        top: 10%;
       position: absolute;
       max-width: 823px;
       
@@ -5976,7 +5991,11 @@ top: 10%;
     border-radius:10px 0 0 10px / 50% 0 0 50%;
   
 }
+
  .titulo_sabor{
     font-size: 30px;
 }
-   
+
+}
+
+
