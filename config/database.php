@@ -52,12 +52,25 @@ return [
 			'prefix'   => '',
 		],
 
-		'mysql' => [
+		/*	LOCAL
+		 * 'mysql' => [
 			'driver'    => 'mysql',
 			'host'     => 'localhost',
 			'database' => 'delcheff',
 			'username' => 'root',
 			'password' => '',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix'    => '',
+			'strict'    => false,
+		],*/
+
+		'mysql' => [
+			'driver'    => 'mysql',
+			'host'     => 'mysql-delcheff-com.cigw4yns3ddw.us-west-2.rds.amazonaws.com',
+			'database' => 'delcheff',
+			'username' => 'delcheff',
+			'password' => '1q2w3e0p9o8i!@',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
