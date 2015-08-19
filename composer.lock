@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "461a1b783556a239e6f8cfb017f5cfb8",
+    "hash": "a57f2eae26798bb1d5a54214073c1fd2",
     "packages": [
         {
             "name": "cboden/ratchet",
@@ -815,7 +815,7 @@
                     "name": "Jeremy Lindblom",
                     "email": "jeremeamia@gmail.com",
                     "homepage": "https://github.com/jeremeamia",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "Serialize Closure objects, including their context and binding",
