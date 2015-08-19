@@ -611,14 +611,18 @@ input[type=range]::-webkit-slider-thumb{
 }
 .spinner div{
 	display: inline-block;
-	width: 25px;
+	width: 60px;
+	height: 60px;
 	text-align: center;
 	background-color: #BF4730;
 	box-shadow: 2px 2px 3px #AAA;
+	font-size: 2em;
 }
 .spinner div input{
-	vertical-align: middle;
+	vertical-align: top;
 	width: 100%;
+	height: 100%;
+	font-size: 1em;
 	text-align: center;
 	border:0;
 }

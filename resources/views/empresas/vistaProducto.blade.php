@@ -46,18 +46,18 @@
 						@foreach ($filtrosPizza as $opcion)
 							<tr>
 								<td>
-									<input type="radio" name="config_pizza" id="config_pizza_{{$i}}" class="config_pizza radio" value="{{ $opcion->config_pizza }}"
+									<input type="radio" name="config_pizza" id="config_pizza_{{$i}}" class="config_pizza" value="{{ $opcion->config_pizza }}"
 									@if ((!is_null($extra)) && ($extra == $opcion->config_pizza) )
 										{{ 'checked' }}
 									@endif
 									onclick="moreSabores({{ $opcion->cant_sabores }})" >
 									<label for="config_pizza_{{$i}}"></label>
 								</td>
-								<td>{{ $opcion->masa_nombre }}</td>
-								<td>{{ $opcion->tamanho_nombre }}</td>
-								<td>{{ $opcion->cant_porcion }}</td>
-								<td>{{ $opcion->cant_sabores }}</td>
-								<td>{{ Moneda::guaranies($opcion->precio) }}</td>
+								<td><label for="config_pizza_{{$i}}">{{ $opcion->masa_nombre }}</label></td>
+								<td><label for="config_pizza_{{$i}}">{{ $opcion->tamanho_nombre }}</label></td>
+								<td><label for="config_pizza_{{$i}}">{{ $opcion->cant_porcion }}</label></td>
+								<td><label for="config_pizza_{{$i}}">{{ $opcion->cant_sabores }}</label></td>
+								<td><label for="config_pizza_{{$i}}">{{ Moneda::guaranies($opcion->precio) }}</label></td>
 							</tr>
 							<?php $i++; ?>
 						@endforeach
