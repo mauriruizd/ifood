@@ -187,6 +187,7 @@ Route::resource('PizzaControlDetalle','PizzaControllerDetalle');
 Route::resource('PizzaControlProducto','PizzaControllerProducto');
 Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 Route::get('PizzaControlDetalle/create/estadodetalle/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerDetalle@update_estado']);
+Route::get('PizzaControlProducto/create/estadoProduc/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerProducto@update_estado']);
 
 
 
