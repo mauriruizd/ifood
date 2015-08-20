@@ -8,4 +8,5 @@ class Subcategoria extends Model {
     protected $primaryKey = 'codigo';
 
     public $timestamps = false;
+    protected $fillable =['nombre','categoria_codigo','estado','empresa_codigo'];
 }
