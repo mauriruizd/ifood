@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
+
 use App\EspecialidadPizza;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Empresa;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -13,8 +16,10 @@ class ControlPanel extends Controller {
 	}
 
 	public function control(){
+		$empresa = Empresa::find(Auth::user()->persona_empresa_codigo);
 
-		return view('admin.panel');
+		return view('admin.panel', compact('empresa'));
+
 	}
 	public function usuario(){
 		$users = User::paginate(5);
