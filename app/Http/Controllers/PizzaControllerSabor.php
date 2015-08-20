@@ -74,9 +74,11 @@ class PizzaControllerSabor extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
-		//
+		$especialidadPizza = EspecialidadPizza::find($codigo);
+		return view('usuario.edit_especialidad',['especialidadPizza'=>$especialidadPizza]);
+
 	}
 
 	/**
@@ -85,9 +87,14 @@ class PizzaControllerSabor extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($codigo, Request $request)
 	{
-		//
+		$especialidadPizza = EspecialidadPizza::find($codigo);
+		$especialidadPizza->fill($request->all());
+		$especialidadPizza->save();
+		Session::flash('message','Masa actualizado exitosamente');
+		return Redirect::to('/PizzaControl/create');
+
 	}
 
 	/**
