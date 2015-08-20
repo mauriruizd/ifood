@@ -41,12 +41,13 @@ class Paginador extends Controller {
 		if(Session::has('hungry_user')){
 			$categorias = Categoria::where('estado', '=', 1)->get();
 			$empresas = Empresa::where('estado', '=', 1)
-			->get();
+				->get();
 			$favoritos = Favorito::join('productos', 'favoritos.favoritos_producto_codigo', '=', 'productos.codigo')
-			->join('persona_empresas', 'favoritos.favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
-			->select('persona_empresas.slug', 'productos.*')
-			->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
-			->get();
+				->join('persona_empresas', 'favoritos.favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
+				->select('persona_empresas.slug', 'productos.*')
+				->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+				->where('favoritos.estado', '=', 1)
+				->get();
 			return view('food.login', compact('categorias', 'empresas', 'favoritos'));
 		} else {
 			return Redirect::action("Paginador@index");
@@ -108,10 +109,11 @@ class Paginador extends Controller {
 
 	public function Favoritos(){
 		$favoritos = Favorito::join('persona_empresas', 'favoritos_empresa_codigo', '=', 'persona_empresas.codigo')
-		->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
-		->select('persona_empresas.slug', 'productos.*')
-		->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
-		->get();
+			->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
+			->select('persona_empresas.slug', 'productos.*')
+			->where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+			->where('favoritos.estado', '=', 1)
+			->get();
 		return view('food.favoritos', compact('favoritos'));
 	}
 
@@ -136,11 +138,12 @@ class Paginador extends Controller {
 
 	public function SettingsFavoritos(){
 		$favoritos = Favorito::where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
-		->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
-		->join('persona_empresas', 'persona_empresas.codigo', '=', 'favoritos_empresa_codigo')
-		->select('persona_empresas.slug', 'productos.denominacion', 'productos.imagen_url', 'productos.denominacion',
-			'favoritos.favoritos_producto_codigo','favoritos.codigo')
-		->get();
+			->where('favoritos.estado', '=', 1)
+			->join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
+			->join('persona_empresas', 'persona_empresas.codigo', '=', 'favoritos_empresa_codigo')
+			->select('persona_empresas.slug', 'productos.denominacion', 'productos.imagen_url', 'productos.denominacion',
+				'favoritos.favoritos_producto_codigo','favoritos.codigo')
+			->get();
 		return view('settings.settingsFavoritos', compact('favoritos'));
 	}
 
@@ -180,10 +183,18 @@ class Paginador extends Controller {
 	public function AddFavorito(Request $datos){
 		$producto = Producto::select('empresa_codigo', 'codigo')
 		->find($datos['prod_id']);
+		$nFavorito = Favorito::where('favoritos_persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)
+			->where('favoritos_producto_codigo', '=', $producto->codigo)->first();
+		if(!is_null($nFavorito)){
+			$nFavorito->estado = 1;
+			$nFavorito->save();
+			return "OK";
+		}
 		$nFavorito = new Favorito;
 		$nFavorito->favoritos_empresa_codigo = $producto->empresa_codigo;
 		$nFavorito->favoritos_producto_codigo = $producto->codigo;
 		$nFavorito->favoritos_persona_cliente_codigo = Session::get('hungry_user')->codigo;
+		$nFavorito->estado = 1;
 		if(!$nFavorito->save()){
 			return "ERR";
 		}
@@ -207,7 +218,8 @@ class Paginador extends Controller {
 
 	public function DeleteFavorito($id){
 		$favorito = Favorito::find($id);
-		$favorito->delete();
+		$favorito->estado = 0;
+		$favorito->save();
 		return Redirect::back();
 	}
 

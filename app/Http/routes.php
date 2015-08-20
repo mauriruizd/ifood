@@ -110,6 +110,8 @@ Route::post('empresas/{empresa}/cpanel/adddetalle', 'Empresas@AddDetalle');
 	Route::get("v1/api/subcategorias/{id}/extras", "RestSubcategorias@extras");
 	Route::get("v1/api/subcategorias/{id}/productos-extras", "RestSubcategorias@productos_extras");
 	Route::resource("v1/api/clientes", "RestClientes", ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+	Route::resource("v1/api/ranking", "RestRanking");
+	Route::resource("v1/api/puntuaciones", "RestPuntuacion");
 
 	Route::resource("v1/api/direcciones", "RestDirecciones", ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 	Route::resource("v1/api/productos", "RestProductos", ["only" => ['index', 'show']]);

@@ -9,4 +9,7 @@ class Empresa extends Model {
 	
 	public $timestamps = false;
 
+	public function categoria(){
+		return $this->hasMany('App\CategoriasEmpresa', 'empresa_codigo', 'codigo');
+	}
 }

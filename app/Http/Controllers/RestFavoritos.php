@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Input;
 
 use App\Favorito;
@@ -20,7 +21,7 @@ class RestFavoritos extends Controller {
 		$persona_codigo = Input::query('persona_codigo');
 
 		return Favorito::where('favoritos_persona_cliente_codigo', '=', $persona_codigo)
-		->where('activo', '=', '1')
+		->where('estado', '=', 1)
 		->get();
 	}
 
@@ -42,11 +43,20 @@ class RestFavoritos extends Controller {
 	public function store()
 	{
 		$datos = Input::all();
+		$favorito = Favorito::where('favoritos_persona_cliente_codigo', '=', $datos['persona_cliente_codigo'])
+			->where('favoritos_producto_codigo', '=', $datos['producto_codigo'])->first();
+		if(!is_null($favorito)){
+			$favorito->estado = 1;
+			$favorito->save();
+			return new Response(null, 200);
+		}
 		$favorito = new Favorito;
 		$favorito->favoritos_persona_cliente_codigo = $datos['persona_cliente_codigo'];
-		$favorito->favoritos_producto_codigo = $datos['persona_cliente_codigo'];
-		$favorito->favoritos_empresa_codigo = $datos['persona_cliente_codigo'];
-	    return (int)$favorito->save();
+		$favorito->favoritos_producto_codigo = $datos['producto_codigo'];
+		$favorito->favoritos_empresa_codigo = $datos['empresa_codigo'];
+		$favorito->estado = 1;
+	    $favorito->save();
+		return new Response(null, 200);
 	}
 
 	/**
@@ -58,7 +68,8 @@ class RestFavoritos extends Controller {
 	public function show($id)
 	{
 		return Favorito::join('productos', 'productos.codigo', '=', 'favoritos_producto_codigo')
-		->find($id);
+			->where('estado', '=', 1)
+			->find($id);
 	}
 
 	/**
@@ -92,8 +103,9 @@ class RestFavoritos extends Controller {
 	public function destroy($id)
 	{
 		$favorito = Favorito::find($id);
-		$favorito->activo = 0;
-		return (int)$favorito->save();
+		$favorito->estado = 0;
+		$favorito->save();
+		return new Response(null, 200);
 	}
 
 }
