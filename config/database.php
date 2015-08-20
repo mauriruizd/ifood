@@ -54,7 +54,7 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'     => 'localhost',
+			'host'     => 'localhost',// '192.168.1.196:3306'
 			'database' => 'delcheff',
 			'username' => 'root',
 			'password' => '',
