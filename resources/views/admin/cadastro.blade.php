@@ -25,7 +25,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
-             <a href="{{URL::to('control/cadastro/lomito')}}">
+             <a href="{{URL::to('/LomitoControl/create')}}">
             <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/lomito.png')}}">
             </div>
