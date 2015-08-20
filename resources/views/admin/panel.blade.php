@@ -60,6 +60,43 @@
               <!--state overview end-->
               <!--panel principal-->
 
+<!--***************************************************************************SOCKET***************************************************************-->
+<script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+<script>
+    var subscription = function(categoria){
+        conn = new ab.Session('ws://192.168.1.196:8080', function(e){
+                    console.log('Conectado!');
+                    console.log(e);
+                    conn.subscribe(categoria, function(topic, data){
+                        push_pedido(data);
+                    });
+                }, function(){
+                    console.log('Conexion cerrada.');
+                },
+                {'skipSubprotocolCheck' : true}
+        );
+        conn.onopen = function(e){
+            console.log(e);
+        }
+    }
+    var socketEmpresa = new subscription('{{ $empresa->socket_server_token }}');
+
+    function renderPedido(data){
+        console.log(data);
+        var pedido = data;
+        var newDiv = document.createElement('DIV');
+        newDiv.innerHTML = '';
+        for(var i=0; i < pedido.pedido.length; i++){
+            newDiv.innerHTML += '<p><b>Nro. de pedido</b>: ' + i + '</p>';
+            newDiv.innerHTML += '<p><b>Item</b>: ' + pedido.pedido[i].item + '</p>';
+            newDiv.innerHTML += '<p><b>Cantidad</b>: ' + pedido.pedido[i].cantidad + '</p>';
+            newDiv.innerHTML += '<p><b>Precio</b>: ' + pedido.pedido[i].precio + '</p>';
+            newDiv.innerHTML += '<p><b>Subtotal</b>: ' + pedido.pedido[i].subtotal + '</p><br>';
+        }
+        document.body.appendChild(newDiv, document.body);
+    }
+</script>
+<!--***************************************************************************SOCKET*****************************************************************-->
 <script type="text/javascript">
 function dd(){
     $(".pedido_llegados").draggable({containment:'document', revert:true,
@@ -139,6 +176,37 @@ function print( title, w, h) {
         $('#cuadro_pedido').append(html);
         dd();
     }
+
+function push_pedido(data){
+    var html = '';
+    html += '<div class="pedido_llegados">';
+    html += '<div>';
+    html += '<div class="titulo_orden">N° de Pedido ' + Math.floor(Math.random()*89999+10000) + ' <i id="down" class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->';
+    html += '<div class="info_box">';
+    html += '<p><i class="bol">Nombre: </i>' + data.nombre_usuario + '</p> ';
+    html += '<p><i class="bol">Telefono: </i>' + data.celular + '</p>';
+    html += '<p><i class="bol">Dirección: </i>' + data.direccion_id + '</p>';
+    html += '<div class="room-box">';
+    for(var i=0; i < data.pedido.length; i++) {
+        html += '<h5 class="text-primary"><strong>Pedido:  ' + data.pedido[i].item + '</strong></h5>';
+        html += '<p><span class="text-muted">cantidad :</span> ' + data.pedido[i].cantidad + ' </p>';
+        html += '<p><h5><i class="text-primary"><strong>Monto:</strong> </i>' + data.pedido[i].precio + '</h5></p>     ';
+        html += '<p><h5><i class="text-primary"><strong>Subtotal:</strong> </i>' + data.pedido[i].subtotal + '</h5></p>     ';
+    }
+    html += '</div>';
+    html += '<div id="cuadro2">';
+    html += '<button id="eliminar_box" type="button"class="btn btn-danger btn-delete">';
+    html += '<i class="glyphicon glyphicon-trash"></i>';
+    html += '<span>Eliminar</span>';
+    html += '</button>';
+    html += '</div>';
+    html += '</div><!--info_box-->';
+    html += '</div>';
+    html += '</div>';
+    $('#cuadro_pedido').append(html);
+    dd();
+}
+
 
       function crear_orden(){
         var html = '';
