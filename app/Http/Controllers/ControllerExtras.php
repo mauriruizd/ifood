@@ -24,7 +24,7 @@ class ControllerExtras extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('admin.Extras');
 	}
 
 	/**
