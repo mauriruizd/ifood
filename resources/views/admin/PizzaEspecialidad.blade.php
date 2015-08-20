@@ -17,7 +17,7 @@
 
 
                                           <div id="caja3">
-                                              <h3 class="titulo_sabor" >Sabor</h3>
+                                              <h3 class="titulo_sabor" >Nombre</h3>
                                           {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'']) !!}
                                           </div>
                                           <div id="caja3">
