@@ -87,7 +87,7 @@ class PizzaControllerMasa extends Controller {
 		$masaPizza = MasaPizza::find($codigo);
 		$masaPizza->fill($request->all());
 		$masaPizza->save();
-		Session::flash('message','Masa actualizado exitosamente' );
+		Session::flash('message','Especialidad actualizado exitosamente' );
 		return Redirect::to('/PizzaControlMasa/create');
 
 	}
