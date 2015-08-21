@@ -15,7 +15,7 @@
 
 
 
-                                  {!! Form::open() !!}
+                                  {!! Form::open(['route'=>'LomitoControl.store','method'=>'POST','files' => true]) !!}
 
                                       <div id="caja3">
                                           <h3 class="titulo_sabor">Nombre</h3>
@@ -25,7 +25,7 @@
                                       <div id="caja3">
                                           <h3 class="titulo_sabor" >Especialidad</h3>
 
-                                          {!! Form::select('especialidad', $lomito, null,['id'=>'codedetaller','class'=>'form-control']) !!}
+                                          {!! Form::select('especialidad', $selectLomito, null,['id'=>'codedetaller','class'=>'form-control']) !!}
 
                                       </div>
                                           <div id="caja3">
@@ -44,7 +44,7 @@
                                   </div>
                                   <div id="caja3">
                                       <h3 class="titulo_sabor1">Precio</h3>
-                                      {!! Form::text('cant_porcion',null,['class'=>'form-control','placeholder'=>'']) !!}
+                                      {!! Form::text('precio',null,['class'=>'form-control','placeholder'=>'']) !!}
 
                                   </div>
 
@@ -74,9 +74,13 @@
                               <thead>
 
                               <tr>
-                                  <th align="center">Tamanho</th>
-                                  <th align="center">Porciones</th>
-                                  <th align="center">Sabores</th>
+                                  <th align="center">Nombre</th>
+                                  <th align="center">Especialidad</th>
+                                  <th align="center">Detalle</th>
+
+                                  <th align="center">Imagen</th>
+                                  <th align="center">Precio</th>
+
 
                                   <th></th>
                                   <th></th>
@@ -85,10 +89,46 @@
                               </tr>
                               </thead>
                               <tbody class="">
+                              @foreach($lomitoProducto as $lomitoProductos)
+                                  <tr class="">
+                                      <td>{{$lomitoProductos->denominacion}}</td>
+                                      <td>{{$lomitoProductos->subcat_nombre}}</td>
+                                      <td>{{$lomitoProductos->descripcion}}</td>
+                                      <td class="imgproductos" align="center">@if(empty($lomitoProductos->imagen_url))
+                                         <img  src=" {{ URL::to('vacio.jpg')}}">
+                                              @else
+                                         <img  src=" {{ URL::to($lomitoProductos->imagen_url )}}">
+                                          @endif</td>
+
+
+                                      <td>{{$lomitoProductos->precio}}</td>
+                                      <td align="center">
+
+
+
+                                          {!! link_to_route('PizzaControl.edit', $title = 'Editar', $parameters = $lomitoProductos->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+
+                                      </td>
+                                      <td align="center">
+                                          {!!Form::open(['route'=>['LomitoControl.destroy',$lomitoProductos->codigo], 'method'=>'DELETE'])!!}
+
+                                          {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
+                                          {!!Form::close()!!}
+
+
+                                      </td>
+                                      <td align="center"> <a href="{{URL::to('LomitoControl/create/estadoProduc/'.$lomitoProductos->codigo)}}"><button class="btn {{$lomitoProductos->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$lomitoProductos->estado?'fa-check':'fa-times'}} "></i></button></a></td>
+
+
+
+                                  </tr>
+                              @endforeach
 
                               </tbody>
 
                           </table>
+                        {!! $lomitoProducto->render() !!}
+
 
 
                       </div>
