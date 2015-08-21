@@ -105,6 +105,7 @@
 
 
                                                       @foreach($listaProd as $tamanhos)
+
                                                           <td align="center">{{$tamanhos->denominacion}}</td>
                                                           <td align="center">{{$tamanhos->especialidad_nombre}}</td>
                                                           <td align="center">{{$tamanhos->descripcion}}</td>
