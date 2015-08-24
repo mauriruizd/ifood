@@ -115,9 +115,11 @@ class ProductosExtrasMaster extends Controller {
 	}
 
 	protected function getSubcategorias(){
-		$sub = Subcategoria::join('categorias', 'subcategorias.categoria_codigo')
+		$sub = Subcategoria::join('categorias', 'subcategorias.categoria_codigo', '=', 'categorias.codigo')
 			->where('categoria_codigo', '=', $this->categoria)
 			->where('empresa_codigo', '=', $this->empresa())
+			->where('categoria_codigo', '=', $this->categoria)
+			->select('subcategorias.*')
 			->get();
 
 		$subArray = [];
