@@ -54,18 +54,17 @@
 			</div>
 			<h1>Quienes están con nosotros</h1>
 			<div id="empresas">
-				<!--
-				<span class="empresa"><img src="img/empresas/logo-mcd.jpg"></span>
-				<span class="empresa"><img src="img/empresas/logo-bk.svg"></span>
-				<span class="empresa"><img src="img/empresas/logo-kfc.gif"></span>
-				<span class="empresa"><img src="img/empresas/logo-pizzahut.jpg"></span>-->
 				@foreach($empresas as $empresa)
 					<span class="empresa wow flipInX"><img src="{{ URL::to($empresa->logo_url) }}"></span>
 				@endforeach
 			</div>
 		</div>
+		<div class="pre-final-bar">
+			Barra penultima
+		</div>
 	</div>
 	<link rel="stylesheet" type="text/css" href="{{ URL::to('css/animate.css') }}">
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<script src="{{ URL::to('js/wow.min.js') }}"></script>
 	<script>
 		wow = new WOW();

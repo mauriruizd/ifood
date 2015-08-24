@@ -10,7 +10,7 @@
 				<span class="lato">Conectarse con </span><br>
 				<a href="{{ URL::to('facebook') }}"><i class="fa fa-facebook-square fa-4x red"></i></a>
 				<a href="{{ URL::to('google') }}"><i class="fa fa-google-plus-square fa-4x red"></i></a><br>
-				<a href="#">Olvidaste tu contraseña?</a>
+				<a href="{{ URL::to('nueva_clave') }}" class="lato">Olvidaste tu contraseña?</a>
 			</form>
 		</div>
 		<div id="register" class="showUp">

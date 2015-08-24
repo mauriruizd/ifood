@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Usuario;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Redirect;
 use Socialize;
@@ -45,6 +46,26 @@ class ControlUsuarios extends Controller {
 			return Redirect::action("Paginador@PrimeraVistaUsuario");
 		}
 		return view('uncatched')->with('error', 'Usuario no encontrado.');
+	}
+
+	public function ResetPasswordForm(){
+		return view('food.newPassForm');
+	}
+
+	public function ResetPassword(Request $request){
+		$user = Usuario::where('login', '=', $request->usuario)->first();
+		if(is_null($user)){
+			return view('uncatched', ['error' => 'No encontramos ese usuario!']);
+		}
+		$newPass = uniqid("del");
+		$user->clave = sha1($newPass);
+		$user->save();
+		Mail::send('emails.reset_contrasenha', ['nombre_usuario'=>$user->nombres, 'nueva_contrasenha'=>$newPass], function($msg) use($user){
+			$msg->from('mauri.rd@gmail.com');
+			$msg->subject('Tu nueva contraseña!');
+			$msg->to($user->email);
+		});
+		return view('uncatched', ['error'=>'Te enviamos un mail con instrucciones!']);
 	}
 
 	public function FacebookRedirect(){

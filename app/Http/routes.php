@@ -24,6 +24,8 @@ Route::controllers([
 Route::get("/", "Paginador@index");
 Route::post("login", "ControlUsuarios@ControlLogin");
 Route::post("register", "ControlUsuarios@ControlRegister");
+Route::get("nueva_clave", "ControlUsuarios@ResetPasswordForm");
+Route::post("nueva_clave/", "ControlUsuarios@ResetPassword");
 Route::get("salir", "ControlUsuarios@ControlLogout");
 
 
