@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca52d206-487b-4fca-bcdf-ae32479952ee" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/productos/vacio.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Http/Controllers/ControllerLomitoExtras.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductosExtrasMaster.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ifood.iws" />
@@ -709,12 +712,6 @@
       <option name="number" value="Default" />
       <updated>1438016524334</updated>
     </task>
-    <task id="LOCAL-00034" summary="se a agragado css y js de la carpeta admin en public">
-      <created>1439909134397</created>
-      <option name="number" value="00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1439909134397</updated>
-    </task>
     <task id="LOCAL-00035" summary="producto controller creado">
       <created>1439909230622</created>
       <option name="number" value="00035" />
@@ -1003,7 +1000,13 @@
       <option name="project" value="LOCAL" />
       <updated>1440426869827</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="estandarizamos las vista para las categorias">
+      <created>1440427231954</created>
+      <option name="number" value="00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1440427231954</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="ToolWindowManager">
