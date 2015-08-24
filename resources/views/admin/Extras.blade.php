@@ -22,7 +22,7 @@
                                       <div class="form_box1">
 
 
-                                              <h3 class="titulo_sabor" >Tipo de Extras</h3>
+                                              <h3 class="titulo_sabor" >Productos Extras</h3>
                                              {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese tipo de masa']) !!}
 
                                           <br>
@@ -48,7 +48,6 @@
                               <thead>
 
                               <tr>
-                                  <th>Categorias</th>  
                                   <th>Nombre</th>
                                   <th></th>
                                   <th></th>
@@ -58,7 +57,6 @@
                               <tbody class="">
                               @foreach($prodExtras as $prodExtra)
                                   <tr class="">
-                                      <td></td>
                                       <td>{{$prodExtra->nombres}}</td>
                                       <td></td>
                                       <td></td>
