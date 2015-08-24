@@ -7,14 +7,18 @@
 
                           <!--********************contenido de Paginas************************-->
                           <!--manu-->
-@include('usuario.pizzamenu')
+@if(!isset($routes))
+    @include('usuario.pizzamenu')
+@else
+    @include('usuario.'.$routes)
+@endif
                           <!--manu fin-->
                           <div class=" col-lg-8"><!--contenido Pizza-->
 
                               <div class="cuadro_gris0">
 
 
-                                  {!! Form::open(['route'=>'ControlExtras.store','method'=>'POST']) !!}
+                                  {!! Form::open(['route'=>$formRoute.'.store','method'=>'POST']) !!}
                                       <div class="form_box1">
 
 
@@ -45,12 +49,21 @@
 
                               <tr>
                                   <th>Categorias</th>  
+                                  <th>Nombre</th>
                                   <th></th>
-                                  <th></th> 
+                                  <th></th>
 
                               </tr>
                               </thead>
                               <tbody class="">
+                              @foreach($prodExtras as $prodExtra)
+                                  <tr class="">
+                                      <td></td>
+                                      <td>{{$prodExtra->nombres}}</td>
+                                      <td></td>
+                                      <td></td>
+                                  </tr>
+                              @endforeach
 
                               </tbody>
 

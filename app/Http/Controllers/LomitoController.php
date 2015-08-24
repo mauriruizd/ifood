@@ -71,10 +71,11 @@ class LomitoController extends Controller{
 	 */
 	public function store(Request $request)
 	{
-
-	$imagen_final = $this->crearImagen(Input::file('image'));
-
-
+		if(is_null(Input::file('image'))){
+			$imagen_final = 'img/productos/vacio.jpg';
+		} else{
+			$imagen_final = $this->crearImagen(Input::file('image'));
+		}
 
 		Producto::create([
 			'denominacion'=>$request['nombre'],

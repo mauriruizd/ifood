@@ -194,6 +194,7 @@ Route::resource('ControlExtras','ControllerExtras');//aca estan todos los extras
 Route::resource('LomitoControl','LomitoController');
 Route::resource('EspecialidadControl','ControllerEspecialidad');
 Route::resource('EspecialidadControlLomito','ControllerEspecialidadLomito');
+Route::resource('ExtrasLomitos', 'ControllerLomitoExtras');
 Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 Route::get('PizzaControlDetalle/create/estadodetalle/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerDetalle@update_estado']);
 Route::get('PizzaControlProducto/create/estadoProduc/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerProducto@update_estado']);

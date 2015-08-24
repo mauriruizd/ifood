@@ -94,11 +94,9 @@
                                       <td>{{$lomitoProductos->denominacion}}</td>
                                       <td>{{$lomitoProductos->subcat_nombre}}</td>
                                       <td>{{$lomitoProductos->descripcion}}</td>
-                                      <td class="imgproductos" align="center">@if(empty($lomitoProductos->imagen_url))
-                                         <img  src=" {{ URL::to('vacio.jpg')}}">
-                                              @else
+                                      <td class="imgproductos" align="center">
                                          <img  src=" {{ URL::to($lomitoProductos->imagen_url )}}">
-                                          @endif</td>
+                                      </td>
 
 
                                       <td>{{$lomitoProductos->precio}}</td>

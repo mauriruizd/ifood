@@ -9,4 +9,6 @@ class ProductoExtra extends Model {
 
     public $timestamps = false;
 
+    protected $fillable = ['nombres', 'empresa_codigo', 'estado'];
+
 }
