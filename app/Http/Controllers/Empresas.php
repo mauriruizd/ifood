@@ -140,9 +140,7 @@ class Empresas extends Controller {
 		->where('persona_empresas.slug', '=', $slug)
 		->select('categorias.nombre')
 		->get();*/
-		$empresa = Empresa::where('slug', '=', $slug)
-		->select('denominacion', 'codigo')
-		->first();
+		$empresa = Empresa::find(Auth::user()->persona_empresa_codigo);
 		$empresa->socket_server_token = sha1(uniqid($empresa->codigo, true));
 		if(!$empresa->save()){
 			return view('uncatched')->with('error', 'Error al crear sesión. Reinicie la página, por favor.');

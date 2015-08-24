@@ -106,8 +106,8 @@ class RestClientes extends Controller {
 
 	public function login(){
 		$input = Input::all();
-		$usuario = Usuario::where('login', $input['login_user'])
-			->where('clave', sha1($input['login_password']))
+		$usuario = Usuario::where('login', $input['login'])
+			->where('clave', sha1($input['clave']))
 			->where('estado', '1')
 			->select('codigo', 'nombres', 'apellidos', 'email', 'celular')
 			->first();
@@ -124,10 +124,10 @@ class RestClientes extends Controller {
 
 	public function logout(){
 		if(!Session::has('hungry_user'))
-			return 0;
+			return new Response(null, 404);
 		Session::forget('hungry_user');
 		Session::forget('carrito');
-		return 1;
+		return new Response(null, 200);
 	}
 
 }

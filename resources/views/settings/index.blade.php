@@ -18,13 +18,13 @@
 				<img src="{{ URL::to('img/logo-sin-moto.png') }}" alt="Delcheff" title="Delcheff">
 			</a>
 			@if (Session::has('hungry_user'))
-				<div id="barra_top" class="right-important inner-20">
+				<div id="barra_top" class="right-important">
 					<span id="saludo">
 						<span class="hi">Hola {{ Session::get('hungry_user')->nombres }} </span>
-						<a href="{{ URL::to('salir') }}">Salir <i class="fa fa-sign-out"></i></a>
-						<a href="{{ URL::to('settings') }}">Ajustes <i class="fa fa-cog"></i></a>
-						<a href="{{ URL::to('carrito') }}">Carrito <i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
-						<a href="#" class="sidemenubtn">Menu <i class="fa fa-bars"></i></a>
+						<a href="{{ URL::to('salir') }}"><span class="show-on-hover">Salir</span> <i class="fa fa-sign-out"></i></a>
+						<a href="{{ URL::to('settings') }}"><span class="show-on-hover">Ajustes</span> <i class="fa fa-cog"></i></a>
+						<a href="{{ URL::to('carrito') }}"><span class="show-on-hover">Carrito</span> <i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
+						<a href="#" class="sidemenubtn"><span class="show-on-hover">Menu</span> <i class="fa fa-bars"></i></a>
 					</span>
 				</div>
 			@endif

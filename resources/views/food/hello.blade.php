@@ -10,7 +10,7 @@
 					<a href="/"><span class="left"><img src="img/logo-2.png" alt="Delcheff" title="Delcheff"></span></a>
 					<span class="right">
 						@if(Session::has('hungry_user'))
-							<a href="inicio">Hacé tu pedido {{ Session::get('hungry_user')->nombres }}</a>
+							<a href="inicio">Hacé tu pedido {{ Session::get('hungry_user')->nombres }}</a><br>
 							<a href="{{ URL::to('salir') }}"><i class="fa fa-sign-out"></i></a>
 							<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
 							<a href="{{ URL::to('carrito') }}"><i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>

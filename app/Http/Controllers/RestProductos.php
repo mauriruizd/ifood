@@ -51,7 +51,7 @@ class RestProductos extends Controller {
 	public function extras($id){
 		return Extra::join('productos', 'productos.subcategoria_codigo', '=', 'producto_sub_extras.subcategoria_codigo')
 			->join('productos_extras', 'productos_extras.codigo', '=', 'producto_sub_extras.pextra_codigo')
-			->select('productos_extras.nombres', 'producto_sub_extras.precio_extra')
+			->select('producto_sub_extras.codigo as producto_sub_extra_codigo', 'productos_extras.nombres', 'producto_sub_extras.precio_extra')
 			->where('productos.codigo', '=', $id)
 			->get();
 	}
