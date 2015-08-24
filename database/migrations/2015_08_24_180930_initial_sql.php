@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoginEmpresasTable extends Migration {
+class InitialSql extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,7 @@ class CreateLoginEmpresasTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('login_empresas', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->timestamps();
-		});
+		DB::unprepared(file_get_contents(base_path().'/datos-interesantes/delcheff.sql'));
 	}
 
 	/**
@@ -26,7 +22,7 @@ class CreateLoginEmpresasTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('login_empresas');
+		//
 	}
 
 }
