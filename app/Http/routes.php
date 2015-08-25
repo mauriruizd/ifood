@@ -24,6 +24,8 @@ Route::controllers([
 Route::get("/", "Paginador@index");
 Route::post("login", "ControlUsuarios@ControlLogin");
 Route::post("register", "ControlUsuarios@ControlRegister");
+Route::get("nueva_clave", "ControlUsuarios@ResetPasswordForm");
+Route::post("nueva_clave/", "ControlUsuarios@ResetPassword");
 Route::get("salir", "ControlUsuarios@ControlLogout");
 
 
@@ -133,16 +135,6 @@ Route::get("facebook", "ControlUsuarios@FacebookRedirect");
 Route::get("google/login", "ControlUsuarios@GoogleLogin");
 Route::get("google", "ControlUsuarios@GoogleRedirect");
 /*----------FIN SOCIALITE----------*/
-
-Route::get("delivery", "Carrito@UpdateDelivery");
-
-Route::get("dos-categorias/{n}", "Paginador@DosCategorias");
-
-
-Route::get("param/{par}", "Paginador@param");
-
-
-
 
 
 

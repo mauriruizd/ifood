@@ -251,6 +251,17 @@ body{
 .goDown:hover{
 	background-color: rgba(0, 0, 0, 0.8);
 }
+.pre-final-bar{
+	display: block;
+	width: 100%;
+	height: 200px;
+	background-color: #BF4730;
+	box-shadow: 0 50px #BF4730;
+	color: #FFF;
+	font-family: Lato;
+	text-align: center;
+	vertical-align: middle;
+}
 /*========================================================================*/
 /*																		  */
 /*=========================FIN INDEX DEL SITIO============================*/
@@ -263,7 +274,9 @@ body{
 /*==========================TEMPLATE USUARIOS=============================*/
 /*																		  */
 /*========================================================================*/
-
+#barra_top{
+	text-align: center;
+}
 #page-content{
 	position: relative;
 	height: 100%;
@@ -530,8 +543,8 @@ input[type=range]::-webkit-slider-thumb{
 #empresas{
 	margin: 0 auto;
 	/*padding: 140px 0;*/
-	padding-top: 100px;
-	padding-bottom: 180px;
+	padding-top: 30px;
+	padding-bottom: 50px;
 }
 #empresas .empresa{
 	width: 100px;
@@ -812,7 +825,6 @@ input[type=range]::-webkit-slider-thumb{
 		height: 300px;
 	}
 	#barra_top{
-		text-align: center;
 		height: 34%;
 	}
 	#barra_top > span{
