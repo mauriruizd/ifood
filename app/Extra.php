@@ -9,4 +9,6 @@ class Extra extends Model {
 
     public $timestamps = false;
 
+    protected $fillable = ['pextra_codigo', 'subcategoria_codigo', 'pespecialidad_codigo', 'precio_extra'];
+
 }

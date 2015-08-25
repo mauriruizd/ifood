@@ -52,8 +52,8 @@ return [
 			'prefix'   => '',
 		],
 
-		/*	LOCAL
-		 * 'mysql' => [
+
+		 'mysql' => [
 			'driver'    => 'mysql',
 			'host'     => 'localhost',// '192.168.1.196:3306'
 			'database' => 'delcheff',
@@ -63,9 +63,9 @@ return [
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 			'strict'    => false,
-		],*/
+		],
 
-		'mysql' => [
+		/*'mysql' => [
 			'driver'    => 'mysql',
 			'host'     => env('DB_HOST', 'mysql-delcheff-com.cigw4yns3ddw.us-west-2.rds.amazonaws.com'),
 			'database' => env('DB_DATABASE', 'delcheff'),
@@ -75,7 +75,7 @@ return [
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 			'strict'    => false,
-		],
+		],*/
 
 		'pgsql' => [
 			'driver'   => 'pgsql',

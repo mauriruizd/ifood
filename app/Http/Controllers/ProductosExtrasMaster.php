@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -54,6 +55,21 @@ class ProductosExtrasMaster extends Controller {
 		return Redirect::to($this->formRoute.'/create');
 	}
 
+	public function storeSubExtras(Request $request){
+		$precios = $request->precios;
+		foreach($request->subcategorias as $subcat) {
+			foreach ($request->extras as $extra) {
+				Extra::create([
+					'pextra_codigo' => $extra,
+					'subcategoria_codigo' => $subcat,
+					'precio_extra' => $precios[$extra]
+				]);
+			}
+		}
+		Session::flash('message', 'Extra(s) guardado(s) con exito');
+		return Redirect::to($this->formRoute.'/create');
+	}
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -99,8 +115,11 @@ class ProductosExtrasMaster extends Controller {
 	}
 
 	protected function getSubcategorias(){
-		$sub =  Subcategoria::where('categoria_codigo', '=', $this->categoria)
+		$sub = Subcategoria::join('categorias', 'subcategorias.categoria_codigo', '=', 'categorias.codigo')
+			->where('categoria_codigo', '=', $this->categoria)
 			->where('empresa_codigo', '=', $this->empresa())
+			->where('categoria_codigo', '=', $this->categoria)
+			->select('subcategorias.*')
 			->get();
 
 		$subArray = [];

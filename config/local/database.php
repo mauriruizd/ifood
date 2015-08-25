@@ -54,10 +54,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'     => 'mysql-delcheff-com.cigw4yns3ddw.us-west-2.rds.amazonaws.com',
-			'database' => 'delcheff',
-			'username' => 'delcheff',
-			'password' => '1q2w3e0p9o8i!@',
+			'host'     => env('DB_HOST', ''),
+			'database' => env('DB_DATABASE', ''),
+			'username' => env('DB_USERNAME', ''),
+			'password' => env('DB_PASSWORD', ''),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

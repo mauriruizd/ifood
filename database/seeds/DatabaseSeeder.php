@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
+//		$this->call('InstallInitialSQL');
+//		$this->command->info('InstallInitialSQL seeded!');
 		// $this->call('UserTableSeeder');
 	}
 
