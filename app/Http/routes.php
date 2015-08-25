@@ -136,16 +136,6 @@ Route::get("google/login", "ControlUsuarios@GoogleLogin");
 Route::get("google", "ControlUsuarios@GoogleRedirect");
 /*----------FIN SOCIALITE----------*/
 
-Route::get("delivery", "Carrito@UpdateDelivery");
-
-Route::get("dos-categorias/{n}", "Paginador@DosCategorias");
-
-
-Route::get("param/{par}", "Paginador@param");
-
-
-
-
 
 
 /*------ADMINISTRACION PARA LAS EMPRESAS-------*/

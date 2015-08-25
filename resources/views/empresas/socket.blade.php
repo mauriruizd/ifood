@@ -5,8 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Llegada de pedidos lokos</title>
 	<script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+	<script src="https://js.pusher.com/2.2/pusher.min.js"></script>
 	<script>
-		var subscription = function(categoria){
+		/*var subscription = function(categoria){
 			conn = new ab.Session('ws://localhost:8080', function(e){
 				console.log('Conectado!');
 				console.log(e);
@@ -23,6 +24,21 @@
 			}
 		}
 		var socketEmpresa = new subscription('{{ $empresa->socket_server_token }}');
+*/
+		var Pusher = new Pusher('35aa4c752e4b1fa7475f', {
+			encrypted: true
+		});
+
+		Pusher.log = function(message) {
+			if (window.console && window.console.log) {
+				window.console.log(message);
+			}
+		};
+
+		var pedidos = Pusher.subscribe('{{ $empresa->socket_server_token }}', 'nuevos_pedidos', function (data) {
+			renderPedido(data);
+		});
+		pedidos.bind();
 
 		function renderPedido(data){
 			console.log(data);

@@ -22,10 +22,12 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 	 */
 
 	protected $datos;
+	protected $pusher;
 
 	public function __construct(array $datos)
 	{
 		$this->datos = $datos;
+		$this->pusher = new \PusherDelcheff();
 	}
 
 	/**
@@ -44,10 +46,13 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 		$this->datos['nombre_usuario'] = Session::get('hungry_user')->nombres;
 		$this->datos['celular'] = Session::get('hungry_user')->celular;
 
-		$context = new \ZMQContext();
+		/*$context = new \ZMQContext();
 		$socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'pusher');
 		$socket->connect("tcp://127.0.0.1:3000");
-		$socket->send(json_encode($this->datos));
+		$socket->send(json_encode($this->datos));*/
+
+		$this->pusher->trigger($this->datos['empresa'], 'nuevos_pedidos', $this->datos);
+
 	}
 
 }

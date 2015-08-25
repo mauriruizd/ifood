@@ -10,7 +10,8 @@
 		"cboden/ratchet": "^0.3.3",
 		"laravel/socialite": "^2.0",
 	  "intervention/image": "2.*",
-	  "react/zmq" : "0.2.*|0.3.*"
+	  "react/zmq" : "0.2.*|0.3.*",
+		"pusher/pusher-php-server": "^2.2"
 
 	},
 	"require-dev": {
