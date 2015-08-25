@@ -18,17 +18,40 @@
                               <div class="cuadro_gris0">
 
 
+
+
                                   {!! Form::open(['route'=>$formRoute.'.store','method'=>'POST']) !!}
-                                      <div class="form_box1">
 
 
-                                              <h3 class="titulo_sabor" >Productos Extras</h3>
-                                             {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese tipo de masa']) !!}
+                                  <script type="text/javascript">
+                                      $(document).ready(function() {
+                                          $('#example-allSelectedText-includeSelectAllOption').multiselect({
+                                              includeSelectAllOption: true,
+                                              allSelectedText: 'No option left ...'
+                                          });
+                                      });
+                                  </script>
+                                  <div id="caja3">
+                                      <h3 class="titulo_sabor" >Especialidad</h3>
 
-                                          <br>
+                                      {!! Form::select('especialidad', $selectLomito, null,['id'=>'codedetaller','class'=>'form-control']) !!}
 
-                                          {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
-                                      </div><!--form_box-->
+                                  <br>
+
+                                      <h3 class="titulo_sabor" >Extras</h3>
+
+                                      {!! Form::select('extras[]', $extraSelet, null,['id'=>'example-allSelectedText-includeSelectAllOption','class'=>'form-control',  'multiple'=>"multiple"]) !!}
+
+                                <br>
+
+                                      <h3 class="titulo_sabor" >Precio</h3>
+                                      {!! Form::text('precio',null,['class'=>'form-control','placeholder'=>'']) !!}
+
+                               <br>
+
+                                  {!! Form::submit('Registrar',['class'=>'btn btn-danger']) !!}
+
+                                  </div>
 
 
                                                  {!! Form::close() !!}
@@ -52,13 +75,18 @@
                                   <th></th>
                                   <th></th>
                                   <th></th>
+                                  <th></th>
+                                  <th></th>
+
 
                               </tr>
                               </thead>
                               <tbody class="">
-                              @foreach($prodExtras as $prodExtra)
+                              @foreach($extras as $prodExtra)
                                   <tr class="">
-                                      <td>{{$prodExtra->nombres}}</td>
+                                      <td>{{$prodExtra->especialidad}}</td>
+                                      <td>{{$prodExtra->extras}}</td>
+                                      <td>{{\App\Moneda::guaranies($prodExtra->precio)}}</td>
                                       <td> {!! link_to_route($formRoute.'.edit', $title = 'Editar', $parameters = $prodExtra->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}</td>
                                       <td align="center">
                                           {!!Form::open(['route'=>[$formRoute.'.destroy',$prodExtra->codigo], 'method'=>'DELETE'])!!}
@@ -68,15 +96,17 @@
 
 
                                       </td>
-                                      <td align="center"> <a href="{{URL::to($formRoute.'/create/estadoProduc/'.$prodExtra->codigo)}}"><button class="btn {{$prodExtra->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$prodExtra->estado?'fa-check':'fa-times'}} "></i></button></a></td>
 
-                                  </tr>
+
                               @endforeach
+
+
+
 
                               </tbody>
 
                           </table>
-                          {!! $prodExtras->render() !!}
+                          {!! $extras->render() !!}
 
 
                       </div>

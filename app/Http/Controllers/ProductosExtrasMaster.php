@@ -36,7 +36,7 @@ class ProductosExtrasMaster extends Controller {
 	public function create()
 	{
 		$subcategoriasSelect = $this->getSubcategorias();
-		$prodExtras = ProductoExtra::where('empresa_codigo', '=', $this->empresa())->get();
+		$prodExtras = ProductoExtra::where('empresa_codigo', '=', $this->empresa())->paginate(4);
 		return view('admin.Extras', ['routes'=>$this->routes, 'formRoute'=>$this->formRoute, 'subcategoriasSelect'=>$subcategoriasSelect, 'prodExtras'=>$prodExtras]);
 	}
 
@@ -49,7 +49,8 @@ class ProductosExtrasMaster extends Controller {
 	{
 		ProductoExtra::create([
 			'nombres'=>$request->nombre,
-			'empresa_codigo'=>$this->empresa()
+			'empresa_codigo'=>$this->empresa(),
+			'estado'=>1,
 		]);
 		Session::flash('message', 'Extra guardado con exito');
 		return Redirect::to($this->formRoute.'/create');
@@ -87,9 +88,12 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
-		//
+		$extra = ProductoExtra::find($codigo);
+
+		return view('usuario.edit_generico',['extra'=>$extra,'routes'=>$this->routes, 'formRoute'=>$this->formRoute]);
+
 	}
 
 	/**
@@ -98,9 +102,23 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $codigo)
 	{
-		//
+
+		$extra = ProductoExtra ::find($codigo);
+		$extra->fill($request->all());
+		$extra->save();
+		Session::flash('message','Extras actualizado exitosamente' );
+		return Redirect::to($this->formRoute.'/create');
+	}
+
+	public function update_estado($codigo)
+	{
+		$extra = ProductoExtra::find($codigo);
+		$extra->estado=$extra->estado?0:1;
+		$extra->save();
+		Session::flash('message','Estado actualizado exitosamente');
+		return Redirect::to($this->formRoute.'/create');
 	}
 
 	/**
@@ -109,9 +127,13 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($codigo)
 	{
-		//
+		ProductoExtra::destroy($codigo);
+		Session::flash('message','Extras eliminado exitosamente' );
+		return Redirect::to($this->formRoute.'/create');
+
+
 	}
 
 	protected function getSubcategorias(){

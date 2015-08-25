@@ -50,6 +50,8 @@
     <script src="{{URL::to('admin/js/count.js')}}"></script>
       <!--archivos de input bootstrap-->
       <script src="{{URL::to('admin/js/fileinput.min.js')}}"></script>
+      <script src="{{URL::to('admin/js/bootstrap-multiselect.js')}}"></script>
+      <link href="{{URL::to('admin/css/bootstrap-multiselect.css')}}" rel="stylesheet" />
 
 
 

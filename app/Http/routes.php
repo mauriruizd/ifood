@@ -191,15 +191,41 @@ Route::resource('PizzaControlMasa','PizzaControllerMasa');
 Route::resource('PizzaControlDetalle','PizzaControllerDetalle');
 Route::resource('PizzaControlProducto','PizzaControllerProducto');
 Route::resource('ControlExtras','ControllerExtras');//aca estan todos los extras
-Route::resource('LomitoControl','LomitoController');
+
 Route::resource('EspecialidadControl','ControllerEspecialidad');
-Route::resource('EspecialidadControlLomito','ControllerEspecialidadLomito');
-Route::resource('ExtrasLomitos', 'ControllerLomitoExtras');
+
+
+
 Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 Route::get('PizzaControlDetalle/create/estadodetalle/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerDetalle@update_estado']);
 Route::get('PizzaControlProducto/create/estadoProduc/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerProducto@update_estado']);
-Route::get('LomitoControl/create/estadoProduc/{update_estado}', ['as'=>'LomitoControl.update_estado','uses'=>'LomitoController@update_estado']);
 
+//lomitos
+Route::resource('ControlProductoLomito','ControllerProductoLomito');
+Route::resource('EspecialidadControlLomito','ControllerEspecialidadLomito');
+Route::resource('ExtrasLomitos', 'ControllerLomitoExtras');
+Route::resource('ExtrasSubLomitos','ControllerExtrasSubLomito');
+Route::get('ControlProductoLomito/create/estadoProduc/{update_estado}', ['as'=>'LomitoControl.update_estado','uses'=>'ControllerProductoLomito@update_estado']);
+Route::get('ExtrasLomitos/create/estadoProduc/{update_estado}', ['as'=>'ExtrasLomitos.update_estado','uses'=>'ControllerLomitoExtras@update_estado']);
+Route::get('EspecialidadControlLomito/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlLomito.update_estado','uses'=>'ControllerEspecialidadLomito@update_estado']);
+
+//hamburguesas
+Route::resource('ControlProductoHamburguesa','ControllerProductoHamburguesa');
+Route::resource('EspecialidadControlHamburguesa','ControllerEspecialidadHamburguesa');
+Route::resource('ExtrasHamburguesa', 'ControllerHamburguesaExtras');
+Route::resource('ExtrasSubHamburguesa','ControllerExtrasSubHamburguesa');
+Route::get('ControlProductoHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoHamburguesa.update_estado','uses'=>'ControllerProductoHamburguesa@update_estado']);
+Route::get('ExtrasHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ExtrasHamburguesa.update_estado','uses'=>'ControllerHamburguesaExtras@update_estado']);
+Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlHamburguesa.update_estado','uses'=>'ControllerEspecialidadHamburguesa@update_estado']);
+
+//bebidas
+Route::resource('ControlProductoBebida','ControllerProductoBebida');
+Route::resource('EspecialidadControlBebida','ControllerEspecialidadHamburguesa');
+Route::resource('ExtrasHamburguesa', 'ControllerHamburguesaExtras');
+Route::resource('ExtrasSubHamburguesa','ControllerExtrasSubHamburguesa');
+Route::get('ControlProductoHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoHamburguesa.update_estado','uses'=>'ControllerProductoHamburguesa@update_estado']);
+Route::get('ExtrasHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ExtrasHamburguesa.update_estado','uses'=>'ControllerHamburguesaExtras@update_estado']);
+Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlHamburguesa.update_estado','uses'=>'ControllerEspecialidadHamburguesa@update_estado']);
 
 
 

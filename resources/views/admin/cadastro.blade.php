@@ -25,7 +25,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
-             <a href="{{URL::to('/LomitoControl/create')}}">
+             <a href="{{URL::to('/ControlProductoLomito/create')}}">
             <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/lomito.png')}}">
             </div>
@@ -35,7 +35,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
-                <a href="{{URL::to('/PizzaControl')}}">
+                <a href="{{URL::to('/ControlProductoHamburguesa/create')}}">
              <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/hamburguesa.png')}}">
             </div>

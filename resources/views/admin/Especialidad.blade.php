@@ -7,14 +7,14 @@
 
                           <!--********************contenido de Paginas************************-->
                           <!--manu-->
-@include('usuario.lomitomenu')
+@include('usuario.'.$routes)
                           <!--manu fin-->
                           <div class=" col-lg-8"><!--contenido Pizza-->
 
                               <div class="cuadro_gris0">
 
 
-                                  {!! Form::open(['route'=>'EspecialidadControl.store','method'=>'POST']) !!}
+                                  {!! Form::open(['route'=>$formRoute.'.store','method'=>'POST']) !!}
                                       <div class="form_box1">
 
 
@@ -46,7 +46,8 @@
                               <tr>
                                   <th>Categorias</th>  
                                   <th></th>
-                                  <th></th> 
+                                  <th></th>
+                                  <th>Activar</th>
 
                               </tr>
                               </thead>
@@ -59,11 +60,11 @@
 
 
 
-                                          {!! link_to_route('PizzaControl.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+                                          {!! link_to_route($formRoute.'.edit', $title = 'Editar', $parameters = $cat_pizza->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
 
                                       </td>
                                       <td align="center">
-                                          {!!Form::open(['route'=>['EspecialidadControl.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
+                                          {!!Form::open(['route'=>[$formRoute.'.destroy',$cat_pizza->codigo], 'method'=>'DELETE'])!!}
 
                                           {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
                                           {!!Form::close()!!}
@@ -71,6 +72,7 @@
 
                                       </td>
 
+                                      <td align="center"> <a href="{{URL::to($formRoute.'/create/estadoProduc/'.$cat_pizza->codigo)}}"><button class="btn {{$cat_pizza->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$cat_pizza->estado?'fa-check':'fa-times'}} "></i></button></a></td>
 
                                   </tr>
                               @endforeach

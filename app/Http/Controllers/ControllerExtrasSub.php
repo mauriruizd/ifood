@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -7,6 +8,8 @@ use App\ProductoExtra;
 use App\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class ControllerExtrasSub extends Controller {
 
@@ -43,7 +46,7 @@ class ControllerExtrasSub extends Controller {
 			->get();
 		$extrasSelect = [];
 		foreach ($extras as $extra){
-			$extrasSelect[$extra->codigo] = $extra->nombre;
+			$extrasSelect[$extra->codigo] = $extra->nombres;
 		}
 		return $extrasSelect;
 	}
@@ -52,9 +55,15 @@ class ControllerExtrasSub extends Controller {
 
 
 
+		$extras = Extra::join('productos_extras','producto_sub_extras.pextra_codigo','=', 'productos_extras.codigo')
+			->join('subcategorias', 'subcategorias.codigo','=','producto_sub_extras.subcategoria_codigo')
+			->join('categorias', 'categorias.codigo', '=', 'subcategorias.categoria_codigo')
+			->select('subcategorias.nombre as especialidad', 'productos_extras.nombres as extras', 'producto_sub_extras.precio_extra as precio', 'producto_sub_extras.codigo')
+			->where('categorias.codigo', '=', $this->categoria)
+			->Paginate(4);
 
-		$lomito = Subcategoria::where('empresa_codigo', '=', Auth::user()->persona_empresa_codigo)
-			->where('categoria_codigo', '=', 2)
+		$lomito = Subcategoria::where('empresa_codigo', '=', $this->empresa())
+			->where('categoria_codigo', '=', $this->categoria)
 			->get();
 
 		$selectLomito = array();
@@ -69,7 +78,7 @@ class ControllerExtrasSub extends Controller {
 		$extraSelet = $this->getExtras();
 		$subcategoriasSelect = $this->getSubcategorias();
 
-		return view('admin.ExtrasSub',['lomito'=>$lomito,'selectLomito'=>$selectLomito,'extraSelet'=>$extraSelet,'subcategoriasSelect'=>$subcategoriasSelect, 'formRoute'=>$this->formRoute, 'routes'=>$this->routes]);
+		return view('admin.ExtrasEspecialidad',['extras'=>$extras,'lomito'=>$lomito,'selectLomito'=>$selectLomito,'extraSelet'=>$extraSelet,'subcategoriasSelect'=>$subcategoriasSelect, 'formRoute'=>$this->formRoute, 'routes'=>$this->routes]);
 	}
 
 	/**
@@ -77,9 +86,20 @@ class ControllerExtrasSub extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		foreach ($request->extras as $extra){
+			Extra::create([
+				'subcategoria_codigo'=>$request->especialidad,
+				'pespecialidad_codigo'=>21,
+				'pextra_codigo'=>$extra,
+				'precio_extra'=>$request->precio,
+			]);
+		}
+		Session::flash('message', 'Extras / Especialidad creado exitosamente ');
+		return Redirect::to($this->formRoute.'/create');
+
+
 	}
 
 	/**
@@ -99,9 +119,14 @@ class ControllerExtrasSub extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
-		//
+		$extras = Extra::find($codigo);
+		$extraSelet = $this->getExtras();
+		$subcategoriasSelect = $this->getSubcategorias();
+
+		return view('usuario.edit_ExtrasSub', ['extras'=>$extras,'extraSelet'=>$extraSelet,'subcategoriasSelect'=>$subcategoriasSelect,'formRoute'=>$this->formRoute, 'routes'=>$this->routes]);
+
 	}
 
 	/**
@@ -110,10 +135,16 @@ class ControllerExtrasSub extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $codigo)
 	{
-		//
+		$extra = Extra::find($codigo);
+		$extra->fill($request->all());
+		$extra->save();
+		Session::flash('message','Extras actualizado exitosamente' );
+		return Redirect::to($this->formRoute.'/create');
+
 	}
+
 
 	/**
 	 * Remove the specified resource from storage.
@@ -121,9 +152,11 @@ class ControllerExtrasSub extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($codigo)
 	{
-		//
+		Extra::destroy($codigo);
+		Session::flash('message','Extras / Especialidad Eliminado exitosamente');
+		return Redirect::to('/ExtrasSubLomitos/create');
 	}
 
 }

@@ -13,7 +13,13 @@ use Session;
 use Redirect;
 use Auth;
 
-class LomitoController extends Controller{
+class ProductoController extends Controller{
+	protected $routes;
+	protected $categoria;
+	protected $formRoute;
+	protected  function empresa(){
+		return Auth::user()->persona_empresa_codigo;
+	}
 
 	protected function crearImagen($inputImagen){
 
@@ -45,15 +51,15 @@ class LomitoController extends Controller{
 	{
 		$lomitoProducto = Producto::join('subcategorias','subcategorias.codigo','=','productos.subcategoria_codigo')
 			->select('subcategorias.nombre as subcat_nombre','productos.denominacion','productos.descripcion','productos.precio','productos.imagen_url','productos.estado','productos.codigo')
-			->where('subcategorias.categoria_codigo', '=', 2)
-			->where('subcategorias.empresa_codigo','=', Auth::user()->persona_empresa_codigo)->paginate(4);
+			->where('subcategorias.categoria_codigo', '=', $this->categoria)
+			->where('subcategorias.empresa_codigo','=', $this->empresa())->paginate(4);
 
 			//->get();
 
 			//->where('categoria_codigo', '=', 2)->paginate(4);
 
-		$lomito = Subcategoria::where('empresa_codigo', '=', Auth::user()->persona_empresa_codigo)
-			->where('categoria_codigo', '=', 2)
+		$lomito = Subcategoria::where('empresa_codigo', '=', $this->empresa())
+			->where('categoria_codigo', '=', $this->categoria)
 			->get();
 
 		$selectLomito = array();
@@ -61,7 +67,7 @@ class LomitoController extends Controller{
 			$selectLomito[$lomitos->codigo] = $lomitos->nombre;
 		}
 
-		return view('admin.LomitoView', compact('lomito','selectLomito','lomitoProducto'));
+		return view('admin.LomitoView', ['routes'=>$this->routes, 'formRoute'=>$this->formRoute,'lomito'=>$lomito,'selectLomito'=>$selectLomito,'lomitoProducto'=>$lomitoProducto]);
 	}
 
 	/**
@@ -80,16 +86,16 @@ class LomitoController extends Controller{
 		Producto::create([
 			'denominacion'=>$request['nombre'],
 			'subcategoria_codigo'=>$request['especialidad'],
-			'categoria_codigo'=>2,
+			'categoria_codigo'=>$this->categoria,
 			'descripcion'=>$request['descrip'],
-			'empresa_codigo'=>Auth::user()->persona_empresa_codigo,
+			'empresa_codigo'=>$this->empresa(),
 			'imagen_url'=>$imagen_final,
 			'precio'=>$request['precio'],
 			'estado'=>1,
 
 		]);
 		Session::flash('message','Producto creado correctamente');
-		return Redirect::to('/LomitoControl/create');
+		return Redirect::to($this->formRoute.'/create');
 	}
 
 	/**
@@ -109,9 +115,18 @@ class LomitoController extends Controller{
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($codigo)
 	{
-		//
+		$producto = Producto::find($codigo);
+		$lomito = Subcategoria::where('empresa_codigo', '=', $this->empresa())
+			->where('categoria_codigo', '=', $this->categoria)
+			->get();
+
+		$selectLomito = array();
+		foreach ($lomito as $lomitos) {
+			$selectLomito[$lomitos->codigo] = $lomitos->nombre;
+		}
+		return view('usuario.edit_producto_generico', ['formRoute'=>$this->formRoute, 'routes'=>$this->routes, 'producto'=>$producto, 'selectLomito'=>$selectLomito]);
 	}
 
 	/**
@@ -120,9 +135,15 @@ class LomitoController extends Controller{
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $codigo)
 	{
-		//
+		$producto = Producto::find($codigo);
+		$producto->fill($request->all());
+		if(isset($request->all()['image']))
+			$producto->imagen_url = $this->crearImagen(Input::file('image'));
+		$producto->save();
+		Session::flash('message', 'Producto actualizado corectamente');
+		return Redirect::to($this->formRoute.'/create');
 	}
 	public function update_estado($codigo)
 	{
@@ -131,7 +152,7 @@ class LomitoController extends Controller{
 		$estado->estado=$estado->estado?0:1;
 		$estado->save();
 		Session::flash('message','Estado actualizado exitosamente');
-		return Redirect::to('/LomitoControl/create');
+		return Redirect::to($this->formRoute.'/create');
 
 
 	}

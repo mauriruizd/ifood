@@ -7,7 +7,7 @@
 
                           <!--********************contenido de Paginas************************-->
                           <!--manu-->
-@include('usuario.lomitomenu')
+@include('usuario.'.$routes)
                           <!--manu fin-->
                           <div class=" col-lg-8"><!--contenido Pizza-->
 
@@ -15,13 +15,14 @@
 
 
 
-                                  {!! Form::open(['route'=>'LomitoControl.store','method'=>'POST','files' => true]) !!}
+                                  {!! Form::open(['route'=>$formRoute.'.store','method'=>'POST','files' => true]) !!}
 
                                       <div id="caja3">
                                           <h3 class="titulo_sabor">Nombre</h3>
                                           {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'']) !!}
 
                                       </div>
+
                                       <div id="caja3">
                                           <h3 class="titulo_sabor" >Especialidad</h3>
 
@@ -99,23 +100,23 @@
                                       </td>
 
 
-                                      <td>{{$lomitoProductos->precio}}</td>
+                                      <td>{{\App\Moneda::guaranies($lomitoProductos->precio)}}</td>
                                       <td align="center">
 
 
 
-                                          {!! link_to_route('PizzaControl.edit', $title = 'Editar', $parameters = $lomitoProductos->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
+                                          {!! link_to_route($formRoute.'.edit', $title = 'Editar', $parameters = $lomitoProductos->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}
 
                                       </td>
                                       <td align="center">
-                                          {!!Form::open(['route'=>['LomitoControl.destroy',$lomitoProductos->codigo], 'method'=>'DELETE'])!!}
+                                          {!!Form::open(['route'=>[$formRoute.'.destroy',$lomitoProductos->codigo], 'method'=>'DELETE'])!!}
 
                                           {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
                                           {!!Form::close()!!}
 
 
                                       </td>
-                                      <td align="center"> <a href="{{URL::to('LomitoControl/create/estadoProduc/'.$lomitoProductos->codigo)}}"><button class="btn {{$lomitoProductos->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$lomitoProductos->estado?'fa-check':'fa-times'}} "></i></button></a></td>
+                                      <td align="center"> <a href="{{URL::to($formRoute.'/create/estadoProduc/'.$lomitoProductos->codigo)}}"><button class="btn {{$lomitoProductos->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$lomitoProductos->estado?'fa-check':'fa-times'}} "></i></button></a></td>
 
 
 
