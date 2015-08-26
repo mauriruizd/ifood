@@ -27,6 +27,8 @@ Route::post("register", "ControlUsuarios@ControlRegister");
 Route::get("nueva_clave", "ControlUsuarios@ResetPasswordForm");
 Route::post("nueva_clave/", "ControlUsuarios@ResetPassword");
 Route::get("salir", "ControlUsuarios@ControlLogout");
+Route::get("contacto", "Paginador@ContactoForm");
+Route::post("envio_formulario", "Paginador@ContactoPost");
 
 
 Route::group(['middleware' => 'LoginChecker'], function(){
@@ -63,6 +65,8 @@ Route::group(['middleware' => 'LoginChecker'], function(){
 	Route::get("carrito/update/{id_producto}/{qtd}", "Carrito@UpdateProducto");
 	Route::get("carrito/remove/{id_producto}", "Carrito@RemoveProducto");
 	Route::post("carrito/seleccionarDireccion", "Carrito@SeleccionarDireccion");
+
+	Route::get("rehacer_pedido/{id}", "Carrito@LastPedidoDetallado");
 
 	Route::get("favoritos", "Paginador@Favoritos");
 	Route::get("busquedaAjax", "Paginador@BusquedaAjax");

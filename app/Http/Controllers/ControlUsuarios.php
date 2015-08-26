@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Pedido;
 use Illuminate\Http\Request;
 
 use App\Usuario;
@@ -43,6 +44,10 @@ class ControlUsuarios extends Controller {
 				Session::put('carrito', $newCarrito);
 			}
 			Session::put('hungry_user', $usuario);
+			$ultimoPedido = Pedido::where('persona_cliente_codigo', '=', $usuario->codigo)->orderBy('codigo', 'DESC')->first();
+			if(!is_null($ultimoPedido)){
+				return Redirect::action("Paginador@PrimeraVistaUsuario")->with("ultimopedido", $ultimoPedido->codigo);
+			}
 			return Redirect::action("Paginador@PrimeraVistaUsuario");
 		}
 		return view('uncatched')->with('error', 'Usuario no encontrado.');

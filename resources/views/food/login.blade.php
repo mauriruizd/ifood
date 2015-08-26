@@ -4,6 +4,9 @@
 		@if(Session::has('msg'))
 			<span class="msg">{{ Session::get('msg') }}</span>
 		@endif
+		@if(Session::has('ultimopedido'))
+			<span class="msg">Rehacer <a href="{{ URL::to('rehacer_pedido/'.Session::get('ultimopedido')) }}">ultimo pedido</a></span>
+		@endif
 		<div id="user-ask">
 			<input type="text" id="quiero" placeholder="Qué deseas comer hoy?" autofocus>
 		</div>
