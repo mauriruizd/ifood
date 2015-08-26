@@ -238,6 +238,14 @@ class Carrito extends Controller {
 
 	/*--------FIN CONFIGURACIONES POR CATEGORIA---------*/
 
+	public function LastPedidoDetallado($id){
+		$pedido = Pedido::where('persona_cliente_codigo', '=', Session::get('hungry_user')->codigo)->orderBy('codigo', 'DESC')->first();
+		$pedido['detalle'] = $pedido->detalle;
+		$pedido['detalle']['extras'] = $pedido['detalle']->extras;
+		return $pedido;
+
+	}
+
 	public function UpdateProducto($id, $qtd){
 		Session(['carrito.items.'.$id.".cantidad" => $qtd]);
 		return $this->getSubtotal();
