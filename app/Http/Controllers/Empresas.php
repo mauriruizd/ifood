@@ -139,12 +139,12 @@ class Empresas extends Controller {
 		->join('categorias', 'persona_empresas_categoria.categoria_codigo', '=', 'categorias.codigo')
 		->where('persona_empresas.slug', '=', $slug)
 		->select('categorias.nombre')
-		->get();*/
+		->get();
 		$empresa = Empresa::where('slug', '=', $slug)->first();
 		$empresa->socket_server_token = sha1(uniqid($empresa->codigo, true));
 		if(!$empresa->save()){
 			return view('uncatched')->with('error', 'Error al crear sesión. Reinicie la página, por favor.');
-		}
+		}*/
 		return view('empresas.socket', compact('empresa'));
 	}
 
