@@ -38,11 +38,17 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 	 */
 	public function handle()
 	{
-		$direccion = DireccionCliente::select('latitud', 'longitud')
+		$direccion = DireccionCliente::select('latitud', 'longitud', 'direccion')
 			->find($this->datos['direccion_id']);
 
 		$this->datos['longitud'] = $direccion->longitud;
 		$this->datos['latitud'] = $direccion->latitud;
+		$this->datos['direccion'] = $direccion->direccion;
+
+		$socket_empresa = $this->datos['empresa'];
+		unset($this->datos['empresa']);
+		unset($this->datos['direccion_id']);
+		unset($this->datos['user_id']);
 
 		$this->datos['nombre_usuario'] = Session::get('hungry_user')->nombres;
 		$this->datos['celular'] = Session::get('hungry_user')->celular;
@@ -52,7 +58,7 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 		$socket->connect("tcp://127.0.0.1:3000");
 		$socket->send(json_encode($this->datos));*/
 
-		$this->pusher->enviarSocket($this->datos['empresa'], 'nuevos_pedidos', $this->datos);
+		$this->pusher->enviarSocket($socket_empresa, 'nuevos_pedidos', $this->datos);
 
 	}
 

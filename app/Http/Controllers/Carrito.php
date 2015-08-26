@@ -100,6 +100,7 @@ class Carrito extends Controller {
 					'user_id' => $nPedido->persona_cliente_codigo,
 					'direccion_id' => $nPedido->direccion_codigo,
 					'timestamps' => date("d-m-Y H:i:s"),
+					'total' => Moneda::guaranies($nPedido->importe_total),
 					'pedido' => array()
 				];
 				foreach($pedido['items'] as $item){
@@ -120,13 +121,14 @@ class Carrito extends Controller {
 							$nDetalleExtra->producto_subextra_codigo = $extra->codigo;
 							$nDetalleExtra->producto_extra_precio = $extra->precio_extra;
 							$nDetalleExtra->save();
+							$extra->precio_extra = Moneda::guaranies((double)$extra->precio_extra);
 						}
 					}
 					$socket_data['pedido'][] = [
 						'item' => $nPedidoDetalle->producto_descripcion,
 						'cantidad' => $nPedidoDetalle->cantidad,
-						'precio' => $nPedidoDetalle->precio,
-						'subtotal' => $nPedidoDetalle->subtotal,
+						'precio' => Moneda::guaranies($nPedidoDetalle->precio),
+						'subtotal' => Moneda::guaranies($nPedidoDetalle->subtotal),
 						'extras' => $item['configExtra']['extras']
 					];
 				}
