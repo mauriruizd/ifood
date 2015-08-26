@@ -186,8 +186,6 @@ Route::resource('ControlExtras','ControllerExtras');//aca estan todos los extras
 
 Route::resource('EspecialidadControl','ControllerEspecialidad');
 
-
-
 Route::get('PizzaControlTamanho/create/estadotamanho/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerTamanho@update_estado']);
 Route::get('PizzaControlDetalle/create/estadodetalle/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerDetalle@update_estado']);
 Route::get('PizzaControlProducto/create/estadoProduc/{update_estado}', ['as'=>'PizzaControlTamanho.update_estado','uses'=>'PizzaControllerProducto@update_estado']);
@@ -212,13 +210,48 @@ Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}',
 
 //bebidas
 Route::resource('ControlProductoBebida','ControllerProductoBebida');
-Route::resource('EspecialidadControlBebida','ControllerEspecialidadHamburguesa');
-Route::resource('ExtrasHamburguesa', 'ControllerHamburguesaExtras');
-Route::resource('ExtrasSubHamburguesa','ControllerExtrasSubHamburguesa');
-Route::get('ControlProductoHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoHamburguesa.update_estado','uses'=>'ControllerProductoHamburguesa@update_estado']);
-Route::get('ExtrasHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'ExtrasHamburguesa.update_estado','uses'=>'ControllerHamburguesaExtras@update_estado']);
-Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlHamburguesa.update_estado','uses'=>'ControllerEspecialidadHamburguesa@update_estado']);
+Route::resource('EspecialidadControlBebida','ControllerEspecialidadBebida');
+Route::resource('ExtrasBebida', 'ControllerBebidaExtras');
+Route::resource('ExtrasSubBebida','ControllerExtrasSubBebida');
+Route::get('ControlProductoBebida/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoBebida.update_estado','uses'=>'ControllerProductoBebida@update_estado']);
+Route::get('ExtrasBebida/create/estadoProduc/{update_estado}', ['as'=>'ExtrasBebida.update_estado','uses'=>'ControllerBebidaExtras@update_estado']);
+Route::get('EspecialidadControlBebida/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlBebida.update_estado','uses'=>'ControllerEspecialidadBebida@update_estado']);
 
+//Helado
+Route::resource('ControlProductoHelado','ControllerProductoHelado');
+Route::resource('EspecialidadControlHelado','ControllerEspecialidadHelado');
+Route::resource('ExtrasHelado', 'ControllerHeladoExtras');
+Route::resource('ExtrasSubHelado','ControllerExtrasSubHelado');
+Route::get('ControlProductoHelado/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoHelado.update_estado','uses'=>'ControllerProductoHelado@update_estado']);
+Route::get('ExtrasHelado/create/estadoProduc/{update_estado}', ['as'=>'ExtrasHelado.update_estado','uses'=>'ControllerHeladoExtras@update_estado']);
+Route::get('EspecialidadControHelado/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlHelado.update_estado','uses'=>'ControllerEspecialidadHelado@update_estado']);
+
+//Oriental
+Route::resource('ControlProductoOriental','ControllerProductoOriental');
+Route::resource('EspecialidadControlOriental','ControllerEspecialidadOriental');
+Route::resource('ExtrasOriental', 'ControllerOrientalExtras');
+Route::resource('ExtrasSubOriental','ControllerExtrasSubOriental');
+Route::get('ControlProductoOriental/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoOriental.update_estado','uses'=>'ControllerProductoOriental@update_estado']);
+Route::get('ExtrasOriental/create/estadoProduc/{update_estado}', ['as'=>'ExtrasOriental.update_estado','uses'=>'ControllerOrientalExtras@update_estado']);
+Route::get('EspecialidadControOriental/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlOriental.update_estado','uses'=>'ControllerEspecialidadOriental@update_estado']);
+
+//Vegana
+Route::resource('ControlProductoVegana','ControllerProductoVegana');
+Route::resource('EspecialidadControlVegana','ControllerEspecialidadVegana');
+Route::resource('ExtrasVegana', 'ControllerVeganaExtras');
+Route::resource('ExtrasSubVegana','ControllerExtrasSubVegana');
+Route::get('ControlProductoVegana/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoVegana.update_estado','uses'=>'ControllerProductoVegana@update_estado']);
+Route::get('ExtrasVegana/create/estadoProduc/{update_estado}', ['as'=>'ExtrasVegana.update_estado','uses'=>'ControllerVeganaExtras@update_estado']);
+Route::get('EspecialidadControVegana/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlVegana.update_estado','uses'=>'ControllerEspecialidadVegana@update_estado']);
+
+//Combo
+Route::resource('ControlProductoCombo','ControllerProductoCombo');
+Route::resource('EspecialidadControlCombo','ControllerEspecialidadCombo');
+Route::resource('ExtrasCombo', 'ControllerComboExtras');
+Route::resource('ExtrasSubCombo','ControllerExtrasSubCombo');
+Route::get('ControlProductoCombo/create/estadoProduc/{update_estado}', ['as'=>'ControlProductoCombo.update_estado','uses'=>'ControllerProductoCombo@update_estado']);
+Route::get('ExtrasCombo/create/estadoProduc/{update_estado}', ['as'=>'ExtrasCombo.update_estado','uses'=>'ControllerComboExtras@update_estado']);
+Route::get('EspecialidadComboVegana/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlCombo.update_estado','uses'=>'ControllerEspecialidadCombo@update_estado']);
 
 
 
