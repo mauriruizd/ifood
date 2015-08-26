@@ -25,7 +25,7 @@
 		}
 		var socketEmpresa = new subscription('{{ $empresa->socket_server_token }}');
 */
-		var Pusher = new Pusher('35aa4c752e4b1fa7475f', {
+		var pusher = new Pusher('35aa4c752e4b1fa7475f', {
 			encrypted: true
 		});
 
@@ -35,10 +35,10 @@
 			}
 		};
 
-		var pedidos = Pusher.subscribe('{{ $empresa->socket_server_token }}', 'nuevos_pedidos', function (data) {
+		var pedidos = pusher.subscribe('{{ $empresa->socket_server_token }}');
+		pedidos.bind('nuevos_pedidos', function(data){
 			renderPedido(data);
 		});
-		pedidos.bind();
 
 		function renderPedido(data){
 			console.log(data);

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Session;
 
 use App\DireccionCliente;
+use App\PusherDelcheff;
 
 class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 
@@ -27,7 +28,7 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 	public function __construct(array $datos)
 	{
 		$this->datos = $datos;
-		$this->pusher = new \PusherDelcheff();
+		$this->pusher = new PusherDelcheff();
 	}
 
 	/**
@@ -51,7 +52,7 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 		$socket->connect("tcp://127.0.0.1:3000");
 		$socket->send(json_encode($this->datos));*/
 
-		$this->pusher->trigger($this->datos['empresa'], 'nuevos_pedidos', $this->datos);
+		$this->pusher->enviarSocket($this->datos['empresa'], 'nuevos_pedidos', $this->datos);
 
 	}
 
