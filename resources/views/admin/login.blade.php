@@ -68,8 +68,8 @@
                 </div>
 
                 <div class="form-group">
-                    {!!Form::label('contrasena','Contraseña:')!!}
-                    {!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresa tu contraseña'])!!}
+                    {!!Form::label('contrasena','Contraseï¿½a:')!!}
+                    {!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresa tu contraseï¿½a'])!!}
 
                 </div>
                 <div class="form-group">

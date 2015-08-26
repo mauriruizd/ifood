@@ -211,7 +211,7 @@ Route::get('ExtrasHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'Extr
 Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlHamburguesa.update_estado','uses'=>'ControllerEspecialidadHamburguesa@update_estado']);
 
 //bebidas
-Route::resource('ControlProductoBebida','ControllerProductoBebida');
+//Route::resource('ControlProductoBebida','ControllerProductoBebida');
 Route::resource('EspecialidadControlBebida','ControllerEspecialidadHamburguesa');
 Route::resource('ExtrasHamburguesa', 'ControllerHamburguesaExtras');
 Route::resource('ExtrasSubHamburguesa','ControllerExtrasSubHamburguesa');
@@ -221,7 +221,7 @@ Route::get('EspecialidadControlHamburguesa/create/estadoProduc/{update_estado}',
 
 
 
-
+include("routes_topadmin.php");
 
 /*------ADMINISTRACION PARA LAS EMPRESAS FIN-------*/
 
