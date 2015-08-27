@@ -64,12 +64,15 @@ function noGeoloc(bool){
 	InfoWindows.push(noPosicion);
 	map.setCenter(options.position);
 }
-function setInfo(pos){
+function setInfo(pos, msg){
+	if(typeof msg == 'undefined'){
+		msg = "Entonces es esta";
+	}
 	clearInfos();
 	var newPosition = new google.maps.InfoWindow({
 			map : map,
 			position : pos,
-			content : "Entonces es esta"
+			content : msg
 		});
 	InfoWindows.push(newPosition);
 	saveLatLng(pos);

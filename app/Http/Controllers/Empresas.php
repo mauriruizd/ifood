@@ -74,9 +74,9 @@ class Empresas extends Controller {
 			->where('productos.codigo', '!=', $producto->codigo)
 			->get() : null;
 		if(count($producto) > 0){
-			return view('empresas.vistaProducto', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados', 'sabores_extras', 'estaEnCarrito'));
+			return view('empresas.vistaProducto3', compact('producto', 'empresa', 'favorito', 'filtrosPizza', 'extra', 'agregados', 'sabores_extras', 'estaEnCarrito'));
 		} else {
-			return view('empresas.vistaProducto')->with('error', 'Producto no encontrado.');
+			return view('empresas.vistaProducto3')->with('error', 'Producto no encontrado.');
 		}
 	}
 
