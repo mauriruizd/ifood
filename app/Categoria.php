@@ -9,4 +9,8 @@ class Categoria extends Model {
 
 	public $timestamps = false;
 
+	public function getCatEmpresas(){
+		return $this->hasMany('App\CategoriasEmpresa', 'categoria_codigo', 'codigo');
+	}
+
 }

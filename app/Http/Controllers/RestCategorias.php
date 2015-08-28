@@ -16,9 +16,17 @@ class RestCategorias extends Controller {
 	 */
 	public function index()
 	{
-		return Categoria::select('codigo', 'nombre', 'imagen_url', 'estado')
+		$categorias = Categoria::select('codigo', 'nombre', 'imagen_url', 'estado')
 		->where('estado', '=', '1')
 		->get();
+		foreach($categorias as $categoria){
+			$categoria->lista = $categoria->getCatEmpresas;
+			foreach($categoria->lista as $conf){
+				$conf = $conf->empresas;
+			}
+		}
+		//unset($categorias->listaempresas);
+		return $categorias;
 	}
 
 	/**

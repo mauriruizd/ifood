@@ -183,14 +183,15 @@ function push_pedido(data){
     html += '<p><i class="bol">Nombre: </i>' + data.nombre_usuario + '</p>';
     html += '<p><i class="bol">Telefono: </i>' + data.celular + '</p>';
     html += '<p><i class="bol">Dirección: </i>' + data.direccion + '</p>';
+    html += '<p><i class="bol">Inporte total: </i><b>' + data.total + '</b> </p>';
     html += '<div class="room-box">';
+    html += '<h5 class="text-primary"><strong>Detalle del pedido</strong></h5>';
     for(var i=0; i < data.pedido.length; i++) {
-        html += '<h5 class="text-primary">Pruducto:  ' + data.pedido[i].producto + '</h5>';
-        html += '<h5 class="text-primary">Descripcion:  ' + data.pedido[i].descripcion + '</h5>';
+        html += '<p><h5 class="text-primary">Pruducto: ' + data.pedido[i].item + '</h5></p>';
         html += '<p><span class="text-muted">Cantidad :</span> ' + data.pedido[i].cantidad + ' </p>';
-        html += '<p><h5><i class="text-primary"><strong>Precio:</strong> </i>' + data.pedido[i].precio + '</h5></p>     ';
-        html += '<p><h5><i class="text-primary"><strong>Subtotal:</strong> </i>' + data.pedido[i].subtotal + '</h5></p>     ';
-        if(typeof data.pedido[i].extras !== 'null'){
+        html += '<p><span class="text-muted">Precio:</span> ' + data.pedido[i].precio + '</p>';
+        html += '<p><span class="text-muted">Subtotal:</span> ' + data.pedido[i].subtotal + '</p>';
+        if(data.pedido[i].extras !== null){
             html += '<h5 class="text-primary">Extras del producto:</h5>';
             for(var k=0; k < data.pedido[i].extras; k++){
                 html += '<p><span class="text-muted">Nombre :</span> ' + data.pedido[i].extras[k].nombre + ' </p>';
@@ -263,24 +264,24 @@ $(document).ready(function(){
                <div>
                    <div class="titulo_orden">Pedido N° {{ $pedido->codigo }}<i id='down' class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->
                    <div class="info_box">
-                    <p><i class="bol">Nombre: </i>{{$pedido->nombres}}</p>
-                    <p><i class="bol">Telefono: </i>{{ $pedido->celular }}</p>
-                    <p><i class="bol">Dirección: </i>{{ $pedido->direccion }} </p>
-                    <p><i class="bol">Inporte total: </i><b>{{ \App\Moneda::guaranies($pedido->importe_total) }}</b> </p>
+                    <p><i class="bol">Nombre:</i> {{$pedido->nombres}}</p>
+                    <p><i class="bol">Telefono:</i> {{ $pedido->celular }}</p>
+                    <p><i class="bol">Dirección:</i> {{ $pedido->direccion }} </p>
+                    <p><i class="bol">Inporte total:</i><b> {{ \App\Moneda::guaranies($pedido->importe_total) }}</b> </p>
                     <div class="room-box">
                         <h5 class="text-primary"><strong>Detalle del pedido</strong></h5>
                         @foreach($pedido->detallado as $detalle)
-                            <h5 class="text-primary">Pruducto:  {{ $detalle->producto->denominacion }}</h5>
-                            <p><span class="text-muted">Descripcion :</span> {{ $detalle->producto_descripcion }} </p>
-                            <p><span class="text-muted">Cantidad :</span> {{ \App\Moneda::guaranies($detalle->cantidad, true) }} </p>
-                            <p><span class="text-muted">Precio :</span>{{ \App\Moneda::guaranies($detalle->precio) }}</p>
-                            <p><span class="text-muted">Subtotal :</span>{{ \App\Moneda::guaranies($detalle->subtotal) }}</p>
+                            <h5 class="text-primary">Pruducto: {{ $detalle->producto->denominacion }}</h5>
+                            <p><span class="text-muted">Descripcion:</span> {{ $detalle->producto_descripcion }} </p>
+                            <p><span class="text-muted">Cantidad:</span> {{ \App\Moneda::guaranies($detalle->cantidad, true) }} </p>
+                            <p><span class="text-muted">Precio:</span> {{ \App\Moneda::guaranies($detalle->precio) }}</p>
+                            <p><span class="text-muted">Subtotal:</span> {{ \App\Moneda::guaranies($detalle->subtotal) }}</p>
                             @if(count($detalle->listaextras) > 0)
                                 <h5 class="text-primary">Extras del producto:</h5>
                             @endif
                             @foreach($detalle->listaextras as $extra)
-                                <p><span class="text-muted">Nombre :</span> {{ $extra->producto->nombres }} </p>
-                                <p><span class="text-muted">Precio :</span>{{ \App\Moneda::guaranies($extra->extra_precio) }}</p>
+                                <p><span class="text-muted">Nombre:</span> {{ $extra->producto->nombres }} </p>
+                                <p><span class="text-muted">Precio:</span> {{ \App\Moneda::guaranies($extra->extra_precio) }}</p>
                             @endforeach
                             <br>
                         @endforeach

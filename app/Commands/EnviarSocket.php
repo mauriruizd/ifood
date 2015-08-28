@@ -53,11 +53,6 @@ class EnviarSocket extends Command implements SelfHandling, ShouldBeQueued {
 		$this->datos['nombre_usuario'] = Session::get('hungry_user')->nombres;
 		$this->datos['celular'] = Session::get('hungry_user')->celular;
 
-		/*$context = new \ZMQContext();
-		$socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'pusher');
-		$socket->connect("tcp://127.0.0.1:3000");
-		$socket->send(json_encode($this->datos));*/
-
 		$this->pusher->enviarSocket($socket_empresa, 'nuevos_pedidos', $this->datos);
 
 	}
