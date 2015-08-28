@@ -22,6 +22,7 @@ body {
     height: auto;
 
 }
+
 .texto{
     height: 30px;
 }
@@ -4492,15 +4493,36 @@ padding: 20px;
     display: inline-block;
     width: 400px;
    height: auto;
-    padding: 20px;
+    padding-left: 20px;
+
+
+
 }
-#caja3{
+#caja03{
+    display: inline-block;
+    vertical-align: top;
+    width: 217px;
+    padding-left: 20px;
+    padding-top: 5px;
+
+}
+#caja003{
 
     display: inline-block;
-    width: 400px;
+    width: 217px;
     height: auto;
-    padding: 20px;
+    padding-left: 20px;
+
 }
+.blanco{
+background: white;
+    border: 1px solid #e2e2e4;
+    color: #999999;
+
+}
+
+
+
   #caja1 input[type=text] {
 
     width: 120px;

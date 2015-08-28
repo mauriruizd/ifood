@@ -61,25 +61,22 @@
               <!--panel principal-->
 
 <!--***************************************************************************SOCKET***************************************************************-->
-<script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+<script src="https://js.pusher.com/2.2/pusher.min.js"></script>
 <script>
-    var subscription = function(categoria){
-        conn = new ab.Session('ws://192.168.1.196:8080', function(e){
-                    console.log('Conectado!');
-                    console.log(e);
-                    conn.subscribe(categoria, function(topic, data){
-                        push_pedido(data);
-                    });
-                }, function(){
-                    console.log('Conexion cerrada.');
-                },
-                {'skipSubprotocolCheck' : true}
-        );
-        conn.onopen = function(e){
-            console.log(e);
+    var pusher = new Pusher('35aa4c752e4b1fa7475f', {
+        encrypted: true
+    });
+
+    Pusher.log = function(message) {
+        if (window.console && window.console.log) {
+            window.console.log(message);
         }
-    }
-    var socketEmpresa = new subscription('{{ $empresa->socket_server_token }}');
+    };
+
+    var pedidos = pusher.subscribe('{{ $empresa->socket_server_token }}');
+    pedidos.bind('nuevos_pedidos', function(data){
+        push_pedido(data);
+    });
 
     function renderPedido(data){
         console.log(data);
@@ -183,15 +180,23 @@ function push_pedido(data){
     html += '<div>';
     html += '<div class="titulo_orden">N° de Pedido ' + Math.floor(Math.random()*89999+10000) + ' <i id="down" class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->';
     html += '<div class="info_box">';
-    html += '<p><i class="bol">Nombre: </i>' + data.nombre_usuario + '</p> ';
+    html += '<p><i class="bol">Nombre: </i>' + data.nombre_usuario + '</p>';
     html += '<p><i class="bol">Telefono: </i>' + data.celular + '</p>';
-    html += '<p><i class="bol">Dirección: </i>' + data.direccion_id + '</p>';
+    html += '<p><i class="bol">Dirección: </i>' + data.direccion + '</p>';
     html += '<div class="room-box">';
     for(var i=0; i < data.pedido.length; i++) {
-        html += '<h5 class="text-primary"><strong>Pedido:  ' + data.pedido[i].item + '</strong></h5>';
-        html += '<p><span class="text-muted">cantidad :</span> ' + data.pedido[i].cantidad + ' </p>';
-        html += '<p><h5><i class="text-primary"><strong>Monto:</strong> </i>' + data.pedido[i].precio + '</h5></p>     ';
+        html += '<h5 class="text-primary">Pruducto:  ' + data.pedido[i].producto + '</h5>';
+        html += '<h5 class="text-primary">Descripcion:  ' + data.pedido[i].descripcion + '</h5>';
+        html += '<p><span class="text-muted">Cantidad :</span> ' + data.pedido[i].cantidad + ' </p>';
+        html += '<p><h5><i class="text-primary"><strong>Precio:</strong> </i>' + data.pedido[i].precio + '</h5></p>     ';
         html += '<p><h5><i class="text-primary"><strong>Subtotal:</strong> </i>' + data.pedido[i].subtotal + '</h5></p>     ';
+        if(data.pedido[i].extras.length > 0){
+            html += '<h5 class="text-primary">Extras del producto:</h5>';
+            for(var k=0; k < data.pedido[i].extras; k++){
+                html += '<p><span class="text-muted">Nombre :</span> ' + data.pedido[i].extras[k].nombre + ' </p>';
+                html += '<p><span class="text-muted">Precio :</span> ' + data.pedido[i].extras[k].precio + ' </p>';
+            }
+        }
     }
     html += '</div>';
     html += '<div id="cuadro2">';
@@ -251,30 +256,45 @@ $(document).ready(function(){
     <button onclick="crear_orden()" class="new">Nueva Orden <strong class='fa fa-sign-in'>  </strong> </button>
 
        <hr>
-       <div id='cuadro_pedido' class="cuadro_pedido">
-       <div class="pedido_llegados">
-           <div>
-               <div class="titulo_orden">N° de Pedido 3659 <i id='down' class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->
-               <div class="info_box">
-                <p><i class="bol">Nombre: </i>Marcos Martinez</p>
-                <p><i class="bol">Telefono: </i>0978655845</p>
-                <p><i class="bol">Dirección: </i>Barrio San jose al costado de colegio camino de empedrado a tres cuadras de </p>
-                <div class="room-box">
-                    <h5 class="text-primary"><strong>Pedido:  Pizza</strong></h5>
-                    <p><span class="text-muted">cantidad :</span> 1 </p>
-                    <p><span class="text-muted">Tamanho :</span> Grande </p>
-                    <p><span class="text-muted">Masa :</span> fina  </p>
-                    <p><span class="text-muted">Sabor :</span> 4 quersos, peperoni</p>
-                    <p><span class="text-muted">Destalle :</span>favor si puede sacar el tomate y sim pimienta</p>
-                    <p><h5><i class="text-primary"><strong>Monto:</strong> </i>180.000 Gs.</h5></p>
-                </div>
-                <button type="button" id="boton_eliminar"  class="btn btn-danger btn-delete">
-                  <i class="glyphicon glyphicon-trash"></i>
-                   <span>Eliminar</span>
-                </button>
-               </div><!--info_box-->
+
+           <div id='cuadro_pedido' class="cuadro_pedido">
+               @foreach($pedidos as $pedido)
+           <div class="pedido_llegados">
+               <div>
+                   <div class="titulo_orden">Pedido N° {{ $pedido->codigo }}<i id='down' class="fa fa-toggle-down (alias)"></i> </div><!--titulo_orden-->
+                   <div class="info_box">
+                    <p><i class="bol">Nombre: </i>{{$pedido->nombres}}</p>
+                    <p><i class="bol">Telefono: </i>{{ $pedido->celular }}</p>
+                    <p><i class="bol">Dirección: </i>{{ $pedido->direccion }} </p>
+                    <p><i class="bol">Inporte total: </i><b>{{ \App\Moneda::guaranies($pedido->importe_total) }}</b> </p>
+                    <div class="room-box">
+                        <h5 class="text-primary"><strong>Detalle del pedido</strong></h5>
+                        @foreach($pedido->detallado as $detalle)
+                            <h5 class="text-primary">Pruducto:  {{ $detalle->producto->denominacion }}</h5>
+                            <p><span class="text-muted">Descripcion :</span> {{ $detalle->producto_descripcion }} </p>
+                            <p><span class="text-muted">Cantidad :</span> {{ \App\Moneda::guaranies($detalle->cantidad, true) }} </p>
+                            <p><span class="text-muted">Precio :</span>{{ \App\Moneda::guaranies($detalle->precio) }}</p>
+                            <p><span class="text-muted">Subtotal :</span>{{ \App\Moneda::guaranies($detalle->subtotal) }}</p>
+                            @if(count($detalle->listaextras) > 0)
+                                <h5 class="text-primary">Extras del producto:</h5>
+                            @endif
+                            @foreach($detalle->listaextras as $extra)
+                                <p><span class="text-muted">Nombre :</span> {{ $extra->producto->nombres }} </p>
+                                <p><span class="text-muted">Precio :</span>{{ \App\Moneda::guaranies($extra->extra_precio) }}</p>
+                            @endforeach
+                            <br>
+                        @endforeach
+                    </div>
+                    <button type="button" id="boton_eliminar"  class="btn btn-danger btn-delete">
+                      <i class="glyphicon glyphicon-trash"></i>
+                       <span>Eliminar</span>
+                    </button>
+                   </div><!--info_box-->
+
+               </div>
+
            </div>
-       </div>
+      @endforeach
 
 
   </section><!--panel-->

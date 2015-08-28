@@ -99,18 +99,21 @@
   
 
   <body>
-  @include('alerts.errors')
-  @include('alerts.request')
 
-  @include('alerts.success')
 
 
   <section id="container" >
+
+
+
       <!--header start-->
       <header class="header white-bg">
+
               <div class="sidebar-toggle-box">
                   <!--<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>-->
+
               </div>
+
             <!--logo start-->
             <a href="{{URL::to('control')}}" class="logo"><img src="{{URL::to('admin/imagen/logo.png')}}"></a>
             <!--logo end-->
@@ -170,7 +173,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="{{URL::to('control/cadastro')}}">Cadastro</a></li>
-                          <li><a  href="{{URL::to('control/promociones')}}">Promociones</a></li>
+                          <li><a  href="{{URL::to('/ControlPromociones/create')}}">Promociones</a></li>
                         
                       </ul>
                   </li>
@@ -182,8 +185,8 @@
                           <span>configuraciones</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="grids.html">Informe de Empresa</a></li>
-                          <li><a  href="calendar.html">Cotizaciones</a></li>
+                          <li><a  href="{{URL::to('/ControlEmpresa/create')}}">Informacion de Empresa</a></li>
+                          <li><a  href="calendar.html">Informe de pedido</a></li>
                       </ul>
                   </li>
 
@@ -220,6 +223,9 @@
                           </header>
                           <div class="container-fluid">
                               <div class="row">
+                                  @include('alerts.errors')
+                                  @include('alerts.request')
+                                  @include('alerts.success')
                                   @yield("contenido")
                               </div>
 
@@ -241,6 +247,7 @@
   </section>
 
    <!-- Bootstrap core CSS -->
+
 
 
 

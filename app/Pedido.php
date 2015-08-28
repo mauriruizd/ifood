@@ -9,4 +9,8 @@ class Pedido extends Model {
 	
 	public $timestamps = false;
 
+	public function detalle(){
+		return $this->hasMany('App\PedidoDetalle', 'pedido_codigo', 'codigo');
+	}
+
 }

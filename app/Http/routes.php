@@ -253,7 +253,11 @@ Route::get('ControlProductoCombo/create/estadoProduc/{update_estado}', ['as'=>'C
 Route::get('ExtrasCombo/create/estadoProduc/{update_estado}', ['as'=>'ExtrasCombo.update_estado','uses'=>'ControllerComboExtras@update_estado']);
 Route::get('EspecialidadComboVegana/create/estadoProduc/{update_estado}', ['as'=>'EspecialidadControlCombo.update_estado','uses'=>'ControllerEspecialidadCombo@update_estado']);
 
+//Promociones
+Route::resource('ControlPromociones','ControllerPromociones');
 
+//Informaciones Empresa
+Route::resource('ControlEmpresa','ControllerEmpresaInfo');
 
 
 /*------ADMINISTRACION PARA LAS EMPRESAS FIN-------*/

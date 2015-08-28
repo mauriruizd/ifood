@@ -11,4 +11,7 @@ class Extra extends Model {
 
     protected $fillable = ['pextra_codigo', 'subcategoria_codigo', 'pespecialidad_codigo', 'precio_extra'];
 
+    public function prodExtra(){
+        return $this->hasOne('App\ProductoExtra', 'codigo', 'pextra_codigo');
+    }
 }

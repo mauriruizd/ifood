@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Extra;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +35,7 @@ class ProductosExtrasMaster extends Controller {
 	public function create()
 	{
 		$subcategoriasSelect = $this->getSubcategorias();
-		$prodExtras = ProductoExtra::where('empresa_codigo', '=', $this->empresa())->paginate(4);
+		$prodExtras = ProductoExtra::where('empresa_codigo', '=', $this->empresa())->get();
 		return view('admin.Extras', ['routes'=>$this->routes, 'formRoute'=>$this->formRoute, 'subcategoriasSelect'=>$subcategoriasSelect, 'prodExtras'=>$prodExtras]);
 	}
 
@@ -49,25 +48,9 @@ class ProductosExtrasMaster extends Controller {
 	{
 		ProductoExtra::create([
 			'nombres'=>$request->nombre,
-			'empresa_codigo'=>$this->empresa(),
-			'estado'=>1,
+			'empresa_codigo'=>$this->empresa()
 		]);
 		Session::flash('message', 'Extra guardado con exito');
-		return Redirect::to($this->formRoute.'/create');
-	}
-
-	public function storeSubExtras(Request $request){
-		$precios = $request->precios;
-		foreach($request->subcategorias as $subcat) {
-			foreach ($request->extras as $extra) {
-				Extra::create([
-					'pextra_codigo' => $extra,
-					'subcategoria_codigo' => $subcat,
-					'precio_extra' => $precios[$extra]
-				]);
-			}
-		}
-		Session::flash('message', 'Extra(s) guardado(s) con exito');
 		return Redirect::to($this->formRoute.'/create');
 	}
 
@@ -88,12 +71,9 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($codigo)
+	public function edit($id)
 	{
-		$extra = ProductoExtra::find($codigo);
-
-		return view('usuario.edit_generico',['extra'=>$extra,'routes'=>$this->routes, 'formRoute'=>$this->formRoute]);
-
+		//
 	}
 
 	/**
@@ -102,23 +82,9 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $codigo)
+	public function update($id)
 	{
-
-		$extra = ProductoExtra ::find($codigo);
-		$extra->fill($request->all());
-		$extra->save();
-		Session::flash('message','Extras actualizado exitosamente' );
-		return Redirect::to($this->formRoute.'/create');
-	}
-
-	public function update_estado($codigo)
-	{
-		$extra = ProductoExtra::find($codigo);
-		$extra->estado=$extra->estado?0:1;
-		$extra->save();
-		Session::flash('message','Estado actualizado exitosamente');
-		return Redirect::to($this->formRoute.'/create');
+		//
 	}
 
 	/**
@@ -127,21 +93,14 @@ class ProductosExtrasMaster extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($codigo)
+	public function destroy($id)
 	{
-		ProductoExtra::destroy($codigo);
-		Session::flash('message','Extras eliminado exitosamente' );
-		return Redirect::to($this->formRoute.'/create');
-
-
+		//
 	}
 
 	protected function getSubcategorias(){
-		$sub = Subcategoria::join('categorias', 'subcategorias.categoria_codigo', '=', 'categorias.codigo')
-			->where('categoria_codigo', '=', $this->categoria)
+		$sub =  Subcategoria::where('categoria_codigo', '=', $this->categoria)
 			->where('empresa_codigo', '=', $this->empresa())
-			->where('categoria_codigo', '=', $this->categoria)
-			->select('subcategorias.*')
 			->get();
 
 		$subArray = [];
