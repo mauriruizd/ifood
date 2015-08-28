@@ -250,6 +250,7 @@
 
     $("#fecha").datepicker({
        dateFormat: 'dd-mm-yy',
+        multiselect : true,
        inline: true,
             showOtherMonths: true,
              monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',

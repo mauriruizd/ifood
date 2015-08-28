@@ -125,7 +125,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                            <!-- <img alt="" src="{{URL::to('admin/img/avatar1_small.jpg')}}">-->
-                            <span class="username">{!! Auth::user()->name !!}</span>
+                            {{--<span class="username">{!! Auth::user()->name !!}</span>--}}
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
@@ -172,20 +172,20 @@
                         
                       </ul>
                   </li>
-                  @if(Auth::user()->roles==1)
+                  {{--@if(Auth::user()->roles==1)--}}
 
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>configuraciones</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="grids.html">Informe de Empresa</a></li>
-                          <li><a  href="calendar.html">Cotizaciones</a></li>
-                      </ul>
-                  </li>
+                  {{--<li class="sub-menu">--}}
+                      {{--<a href="javascript:;" >--}}
+                          {{--<i class="fa fa-cogs"></i>--}}
+                          {{--<span>configuraciones</span>--}}
+                      {{--</a>--}}
+                      {{--<ul class="sub">--}}
+                          {{--<li><a  href="grids.html">Informe de Empresa</a></li>--}}
+                          {{--<li><a  href="calendar.html">Cotizaciones</a></li>--}}
+                      {{--</ul>--}}
+                  {{--</li>--}}
 
-                  @endif
+                  {{--@endif--}}
 
 
 

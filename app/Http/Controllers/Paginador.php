@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Redirect;
 use URL;
@@ -234,6 +235,20 @@ class Paginador extends Controller {
 		}
 		$direccion->delete();
 		return json_encode(array('status' => 200, 'id' => $datos['codigo']));
+	}
+
+	public function ContactoForm(){
+		return view('food.contacto');
+	}
+
+	public function ContactoPost(){
+		$datos = Input::all();
+		Mail::raw($datos['mensaje'], function($msg) use ($datos){
+			$msg->from($datos['email'], $datos['nombre']);
+			$msg->to('mauri.rd@gmail.com');
+			$msg->subject('Mensaje de Delcheff. Asunto: '.$datos['asunto']);
+		});
+		return view('uncatched', ['error'=>'Mensaje enviado exitosamente!']);
 	}
 
 	public function UpdateNombres(){

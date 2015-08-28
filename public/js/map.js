@@ -65,7 +65,7 @@ function noGeoloc(bool){
 	map.setCenter(options.position);
 }
 function setInfo(pos, msg){
-	if(typeof mag == 'undefined'){
+	if(typeof msg == 'undefined'){
 		msg = "Entonces es esta";
 	}
 	clearInfos();

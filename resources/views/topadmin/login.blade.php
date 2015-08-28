@@ -39,7 +39,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: url('admin/imagen/login-bg.jpg') 50% 50% no-repeat;
+        background: url('/admin/imagen/login-bg.jpg') 50% 50% no-repeat;
         background-size: cover;
     }
     .logo{
@@ -61,19 +61,19 @@
         <div class="form-signin">
             <h2 class="logo"><img src="{{URL::to('admin/imagen/delcheff-logo-web.png')}}"></h2>
             <div class="login-wrap">
-                {!!Form::open(['route'=>'log.store','method'=>'POST'])!!}
+                {!!Form::open(['route'=>'topadmin.login','method'=>'POST'])!!}
                 <div class="form-group">
                     {!!Form::label('correo','Correo:')!!}
                     {!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresa tu usuario'])!!}
                 </div>
 
                 <div class="form-group">
-                    {!!Form::label('contrasena','ContraseÒa:')!!}
-                    {!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresa tu contraseÒa'])!!}
+                    {!!Form::label('contrasena','Contrase√±a:')!!}
+                    {!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresa tu contrase√±a'])!!}
 
                 </div>
                 <div class="form-group">
-                {!!Form::checkbox('name', 'value', true)!!} Recuerdarme
+                {{--{!!Form::checkbox('name', 'value', true)!!} Recuerdarme--}}
                     <a data-toggle="modal" href="#myModal"> Olvidaste tu Password ?</a>
                     </div>
                 {!!Form::submit('Iniciar',['class'=>'"btn btn-lg btn-login btn-block'])!!}
