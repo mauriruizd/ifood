@@ -16,8 +16,5 @@ class PedidoDetalle extends Model {
 		return $this->hasOne('App\Producto', 'codigo', 'producto_codigo');
 	}
 
-	public function extras(){
-		return $this->hasMany('App\PedidoDetalleExtra', 'pdetalle_codigo', 'codigo');
-	}
 
 }
