@@ -10,6 +10,7 @@ class ControllerLomitoExtras extends ProductosExtrasMaster {
 	public function __construct(){
         $this->routes = 'lomitomenu';
         $this->formRoute = 'ExtrasLomitos';
+        $this->categoria = 2;
 
     }
 

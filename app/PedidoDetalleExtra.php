@@ -9,4 +9,8 @@ class PedidoDetalleExtra extends Model {
 
     public $timestamps = false;
 
+    public function prodSubExtra(){
+        return $this->hasOne('App\Extra', 'codigo', 'producto_subextra_codigo');
+    }
+
 }

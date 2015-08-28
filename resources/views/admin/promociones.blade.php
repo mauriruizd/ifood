@@ -1,47 +1,66 @@
 @extends("admin.index")
 @section("contenido")
  <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-              <!--state overview start-->
-            
-              <!--state overview end-->
-              <!--panel principal-->
-
-<style type="text/css">
 
 
+
+<style>
+.input-group{
+    top: 10px;
+    left: 10px;
+}
+.input-group input[type=text]{
+    width: 350px;
+    background: #ffffff;
+    height: 34px;
+}
 
 </style>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        updateClicks();
+        $('.pasar').on('click',function() {
+            // $('.pasable').appendTo('#destino');
+            /*$('.pasable').each(function(){
+             $('#destino').append('<tr>'+$(this).html()+'</tr>');
+
+             });*/
+            $('#tabla_productos input:checked').each(function(){
+                $('#destino').append('<tr class="eliminar">' + $(this).closest('tr').html() + '</tr>');
+                $('#tabla_productos input:checked').attr('checked', false);
+            });
+            $('.pasable').removeClass('pasable este');
+
+        });
+        $('#btn-eliminar').on('click', function(){
+            $('.eliminar').each(function(){
+                if($(this).children().first().children('input:checked').length){
+                    $(this).remove();
+                }
+            });
+        });
+    });
+    function updateClicks(){
+        $('.este').on('click', function(){
+            if($(this).hasClass('pasable')){
+                //$(this).css("background","silver");
+                $(this).removeClass('pasable');
+                return;
+            }
+            $(this).addClass('pasable');
+
+        });
+    }
+
+</script>
 
 
-  <div id='bok'class="col-lg-12"><!--blog de pedido-->
-  <section class="panel">
-   <div class="panel-body progress-panel">
-    
-    <div class="task-progress">
-        <h1><strong>Producto / Promociones</strong></h1> 
-    </div><!--task-progress-->
-       <hr>
 
 
-        <script type="text/javascript">
-        $(document).ready(function(){
-        $('.accordion__content:not(:first)').hide();
-        $('.accordion__title:first-child').addClass('active');
-        $('.accordion__title').on('click', function() {
-        $('.accordion__content').hide();
-        $(this).next().show().prev().addClass('active').siblings().removeClass('active');
-});
-       });
-       </script>
 
-       <style type="text/css">
 
-   /*calendario*/
 
-       </style>
   
 
   <div class="panel_gral">
@@ -49,7 +68,7 @@
 <div id="margen_de_cuadro">
  <div class="cuadro_gris_form">
   <div class="text_class" role="form">                             
-  <div  class="container_for" ng-controller="ControladorFiltros">
+  <div  class="container_for"">
     <div class="">
     <br>
       <div class="panel-heading1">
@@ -64,6 +83,8 @@
         </div>
 
       </div>
+        <br>
+        <input type="button" class="pasar izq" value="Pasar »">
 
       <div class="panel-body" id="tabla_productos">
       <div class="box_scroll">
@@ -72,7 +93,7 @@
           <tr>
             <th>
               <a href="" ng-click="ordenarPor('nombre')">
-               
+
               </a>
               <span class="caret" style="cursor: pointer" ></span>
             </th>
@@ -81,59 +102,20 @@
            
           </tr>
           </thead>
- <script type="text/javascript">
- $(document).ready(function(){
-    updateClicks();
-    $('.pasar').on('click',function() { 
-      // $('.pasable').appendTo('#destino'); 
-      /*$('.pasable').each(function(){
-         $('#destino').append('<tr>'+$(this).html()+'</tr>');
-  
-       });*/
-       $('#tabla_productos input:checked').each(function(){
-        $('#destino').append('<tr class="eliminar">' + $(this).closest('tr').html() + '</tr>');
-        $('#tabla_productos input:checked').attr('checked', false);
-       }); 
-   $('.pasable').removeClass('pasable este');
 
-});
-$('#btn-eliminar').on('click', function(){
-    $('.eliminar').each(function(){
-      if($(this).children().first().children('input:checked').length){
-          $(this).remove();
-        }
-    });
-  });
-});
- function updateClicks(){
-  $('.este').on('click', function(){
-      if($(this).hasClass('pasable')){
-        //$(this).css("background","silver");
-        $(this).removeClass('pasable');
-        return;
-      }
-     $(this).addClass('pasable');
-    
-    });
- }
 
- </script>
 
-<input type="button" class="pasar izq" value="Pasar »">
           <tbody>
+          @foreach( $AllProductos as $producto)
           <tr class="este" id="est">
+              <input type="hidden" name="productos[]" value="{{ $producto->codigo}}">
             <td ><input id="check" type="checkbox"></td>
-            <td >lomito de verdaras</td>
-            <td>15000gs</td>
+            <td >{{$producto->denominacion}}</td>
+            <td>{{$producto->precio}}</td>
            
           </tr>
-            <tr class="este" id="est1">
-               <td ><input type="checkbox"></td>
-            <td >coca 1.5L</td>
-            <td>15000gs</td>
-           
-          </tr>
-       
+
+       @endforeach
        
           </tbody>
 
@@ -360,11 +342,11 @@ eliminarclick();
 
 <!--***************************-->
  <div class="lista_promo">
-
+<form action="" method="GET">
 <div class="caja_lista1">
    <div class="titulo_depromo">
-      <input id='fecha_final' type="text" class="form-control"  placeholder="__/__/____" >
-      <input id='fecha' type="text" class="form-control" placeholder="__/__/____" data-mask="99/99/9999" >
+      <input id='fecha_final' type="text" name="fecha_inicio" class="form-control"  placeholder="__/__/____" required>
+      <input id='fecha' type="text" name="fecha_fin"  class="form-control" placeholder="__/__/____" data-mask="99/99/9999" required>
        <input id='titulo_promo' type="text" class="form-control" placeholder="titulo" >     
    </div>
   
@@ -395,9 +377,11 @@ eliminarclick();
       <button type="" class="eliminar_promo btn btn-danger">Eliminar</button>
 
    </div><!--caja_lista-->
-
+</form>
 
 </div><!--lista_promo-->
+
+
 <!--***************************-->
 
 
@@ -423,11 +407,6 @@ eliminarclick();
        
 
 
-   </div> <!--panel-body progress-panel-->   
-  </section><!--panel-->
-
-  </div><!--blog de pedido fin-->
-
 <!--****************************************************************-->
 
 
@@ -448,17 +427,6 @@ eliminarclick();
 
  <!--paginacion fin-->
               <!--panel principal final-->
-                      <!--weather statement start-->
-
-                      </section>
-
-                      <!--weather statement end-->
-
-                  </div>
-              </div>
-
-          </section>
-      </section>
 
 
 

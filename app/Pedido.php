@@ -12,4 +12,5 @@ class Pedido extends Model {
 	public function detalle(){
 		return $this->hasMany('App\PedidoDetalle', 'pedido_codigo', 'codigo');
 	}
+
 }

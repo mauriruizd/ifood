@@ -22,7 +22,7 @@
                                       <div class="form_box1">
 
 
-                                              <h3 class="titulo_sabor" >Productos Extras</h3>
+                                              <h3 class="titulo_sabor" >Tipo de Extras</h3>
                                              {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese tipo de masa']) !!}
 
                                           <br>
@@ -48,8 +48,8 @@
                               <thead>
 
                               <tr>
+
                                   <th>Nombre</th>
-                                  <th></th>
                                   <th></th>
                                   <th></th>
 
@@ -58,25 +58,16 @@
                               <tbody class="">
                               @foreach($prodExtras as $prodExtra)
                                   <tr class="">
+
                                       <td>{{$prodExtra->nombres}}</td>
-                                      <td> {!! link_to_route($formRoute.'.edit', $title = 'Editar', $parameters = $prodExtra->codigo, $attributes = ['class'=>'fa fa-pencil btn btn-warning btn-xs']); !!}</td>
-                                      <td align="center">
-                                          {!!Form::open(['route'=>[$formRoute.'.destroy',$prodExtra->codigo], 'method'=>'DELETE'])!!}
-
-                                          {!! Form::submit('Eliminar ',['class'=>'fa fa-trash-o btn btn-danger btn-xs']) !!}
-                                          {!!Form::close()!!}
-
-
-                                      </td>
-                                      <td align="center"> <a href="{{URL::to($formRoute.'/create/estadoProduc/'.$prodExtra->codigo)}}"><button class="btn {{$prodExtra->estado?' btn-danger':' btn-warning'}} btn-xs"><i class="fa {{$prodExtra->estado?'fa-check':'fa-times'}} "></i></button></a></td>
-
+                                      <td></td>
+                                      <td></td>
                                   </tr>
                               @endforeach
 
                               </tbody>
 
                           </table>
-                          {!! $prodExtras->render() !!}
 
 
                       </div>

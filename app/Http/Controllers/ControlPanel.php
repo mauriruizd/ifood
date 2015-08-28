@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Pedido;
 use Auth;
 
 use App\EspecialidadPizza;
@@ -18,7 +19,30 @@ class ControlPanel extends Controller {
 	public function control(){
 		$empresa = Empresa::find(Auth::user()->persona_empresa_codigo);
 
-		return view('admin.panel', compact('empresa'));
+		$pedidos = Pedido::join('persona_clientes','persona_clientes.codigo', '=', 'pedidos.persona_cliente_codigo')
+			->join('persona_cliente_direcciones', 'persona_cliente_direcciones.codigo', '=', 'pedidos.direccion_codigo')
+			->select('pedidos.*','persona_clientes.nombres', 'persona_clientes.celular', 'persona_cliente_direcciones.direccion', 'persona_cliente_direcciones.longitud',
+				'persona_cliente_direcciones.latitud')
+			->where('pedidos.empresa_codigo', '=', Auth::user()->persona_empresa_codigo)
+			->where('pedidos.estado', '=', 'llegado')
+			->orderBy('pedidos.codigo', 'DESC')
+			->get();
+
+		foreach($pedidos as $pedido){
+			$pedido->detallado = $pedido->detalle;
+			foreach ($pedido->detallado as $detalle) {
+				$detalle->producto = $detalle->nombreProd;
+				$detalle->listaextras = $detalle->extras;
+				foreach ($detalle->listaextras as $unExtra) {
+					$unExtra->producto = $unExtra->prodSubExtra->prodExtra;
+				}
+
+			}
+
+		}
+		//dd($pedidos);
+		//dd($pedidos[15]->detallado[0]->producto);
+		return view('admin.panel', compact('empresa', 'pedidos'));
 
 	}
 	public function usuario(){
@@ -30,36 +54,7 @@ class ControlPanel extends Controller {
 		return view('admin.cadastro');
 
 	}
-	public function pizza(){
-		return view('admin.PizzaEspecialidad');
 
-	}
-	public function pizzaEspecialidad(){
-		return view('admin.PizzaSabor');
-
-	}
-	public function promociones(){
-		return view('admin.promociones');
-	}
-
-	public function lomito(){
-		return view('admin.lomito');
-	}
-	public function hamburguesas(){
-		return view('admin.hamburguesas');
-	}
-	public function bebidas(){
-		return view('admin.bebidas');
-	}
-	public function helado(){
-		return view('admin.helado');
-	}
-	public function oriental(){
-		return view('admin.oriental');
-	}
-	public function vegana(){
-		return view('admin.vegana');
-	}
 	public function login(){
 		/*$hash = User::find(6);
 		$hash->password=Hash::make('123');

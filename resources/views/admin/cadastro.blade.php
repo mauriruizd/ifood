@@ -45,7 +45,7 @@
             </div>
              <div id="categorias_boton">
             <div class="iconos">
-                <a href="{{URL::to('control/cadastro/bebidas')}}">
+                <a href="{{URL::to('/ControlProductoBebida/create')}}">
             <div class="icon_cuadro">
                <img src="{{URL::to('admin/icon/babidas.png')}}">
             </div>
@@ -55,7 +55,7 @@
             </div>
              <div id="categorias_boton">
             <div class="iconos">
-                <a href="{{URL::to('control/cadastro/helado')}}">
+                <a href="{{URL::to('/ControlProductoHelado/create')}}">
                  <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/helado.png')}}">
             </div>
@@ -67,7 +67,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
-                <a href="{{URL::to('control/cadastro/oriental')}}">
+                <a href="{{URL::to('/ControlProductoHelado/create')}}">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/oriental.png')}}">
             </div>
@@ -78,7 +78,7 @@
 
            <div id="categorias_boton">
                <div class="iconos">
-                   <a href="{{URL::to('control/cadastro/vegana')}}">
+                   <a href="{{URL::to('/ControlProductoVegana/create')}}">
                    <div class="icon_cuadro">
                        <img src="{{URL::to('admin/icon/vegana.png')}}">
                    </div>
@@ -91,6 +91,7 @@
 
             <div id="categorias_boton">
             <div class="iconos">
+                <a href="{{URL::to('/ControlProductoCombo/create')}}">
             <div class="icon_cuadro">
               <img src="{{URL::to('admin/icon/vegana.png')}}">
             </div>
@@ -117,6 +118,8 @@
   </div><!--blog de pedido fin-->
 
 <!--****************************************************************-->
+
+
 
 
 
