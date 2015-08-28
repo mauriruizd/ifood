@@ -208,7 +208,7 @@ function push_pedido(data){
     html += '</div><!--info_box-->';
     html += '</div>';
     html += '</div>';
-    $('#cuadro_pedido').append(html);
+    $('#cuadro_pedido').prepend(html);
     dd();
 }
 
