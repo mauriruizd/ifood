@@ -5722,7 +5722,7 @@ a.guest-on i {
         text-align: center;
         margin: 0 auto;
   font-size: 17px;
-        width: 200px;
+        width: 198px;
         height: 35px;
         color: white;
         background: #ff6c60;
@@ -5736,10 +5736,10 @@ a.guest-on i {
     }
     .seleccion_ordenes{
         width: 100%;
-        height: auto;
-        background: #f7f8fa;
+        height: 390px;
+
         border-radius: 10px;
-        border: 1px solid #e7e7e7;
+        border: 1px ;
     }
     .orden_cocina{
         width: 100%;
