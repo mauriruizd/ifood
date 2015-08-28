@@ -190,7 +190,7 @@ function push_pedido(data){
         html += '<p><span class="text-muted">Cantidad :</span> ' + data.pedido[i].cantidad + ' </p>';
         html += '<p><h5><i class="text-primary"><strong>Precio:</strong> </i>' + data.pedido[i].precio + '</h5></p>     ';
         html += '<p><h5><i class="text-primary"><strong>Subtotal:</strong> </i>' + data.pedido[i].subtotal + '</h5></p>     ';
-        if(data.pedido[i].extras.length > 0){
+        if(typeof data.pedido[i].extras !== 'null'){
             html += '<h5 class="text-primary">Extras del producto:</h5>';
             for(var k=0; k < data.pedido[i].extras; k++){
                 html += '<p><span class="text-muted">Nombre :</span> ' + data.pedido[i].extras[k].nombre + ' </p>';
