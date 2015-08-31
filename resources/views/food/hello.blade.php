@@ -60,15 +60,71 @@
 			</div>
 		</div>
 		<div class="pre-final-bar">
-			Barra penultima
+			<div>
+				<div>
+					<span>
+						Comienza a realizar pedidos ya!
+					</span>
+					<span id="action-btn">
+						CLICA AQUI
+					</span>
+				</div>
+				<img src="{{ URL::to('img/cohete.png') }}" alt="">
+			</div>
 		</div>
 	</div>
+	<style>
+		.pre-final-bar > div{
+			width: 50%;
+			height: 100%;
+			margin: 0 auto;
+			padding-top: 20px;
+		}
+		.pre-final-bar > div img{
+			height: 100%;
+		}
+		.pre-final-bar > div *{
+			display: inline-block;
+		}
+		.pre-final-bar > div > div{
+			height: 60%;
+			vertical-align: text-bottom;
+		}
+		.pre-final-bar > div > div span{
+			display: block;
+			vertical-align: middle;
+		}
+		.pre-final-bar #action-btn{
+			cursor: pointer;
+			position: relative;
+			width: 100px;
+			margin: 10px auto;
+			padding: 15px 25px;
+			background-color: #F44236;
+			border-radius: 5px;
+		}
+		.pre-final-bar #action-btn::after{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			border-radius: 5px;
+			border-bottom: solid 3px rgba(0,0,0,0.2);
+
+		}
+	</style>
 	<link rel="stylesheet" type="text/css" href="{{ URL::to('css/animate.css') }}">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="{{ URL::to('js/wow.min.js') }}"></script>
 	<script>
 		wow = new WOW();
 		wow.init();
+		$('#action-btn').click(function(){$("html, body").animate({ scrollTop: 0 }, "fast");
+		showForm(0);
+	});
 	</script>
 	<script src="js/home.js"></script>
 	<script src="js/map.js"></script>

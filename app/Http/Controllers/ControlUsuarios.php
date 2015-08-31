@@ -22,6 +22,9 @@ class ControlUsuarios extends Controller {
 				return view('uncatched')->with('error', 'Debe llenar todos los campos!');
 			}
 		}
+		if(!is_null(Usuario::where('email', '=', $datosRegistro['register_mail']))){
+			return view('uncatched')->with('error', 'Email ya existente');
+		}
 		$nUsuario = new Usuario;
 		$nUsuario->login = $datosRegistro['register_user'];
 		$nUsuario->nombres = $datosRegistro['register_name'];
