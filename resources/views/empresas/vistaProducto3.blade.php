@@ -171,7 +171,7 @@
 						@endif
 
 					</h1><br>
-					<span class="comfortaa">{{ $producto->descripcion }}</span>
+					<span>{{ $producto->descripcion }}</span>
 					@if(count($filtrosPizza) > 0)
 						<?php $i = 1; ?>
 						<h1>Config. Pizza</h1>

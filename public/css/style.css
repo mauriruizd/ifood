@@ -15,6 +15,14 @@
 	font-family: Lato;
 	src: url('../fonts/Lato-light.woff');
 }
+@font-face {
+	font-family: Roboto-Ligth;
+	src: url('../fonts/Roboto-Light.ttf');
+}
+@font-face {
+	font-family: Roboto-Regular;
+	src: url('../fonts/Roboto-Regular.ttf');
+}
 *{
 	margin: 0;
 	padding: 0;
@@ -42,7 +50,7 @@ body{
 	overflow: hidden;
 }
 .texto{
-	font-family: Lato;
+	font-family: Roboto-Regular;
 	font-size: 20px;
 	display: block;
 }
@@ -57,6 +65,9 @@ body{
 }
 .geosans{
 	font-family: GeosansLight;
+}
+.roboto{
+	font-family: Roboto-Ligth;
 }
 .degradegris{
 	background: linear-gradient(#F2F2F2, #FFF, #F2F2F2);
@@ -151,6 +162,9 @@ body{
 }
 #barra_top a:hover{
 	text-shadow: 0 0 3px #FFF;
+}
+.log-reg{
+	padding: 20px;
 }
 .logo{
 	display: inline-block;
@@ -566,6 +580,10 @@ input[type=range]::-webkit-slider-thumb{
 #descripcion_producto{
 	max-width: 500px;
 }
+#descripcion_producto > span{
+	font-family: Roboto-Ligth;
+	font-size: 2em;
+}
 #imagen_producto{
 	width: 40%;
 }
@@ -657,12 +675,12 @@ input[type=range]::-webkit-slider-thumb{
 	right: 0;
 	background-color: #f44236;
 	padding: 10px 0;
+	font-family: Roboto-Ligth;
 }
 #footer .collumn{
 	width: 33%;
 	text-align: center;
 	color: white;
-	font-family: calibri;
 	font-size: 15px; display: inline-block;
 }
 #footMenu{

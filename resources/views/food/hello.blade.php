@@ -15,7 +15,9 @@
 							<a href="{{ URL::to('settings') }}"><i class="fa fa-cog"></i></a>
 							<a href="{{ URL::to('carrito') }}"><i class="fa fa-shopping-cart"></i>( {{ count(Session::get('carrito.items')) }} )</a>
 						@else
-						<a href="#" id="btnLogin">Ingresar</a><span class="white no-mobile">|</span><a href="#" id="btnRegister">Registrarse</a>
+							<a href="#" id="btnLogin" class="log-reg">Ingresar</a>
+							<span class="white no-mobile">|</span>
+							<a href="#" id="btnRegister" class="log-reg">Registrarse</a>
 						@endif
 					</span>
 					<span class="right">
