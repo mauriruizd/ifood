@@ -123,8 +123,8 @@
 		wow = new WOW();
 		wow.init();
 		$('#action-btn').click(function(){$("html, body").animate({ scrollTop: 0 }, "fast");
-		showForm(0);
-	});
+			showForm(1);
+		});
 	</script>
 	<script src="js/home.js"></script>
 	<script src="js/map.js"></script>
